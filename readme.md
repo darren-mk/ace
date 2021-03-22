@@ -2,12 +2,13 @@
 ## Currently working on
 * leetcode ("leet")
 * 4clojure ("focl")
-* codewars ("wars")
 * codility ("codi")
+## Idioms are summarized in
+* takeaways ("take")
 ## In multiple languages including
-* Clojure
-* Python
-* F#
-* Haskell
-* Racket
-* Java
+* Clojure ("cj")
+* Python ("py")
+* F# ("fs")
+* Haskell ("hs")
+* Racket ("rs")
+* Java ("jv")
