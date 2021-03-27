@@ -5,5 +5,19 @@
 (map + #{1 2 3}) ;; => (1 3 2)
 
 
+;; implementation of map using reduce
 
+(type (map #(+ % 1) [1 2 3])) ;; => clojure.lang.LazySeq
+(type (map #(+ % 1) '(1 2 3))) ;; => clojure.lang.LazySeq
+(type (map #(+ % 1) #{1 2 3})) ;; => clojure.lang.LazySeq
 
+(defn map-2 [f coll]
+  (reduce
+   (fn [new-coll item]
+     (lazy-seq (cons (f item) new-coll)))
+   '()
+   (reverse coll)))
+
+(map-2 #(+ % 1) '(1 2 3)) ;; => (2 3 4)
+(map-2 #(+ % 1) [1 2 3]) ;; => (2 3 4)
+(map-2 #(+ % 1) #{1 2 3}) ;; => (2 4 3)
