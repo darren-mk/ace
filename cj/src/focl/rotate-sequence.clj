@@ -1,15 +1,6 @@
 ;; https://www.4clojure.com/problem/44
 
 ;; 1
-(repeat 2 [1 2 3]) ;; => ([1 2 3] [1 2 3])
-(apply concat '([1 2 3] [1 2 3])) ;; => (1 2 3 1 2 3)
-(drop 2 '(1 2 3 1 2 3)) ;; => (3 1 2 3)
-(drop -2 '(1 2 3 1 2 3))
-(take 3 '(3 1 2 3)) ;; => (3 1 2)
-(count [1 2 3]) ;; => 3
-(count [1 1]) ;; => 2
-(pos? 3) ;; => true
-(rem 3 4) ;; => 3
 (defn abs [n] (if (pos? n) n (* n -1)))
 (defn f1 [n coll]
   (let [cnt (count coll)]

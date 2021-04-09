@@ -1,6 +1,5 @@
-;; dotimes
-(dotimes [x 3]
-  (prn x)) ;; print 0 1 2
+
+
 
 ;; go
 (require '[clojure.core.async :refer :all])
@@ -21,68 +20,6 @@
 (into [1 2 3] '(4 5 6)) ;; => [1 2 3 4 5 6]
 (into {:x 4} [{:a 1} {:b 2} {:c 3}]) ;; => {:x 4, :a 1, :b 2, :c 3}
 
-;; keys
-(keys {:a 1 :b 2}) ;; => (:a :b)
-
-;; lower-case
-(clojure.string/lower-case "AB") ;; => "ab"
-
-;; merge-with
-;; (merge-with f & maps)
-(merge-with + {:a 1 :b 2} {:a 9 :c 0}) ;; => {:a 10, :b 2, :c 0}
-(merge-with cons {:a 1 :b 2} {:a 9 :c 0})
-
-;; mod
-(mod 10 7) ;; => 3
-
-;; min
-(min 3 4 5) ;; => 3
-(min 3.12 4 5) ;; => 3.12
-
-;; not-equal
-(not= 2 3) ;; => true
-(not= 3 3 3) ;; => false
-(not= 3 3 4 4) ;; => true
-
-;; parseint
-(Integer/parseInt "123") ;; => 123
-
-;; persistent!
-(def t (transient {:a 1})) ;; => #'focl.core/t
-(assoc! t :b 2) ;; -> shows message regarding type
-(count t) ;; => 2
-(persistent! t) ;; can be run only once
-(comment (assoc1 t :c 3)) ;; gets error as persistent 
-
-;; plus quote
-(+' 1 2) ;; => 3
-(apply +' (range 10000000000000
-                 10000000001000))
-;; => 10000000000499500
-
-;; pmap
-(pmap inc [1 2 3]) ;; => (2 3 4)
-(time (pmap inc [1 2 3]))
-;; => (2 3 4)
-;; "Elapsed time: 0.872472 msecs"
-(time (map inc [1 2 3]))
-;; => (2 3 4)
-;; "Elapsed time: 0.081481 msecs"
-
-;; A function that simulates a long-running process by calling Thread/sleep:
-(defn long-running-job [n]
-    (Thread/sleep 3000) ; wait for 3 seconds
-    (+ n 10))
-
-;; Use `doall` to eagerly evaluate `map`, which evaluates lazily by default.
-
-;; With `map`, the total elapsed time is just under 4 * 3 seconds:
-(time (doall (map long-running-job (range 4))))
-"Elapsed time: 11999.235098 msecs"
-(10 11 12 13)
-
-;; With `pmap`, the total elapsed time is just over 3 seconds:
-(time (doall (pmap long-running-job (range 4))))
 "Elapsed time: 3200.001117 msecs"
 (10 11 12 13)
 
