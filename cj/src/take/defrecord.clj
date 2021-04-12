@@ -46,3 +46,34 @@ stu
 ;;     :lname "Halloway",
 ;;     :address
 ;;     {:street "200 N Mangum", :city "Durham", :state "NC", :zip 27701}}
+
+
+;;;; map->
+
+(defrecord Boo [a b])
+;; => user.Boo
+
+(def b (Boo. 10 20))
+;; => #'user/b
+
+b
+;; => {:a 10, :b 20}
+
+(def b2 
+  (map->Boo (merge b {:c 30})))
+;; => #'user/b2
+
+(type b2)
+;; => user.Boo
+
+b2
+;; => {:a 10, :b 20, :c 30}
+
+(def c (merge b {:c 30}))
+;; => #'user/c
+
+(type c)
+;; => user.Boo
+
+c
+;; => {:a 10, :b 20, :c 30}
