@@ -3,4 +3,5 @@
  {org.clojure/clojure {:mvn/version "1.10.1"}
   cider/nrepl {:mvn/version "0.3.0"}
   clojure.java-time/clojure.java-time {:mvn/version "0.3.2"}
-  danlentz/clj-uuid {:mvn/version "0.1.9"}}}
+  danlentz/clj-uuid {:mvn/version "0.1.9"}
+  manifold/manifold {:mvn/version "0.1.9-alpha4"}}}
