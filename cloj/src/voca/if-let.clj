@@ -8,5 +8,11 @@
 (if-let-demo true) ;; => "then"
 
 (if-let [x nil]
-  1 0)
-;; => 0
+  (+ x 10)
+  "empty")
+;; => "empty"
+
+(if-let [x 1]
+  (+ x 10)
+  "empty")
+;; => 11
