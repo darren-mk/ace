@@ -42,17 +42,3 @@ age
 
 @me
 ;; => :who
-
-
-
-(defn print-unique [ input ]
-  (reduce 
-   (fn [last-elem x] 
-     (when (not= last-elem x)           
-       (prn x)
-       x
-       ))
-   nil 
-   input))
-
-(print-unique ["aaa" "aaa" "bbb"])
