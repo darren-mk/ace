@@ -1,6 +1,8 @@
 (require '[clojure.core.async :refer
            [chan go thread <!! >!! <! >!
-            close! timeout put! alts!]])
+            close! timeout put! alts!]]
+         '[clojure.tools.namespace.repl :refer
+           [refresh]])
 
 
 ;;;; example thread transient
@@ -172,4 +174,27 @@
 
 
 
+;;;; EX2
+(defn ex2 [ch]
+  (thread
+    (loop []
+      (let )
 
+      ))
+
+  
+  )
+
+(def cm (chan))
+(def cr (chan))
+
+
+
+
+
+
+(def echo-chan (chan))
+
+(go (prn (<! echo-chan)))
+
+(>!! echo-chan "ketchup")
