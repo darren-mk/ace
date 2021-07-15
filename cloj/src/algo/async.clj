@@ -166,19 +166,58 @@
 
 (def chan-1 (chan))
 (def chan-2 (chan))
+(def chan-3 (chan))
 
-(defn listen-both-and-print [c1 c2]
+(defn listen-both-and-print [c1 c2 c3]
   (go
     (loop []
-      (let [v1 (<! c1)
-            v2 (<! c2)]
-        (when (or (some? v1) (some? v2))
-          (prn "taken value from channel 1 is: " v1)
-          (prn "taken value from channel 2 is: " v2)
-          (recur))))
-    (prn "thread closed.")))
+      (do 
+        (>! c3 (<! c1))
+        (>! c3 (<! c2)))
+      (when (some? (<! c3))
+        (prn "value taken wherever is " (<! c3))
+        (recur)))))
 
-(listen-both-and-print chan-1 chan-2)
+(listen-both-and-print chan-1 chan-2 chan-3)
 
 (go (>! chan-1 "ketchup"))
 (go (>! chan-2 "pickle"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(defn upper-caser-1
+  [in]
+  (let [out (chan)]
+    (go (while true
+          (>! out
+              (clojure.string/upper-case (<! in)))))
+    out))
+(def in-1 (chan))
+(def out-1 (upper-caser-1 in-1))
+(>!! in-1 "leon")
+(<!! out-1)
+
+(defn upper-caser-2
+  [in]
+  (let [out (chan)]
+    (go
+      (>! out (clojure.string/upper-case (<! in))))
+    out))
+(def in-2 (chan))
+(def out-2 (upper-caser-2 in-2))
+(>!! in-2 "grapenthin")
+(<!! out-2)
