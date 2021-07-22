@@ -32,21 +32,21 @@
 (do (f2 "a" 3000 5)
     (f2 "b" 5000 5))
 
-;; 2
+;; 3
 ;; using channel, thread
-(defn f2 [v t n]  
+(defn f3 [v t n]  
   (thread
     (loop [i 0]
       (when (< i n) 
         (<!! (timeout t))
         (prn v)
         (recur (inc i))))))
-(do (f2 "a" 3000 5)
-    (f2 "b" 5000 5))
+(do (f3 "a" 3000 5)
+    (f3 "b" 5000 5))
 
 (comment
-  "it seems that "
-  (Thread/sleep t) " and "
+  (Thread/sleep t)
+  "blocks the current thread."
+  "it is jvm construct."
   (timeout t)
-  "doens't make difference "
-  "at least with above examples.")
+  "creates a channel that closes after some time.")

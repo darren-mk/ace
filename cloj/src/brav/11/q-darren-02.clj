@@ -10,7 +10,7 @@
 ;; using go-loop, non-blocking
 (go-loop [i 0]
   (when (< i 10)       
-    (Thread/sleep 1000)
+    (<! (timeout 1000))
     (prn (+ i 1) (rand 100))
     (recur (inc i))))
 
@@ -19,6 +19,6 @@
 (thread
   (loop [i 0]
     (when (< i 10) 
-      (Thread/sleep 1000)
+      (<!! (timeout 1000))
       (prn (+ i 1) (rand 100))
       (recur (inc i)))))

@@ -6,6 +6,7 @@
             chan thread alts!!
             close! <! >! <!! >!!]])
 
+;; 1
 (defn make-thread-continuing [c]
   (thread
     (loop []
@@ -13,7 +14,6 @@
         (when (not (nil? v))
           (println v)
           (recur))))))
-
 (let [c (chan)]
   (do (make-thread-continuing c)
       (>!! c "a")

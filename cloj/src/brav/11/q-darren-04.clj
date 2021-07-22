@@ -10,7 +10,17 @@
 ;; 1
 (def c (chan))
 (do
-  (thread (>!!  c (rand 100)))
+  (thread (>!! c (rand 100)))
   (Thread/sleep 3000)
   (prn (<!! c))
   (close! c))
+;; no need to close channel
+;; the number is garbage-collected
+;; when it is taken out from the channel.
+
+;; 2
+(def c (chan))
+(do
+  (go (>! c (rand 100)))
+  (<!! (timeout 3000))
+  (prn (<!! c)))

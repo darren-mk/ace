@@ -8,15 +8,29 @@
             <! >! <!! >!!]])
 
 ;; 1
-;; using alts!!
-(defn race [car-name track-channel]
+;; using thread and alts!!
+(defn race1 [car-name track-channel]
   (thread (<!! (timeout (rand 5000)))
           (>!! track-channel car-name)))
 (let [c1 (chan)
       c2 (chan)
       c3 (chan)]
-  (do (race "ferrari" c1)
-      (race "porsche" c2)
-      (race "mustang" c3)
+  (do (race1 "ferrari" c1)
+      (race1 "porsche" c2)
+      (race1 "mustang" c3)
+      (let [[name channel] (alts!! [c1 c2 c3])]
+        (prn name " won!"))))
+
+;; 2
+;; using go and alts!!
+(defn race2 [car-name track-channel]
+  (go (<! (timeout (rand 5000)))
+      (>! track-channel car-name)))
+(let [c1 (chan)
+      c2 (chan)
+      c3 (chan)]
+  (do (race2 "ferrari" c1)
+      (race2 "porsche" c2)
+      (race2 "mustang" c3)
       (let [[name channel] (alts!! [c1 c2 c3])]
         (prn name " won!"))))

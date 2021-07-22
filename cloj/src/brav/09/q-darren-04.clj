@@ -17,6 +17,7 @@
 @def
 ;; instructions within future starts
 ;; when the definition is made.
+;; future uses a different thread. 
 
 ;; delay
 (def ghi
@@ -28,3 +29,4 @@
 (force ghi)
 ;; instructions within delay starts
 ;; when deref or force is triggered.
+;; delay uses the current thread.
