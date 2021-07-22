@@ -26,4 +26,3 @@
               (inc 1))]
   (deref result))
 ;; => 2 ;; returns after 3 seconds
-
