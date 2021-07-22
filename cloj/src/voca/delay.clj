@@ -23,3 +23,12 @@ my-delay
 (realized? my-delay)
 ;; => true
 
+(def ddd
+  (delay
+    (Thread/sleep 3000)
+    (prn "delay piece is running")
+                (rand 100)))
+
+@ddd
+(force ddd)
+(realized? dd)
