@@ -16,8 +16,5 @@
 (split " something and ACamelName " #"(?=[A-Z])")
 ;; => [" something and " "A" "Camel" "Name "]
 
-
-
-
-
 (split "q1w2e3r4t5y6u7i8o9p0" #"\n")
+;; => ["q1w2e3r4t5y6u7i8o9p0"]
