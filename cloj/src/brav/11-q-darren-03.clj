@@ -46,3 +46,16 @@
                        (race3 car)) 
         [car channel] (a/alts! cars-in-race)]
     (println car " won!")))
+
+;; 4
+;; using for and go 
+(def cars ["feri" "posh" "tesl"])
+(defn f4 [m]
+  (a/go
+    (a/<! (a/timeout (rand 5000)))
+    m))
+(a/go 
+  (let [cars-in-race (for [car cars]
+                       (f4 car)) 
+        [car channel] (a/alts! cars-in-race)]
+    (println car " won!")))

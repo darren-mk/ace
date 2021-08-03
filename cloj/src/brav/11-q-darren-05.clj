@@ -12,10 +12,11 @@
   (a/alt!
     (a/timeout 1000) :timed-out
     [[calc-ch (do
-                (a/<! (a/timeout (rand 3000)))
+                (a/<! (a/timeout (rand 3000))) ;; not conventional
                 "got it!")]] :calculated)
   (prn (a/<! calc-ch)))
 
 ;; 2
 ;; using alts!
 ;; not sure, help me leon.
+;; leon : try with alts! first. 
