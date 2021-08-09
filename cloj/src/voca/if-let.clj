@@ -16,3 +16,11 @@
   (+ x 10)
   "empty")
 ;; => 11
+
+(if-let [x (try
+         (/ 1 0)
+         (catch Exception e
+           (do (prn e)
+               {:a 1})))]
+  (prn "x is " x)
+  (prn "it is failed!"))

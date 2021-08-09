@@ -6,7 +6,6 @@
 
 ;; 1
 ;; using alt!
-(def timeout-ch (a/chan))
 (def calc-ch (a/chan))
 (a/go
   (a/alt!
