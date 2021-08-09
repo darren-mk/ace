@@ -14,3 +14,20 @@
 (.write *out* "show me in the repl!")
 ;; => nil
 ;; show me in the repl!
+
+;; Further experimentation less important,
+
+;; next step would be to define a custom writer (hint: clojure.java.io
+;; namespace), and i. e. make println write to a file
+
+(comment
+  (binding [*out* my-file-writer]
+    (println "This goes into a file")))
+
+;; See for a reference: clojure.core/with-out-str
+
+(with-out-str
+  (println "This doesn't go into REPL"))
+;; (.write s# "This..")
+
+;; "This doesn't go into REPL\n"
