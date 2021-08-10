@@ -26,8 +26,7 @@
    (fn [last-elem x] 
      (when (not= last-elem x)           
        (prn x)
-       x
-       ))
+       x))
    nil 
    input))
 ;; => #'user/print-unique
