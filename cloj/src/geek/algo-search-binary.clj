@@ -21,6 +21,3 @@ x
         (recur taken-half (inc round))))))
 ;;;;;;;;;; MOT WORKING - WHY?
 (binary-search (range 3) 1)
-
-
-

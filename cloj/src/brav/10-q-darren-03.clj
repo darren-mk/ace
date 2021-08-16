@@ -9,7 +9,6 @@
 ;; => nil
 ;; NY
 
-
 ;; NOTE: This binding is thread local
 (binding [*address* "NY"]
   ;; just a Java thread, Clojure doesn't interfere
@@ -24,7 +23,6 @@
     @f
     ))
 ;; prints NY, because current bindings are carried over by Clojure
-
 
 ;; similar core.async/thread macro, will also copy over bindingso
 ;; (clojure.core.async/thread)

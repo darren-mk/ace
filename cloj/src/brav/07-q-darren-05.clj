@@ -10,9 +10,3 @@
 
 (run-infix-of-3-elems (1 + 2))
 ;; => 3
-
-
-;; Exercise: Multiple variables connect via infix like (1 + 2 + 3), no
-;; minus etc
-
-;; scheme: first = car , rest = cdr, cddr

@@ -1,4 +1,4 @@
-;; https://www.geeksforgeeks.org/binary-search/
+;; https://www.geeksforgeeks.org/linear-search/
 
 (def arr (into [] (range 1000)))
 ;; => #'user/arr
