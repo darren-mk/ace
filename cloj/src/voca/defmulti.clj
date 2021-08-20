@@ -1,28 +1,16 @@
-(defmulti encounter
-  (fn [x y] [(:breed x) (:breed y)]))
+;; 1
+(defmulti operate-two-nums 
+  (fn [operation _ _] operation))
 ;; => nil
-
-(defmethod encounter [:lion :lion] [x y] "fight!")
-;; => #multifn[encounter 0x4519efff]
-
-(defmethod encounter [:lion :rabbit] [x y] "eat!")
-;; => #multifn[encounter 0x4519efff]
-
-(defmethod encounter [:rabbit :lion] [x y] "run!")
-;; => #multifn[encounter 0x4519efff]
-
-(defmethod encounter [:rabbit :rabbit] [x y] "play!")
-;; => #multifn[encounter 0x4519efff]
-
-
-(encounter {:breed :lion :age 2} {:breed :lion :age 2})
-;; => "fight!"
-
-(encounter {:breed :lion :age 2} {:breed :rabbit :age 1})
-;; => "eat!"
-
-(encounter {:breed :rabbit :age 2} {:breed :lion :age 3})
-;; => "run!"
-
-(encounter {:breed :rabbit :age 1} {:breed :rabbit :age 1})
-;; => "play!"
+(defmethod operate-two-nums :multiply-and-add-100
+  [_ x y]
+  (+ (* x y) 100))
+;; => #multifn[operate-two-nums 0x5085143d]
+(defmethod operate-two-nums :multiply-and-subtract-50
+  [_ x y]
+  (- (* x y) 50))
+;; => #multifn[operate-two-nums 0x5085143d]
+(operate-two-nums :multiply-and-add-100 300 200)
+;; => 60100
+(operate-two-nums :multiply-and-subtract-50 300 200)
+;; => 59950
