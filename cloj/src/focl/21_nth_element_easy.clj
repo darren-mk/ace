@@ -1,4 +1,11 @@
-;; https://www.4clojure.com/problem/21
+;; https://4clojure.oxal.org/#/problem/21
+
+;; Problem 21
+;; Write a function which returns the Nth element from a sequence.
+;; (= (__ '(4 5 6 7) 2) 6)
+;; (= (__ [:a :b :c] 0) :a)
+;; (= (__ [1 2 3 4] 1) 2)
+;; (= (__ '([1 2] [3 4] [5 6]) 2) [5 6])
 
 ;; 1
 (defn f1 [coll index]
@@ -63,3 +70,23 @@
 (= (f6 [:a :b :c] 0) :a) ;; => true 
 (= (f6 [1 2 3 4] 1) 2) ;; => true 
 (= (f6 '([1 2] [3 4] [5 6]) 2) [5 6]) ;; => true
+
+;; 7
+(defn f7 [coll n]
+  (->
+   (zipmap (range (inc n)) coll)
+   (get n))) ;; => #'user/f7
+(= (f7 '(4 5 6 7) 2) 6) ;; => true
+(= (f7 [:a :b :c] 0) :a) ;; => true
+(= (f7 [1 2 3 4] 1) 2) ;; => true
+(= (f7 '([1 2] [3 4] [5 6]) 2) [5 6]) ;; => true
+
+;; 8
+(defn f8 [coll n]
+  (get 
+   (zipmap (iterate inc 0) coll)
+   n)) ;; => #'user/f8
+(= (f8 '(4 5 6 8) 2) 6) ;; => true
+(= (f8 [:a :b :c] 0) :a) ;; => true
+(= (f8 [1 2 3 4] 1) 2) ;; => true
+(= (f8 '([1 2] [3 4] [5 6]) 2) [5 6]) ;; => true
