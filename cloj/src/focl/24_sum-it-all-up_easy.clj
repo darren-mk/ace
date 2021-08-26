@@ -1,4 +1,12 @@
-;; https://www.4clojure.com/problem/24
+;; https://4clojure.oxal.org/#/problem/24
+
+;; Problem 24
+;; Write a function which returns the sum of a sequence of numbers.
+;; (= (__ [1 2 3]) 6)
+;; (= (__ (list 0 -2 5 5)) 8)
+;; (= (__ #{4 2 1}) 7)
+;; (= (__ '(0 0 -1)) -1)
+;; (= (__ '(1 10 3)) 14)
 
 ;; 1
 (defn f1 [coll]
@@ -49,3 +57,15 @@
 (= (f4 #{4 2 1}) 7) ;; => true
 (= (f4 '(0 0 -1)) -1) ;; => true
 (= (f4 '(1 10 3)) 14) ;; => true
+
+;;
+(defn f5 [l]
+  (reduce
+   (fn [sum elem] (+ sum elem))
+   0
+   l)) ;; => #'user/f5
+(= (f5 [1 2 3]) 6) ;; => true
+(= (f5 (list 0 -2 5 5)) 8) ;; => true
+(= (f5 #{4 2 1}) 7) ;; => true
+(= (f5 '(0 0 -1)) -1) ;; => true
+(= (f5 '(1 10 3)) 14) ;; => true
