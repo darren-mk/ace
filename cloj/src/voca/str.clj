@@ -1,0 +1,2 @@
+(str "abc" "def")
+;; => "abcdef"
