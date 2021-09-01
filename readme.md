@@ -1,14 +1,19 @@
-# Working to "ace" algorithm challenges!
+# "ace" languages and problems 
 ## Currently working on
 * leetcode ("leet")
 * 4clojure ("focl")
 * codility ("codi")
-## Idioms are summarized in
-* takeaways ("take")
+* vocabulary ("voca")
+* official guide ("guid")
+* official book ("book")
 ## In multiple languages including
-* Clojure ("cj")
-* Python ("py")
-* F# ("fs")
-* Haskell ("hs")
-* Racket ("rs")
-* Java ("jv")
+* Bash ("bash")
+* Clojure ("cloj")
+* Common Lisp ("coml")
+* Emacs Lisp ("emli")
+* Haskell ("hask")
+* JavaScript ("jasc")
+* Python ("pyth")
+* Racket ("rack")
+* Rust ("rust")
+* Typed Racket ("tyra")
