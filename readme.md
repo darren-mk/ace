@@ -9,7 +9,6 @@
 ## In multiple languages including
 * Bash ("bash")
 * Clojure ("cloj")
-* Common Lisp ("coml")
 * Emacs Lisp ("emli")
 * Haskell ("hask")
 * JavaScript ("jasc")
