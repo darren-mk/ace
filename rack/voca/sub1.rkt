@@ -1,4 +1,3 @@
 #lang racket/base
 
-(add1 100) 
-;; 101
+(sub1 3) ;; 2

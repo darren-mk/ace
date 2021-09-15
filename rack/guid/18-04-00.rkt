@@ -34,11 +34,13 @@
   (thread
    (lambda ()
      (let loop ()
-       (define item (channel-get work-channel))
+       (define item
+         (channel-get work-channel))
        (case item
          [(DONE)
           (channel-put result-channel
-                       (format "Thread ~a done\n" thread-id))]
+                       (format "Thread ~a done\n"
+                               thread-id))]
          [else
           (channel-put result-channel
                        (format "Thread ~a processed ~a\n"
