@@ -1,20 +1,37 @@
-; create(ref)
-(def a (ref '(1 2 3)))
+(deref a)
+;; => "abc"
+
+(def a (ref 1))
 ;; => #'user/a
 
-; read(deref)
+a
+;; => #<Ref@5e3da221: 1>
 (deref a)
-;; => (1 2 3)
+;; => 1
+
 @a
-;; => (1 2 3)
+;; => 1
 
-;; rewrite(ref-set)
-;; (ref-set a '(3 2 1)) err!
-;; Because refs are mutable, you must protect their updates.
-;; In many languages, you would use a lock for this purpose. In Clojure,
-;; you can use a transaction. Transactions are wrapped in a dosync
-(dosync (ref-set a "abc"))
-;; => "abc"
+;; (alter a inc)
+;; error, should be in dosync
+
+(dosync (alter a inc))
+;; => 2
 
 (deref a)
-;; => "abc"
+;; => 2
+
+@a
+;; => 2
+
+;; (ref-set a 100)
+;; error, should be in dosync
+
+(dosync (ref-set a 100))
+;; => 100
+
+(deref a)
+;; => 100
+
+@a
+;; => 100

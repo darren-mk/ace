@@ -1,14 +1,27 @@
-# Working to "ace" algorithm challenges!
+# "ace" languages and problems 
 ## Currently working on
 * leetcode ("leet")
 * 4clojure ("focl")
 * codility ("codi")
-## Idioms are summarized in
-* takeaways ("take")
+* vocabulary ("voca")
+* official guide ("guid")
+* official book ("book")
 ## In multiple languages including
-* Clojure ("cj")
-* Python ("py")
-* F# ("fs")
-* Haskell ("hs")
-* Racket ("rs")
-* Java ("jv")
+* Bash ("bash")
+* Clojure ("cloj")
+* Emacs Lisp ("emli")
+* Haskell ("hask")
+* JavaScript ("jasc")
+* Python ("pyth")
+* Racket ("rack")
+* Rust ("rust")
+* Typed Racket ("tyra")
+
+
+## s09
+will be on 9/1/2021 9 am
+codes for discussion:
+cloj/focl/028_flatten-a-sequence_easy.clj => f4
+cloj/focl/029_get-the-caps_easy.clj => f4
+cloj/focl/058_function-composition_med.clj => f1
+rack/guid/ all functions here

@@ -1,4 +1,4 @@
-#lang racket/base
+#lang typed/racket
 
 (append '(1 2) '(3 4))
 ;; '(1 2 3 4)

@@ -9,3 +9,6 @@
 
 (partition-by identity "Leerrroyy")
 ;; => ((\L) (\e \e) (\r \r \r) (\o) (\y \y))
+
+(partition-by #(< % 3) [1 2 2 2 3 3 4 4 5 5 2])
+;; => ((1 2 2 2) (3 3 4 4 5 5) (2))

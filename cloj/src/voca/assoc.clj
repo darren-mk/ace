@@ -1,30 +1,19 @@
-;;;; assoc
+;;;; asoc
 
-(assoc {} :key1 "v" :key2 "another") ;; => {:key1 "v", :key2 "another"}
-(assoc nil :key1 4) ;; => {:key1 4}
-(assoc [1 2 3] 3 10) ;; => [1 2 3 10]
+(assoc {} :key1 "v" :key2 "another")
+;; => {:key1 "v", :key2 "another"}
 
+(assoc nil :key1 4)
+;; => {:key1 4}
 
-;;;; assoc-in
+(assoc [1 2 3] 3 10)
+;; => [1 2 3 10]
 
-(def users
-  [{:name "James" :age 26}
-   {:name "John" :age 43}])
-;; => #'focl.core/users
-
-(assoc-in users [1 :age] 44)
-;; => [{:name "James", :age 26} {:name "John", :age 44}]
-
-(assoc-in users [0 :name] "Jackie")
-;; => [{:name "Jackie", :age 26} {:name "John", :age 43}]
-
-(assoc-in users [2] {:name "Jack" :age 19})
-;; => [{:name "James", :age 26}
-;;     {:name "John", :age 43}
-;;     {:name "Jack", :age 19}]  
+(assoc [1 2 3] 0 100)
+;; => [100 2 3]
 
 
-;; assoc!
+;;;; assoc!
 (def t (transient {:x 1}))
 ;; => #'focl.core/t
 
