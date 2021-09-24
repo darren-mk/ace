@@ -1,3 +1,5 @@
+#lang racket/base
+
 ;; 1.3.1  Procedures as Arguments
 
 #|
@@ -11,6 +13,14 @@ The first computes the sum of the integers from a through b:
          (sum-integers (+ a 1)
                        b))))
 |#
+
+(define (sum-ints a b)
+  (if (> a b)
+      0
+      (+ a
+         (sum-ints (+ a 1)
+                   b))))
+
 
 
 #|
