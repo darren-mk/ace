@@ -2,5 +2,5 @@
 
 
 (print "abc")
-(thread (print "abc"))kjlkj
+(thread (print "abc"))
 (thread)
