@@ -5,3 +5,9 @@
 
 (quote darren)
 ;; 'darren
+
+(quote 1)
+;; 1
+
+(quote "abc")
+;; "abc"

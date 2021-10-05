@@ -47,54 +47,68 @@ with a ' prefix: |#
 (quote jane-doe)
 ;; 'jane-doe
 
-#| A value that prints like a quoted identifier is a symbol. In the same way that parenthesized output should not be confused with expressions, a printed symbol should not be confused with an identifier. In particular, the symbol (quote map) has nothing to do with the map identifier or the predefined function that is bound to map, except that the symbol and the identifier happen to be made up of the same letters. |#
+#| A value that prints like a quoted identifier is 
+a symbol. In the same way that parenthesized output 
+should not be confused with expressions, a printed 
+symbol should not be confused with an identifier. 
+In particular, the symbol (quote map) has nothing 
+to do with the map identifier or the predefined 
+function that is bound to map, except that the 
+symbol and the identifier happen to be made up of 
+the same letters. |#
 
-#| Indeed, the intrinsic value of a symbol is nothing more than its character content. In this sense, symbols and strings are almost the same thing, and the main difference is how they print. The functions symbol->string and string->symbol convert between them.|#
+#| Indeed, the intrinsic value of a symbol is nothing 
+more than its character content. In this sense, 
+symbols and strings are almost the same thing, and 
+the main difference is how they print. The functions 
+symbol->string and string->symbol convert between them.|#
 
 ;; Examples:
 
-    > map
+map
+;; #<procedure:map>
 
-    #<procedure:map>
-    > (quote map)
+(quote map)
+;; 'map
 
-    'map
-    > (symbol? (quote map))
+(symbol? (quote map))
+;; #t
 
-    #t
-    > (symbol? map)
+(symbol? map)
+;; #f
 
-    #f
-    > (procedure? map)
+(procedure? map)
+;; #t
 
-    #t
-    > (string->symbol "map")
+(string->symbol "map")
+;; 'map
 
-    'map
-    > (symbol->string (quote map))
+(symbol->string (quote map))
+;; "map"
 
-    "map"
+#| In the same way that quote for a list automatically 
+applies itself to nested lists, quote on a parenthesized 
+sequence of identifiers automatically applies itself 
+to the identifiers to create a list of symbols: |#
 
-#| In the same way that quote for a list automatically applies itself to nested lists, quote on a parenthesized sequence of identifiers automatically applies itself to the identifiers to create a list of symbols: |#
+(car (quote (road map)))
+;; 'road
 
-    > (car (quote (road map)))
+(symbol? (car (quote (road map))))
+;; #t
 
-    'road
-    > (symbol? (car (quote (road map))))
+#| When a symbol is inside a list that is printed with ', 
+the ' on the symbol is omitted, since ' is doing the 
+job already: |#
 
-    #t
+(quote (road map))
+;; '(road map)
 
-#| When a symbol is inside a list that is printed with ', the ' on the symbol is omitted, since ' is doing the job already: |#
+#| The quote form has no effect on a literal expression 
+such as a number or string: |#
 
-    > (quote (road map))
+(quote 42)
+;; 42
 
-    '(road map)
-
-#| The quote form has no effect on a literal expression such as a number or string: |#
-
-    > (quote 42)
-
-    42
-    > (quote "on the record")
-
-    "on the record"
+(quote "on the record")
+;; "on the record"
