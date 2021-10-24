@@ -1,2 +1,4 @@
-(foldr - 0 '(1 2 3 4))
-;; -2
+#lang racket/base
+
+(foldr string-append "!" (list "h" "e" "l" "l" "o"))
+;; "hello!"
