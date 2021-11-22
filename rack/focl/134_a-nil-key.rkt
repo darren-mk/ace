@@ -1,4 +1,4 @@
-;; https://www.4clojure.com/problem/134
+;; https://4clojure.oxal.org/#/problem/134
 
 ;; 1
 (define (f1 h k)
