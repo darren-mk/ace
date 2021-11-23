@@ -1,4 +1,6 @@
-;; https://www.4clojure.com/problem/17
+#lang racket/base
+
+;; https://4clojure.oxal.org/#/problem/17
 
 ;; 1
 (define v1 '(6 7 8))
