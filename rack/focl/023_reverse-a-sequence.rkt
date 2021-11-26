@@ -1,11 +1,21 @@
+#lang racket/base
+
 ;; https://4clojure.oxal.org/#/problem/23
 
-;; Problem 23
-;; Write a function which reverses a sequence.
-;; (= (__ [1 2 3 4 5]) [5 4 3 2 1])
-;; (= (__ (sorted-set 5 7 2 7)) '(7 5 2))
-;; (= (__ [[1 2][3 4][5 6]]) [[5 6][3 4][1 2]])
-;; Special Restrictions : reverse
+(require racket/set)
+
+;; 1
+(define (f1 l)
+  (foldl
+   (lambda (a b) (cons a b))
+   '()
+   l))
+(equal? (f1 '(1 2 3 4 5)) '(5 4 3 2 1))
+(equal? (f1 (set->list (set 5 7 2 7))) '(7 5 2))
+(equal? (f1 '('(1 2)'(3 4)'(5 6))) '('(5 6)'(3 4)'(1 2)))
+
+
+#|
 
 ;; 1
 (defn f1 [seq]
@@ -46,3 +56,5 @@
 (= (f4 [1 2 3 4 5]) [5 4 3 2 1]) ;; => true
 (= (f4 (sorted-set 5 7 2 7)) '(7 5 2)) ;; => true
 (= (f4 [[1 2][3 4][5 6]]) [[5 6][3 4][1 2]]) ;; => true
+
+|#

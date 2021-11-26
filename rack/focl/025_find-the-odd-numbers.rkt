@@ -1,12 +1,28 @@
+#lang racket/base
+
 ;; https://4clojure.oxal.org/#/problem/25
 
-;; Problem 25
-;; Write a function which returns only the odd numbers from a sequence.
-;; (= (__ #{1 2 3 4 5}) '(1 3 5))
-;; (= (__ [4 2 1 6]) '(1))
-;; (= (__ [2 2 4 6]) '())
-;; (= (__ [1 1 1 3]) '(1 1 1 3))
+;; 1
+(define (f1 l)
+  (filter (lambda (x) (odd? x)) l))
+(equal? (f1 '(1 2 3 4 5)) '(1 3 5)) ;; #t
+(equal? (f1 '(4 2 1 6)) '(1)) ;; #t
+(equal? (f1 '(2 2 4 6)) '()) ;; #t
+(equal? (f1 '(1 1 1 3)) '(1 1 1 3)) ;; #t
 
+;; 2
+(define (f2 l)
+  (if (null? l)
+      l
+      (if (odd? (car l))
+          (cons (car l) (f2 (cdr l)))
+          (f2 (cdr l)))))
+(equal? (f2 '(1 2 3 4 5)) '(1 3 5)) ;; #t
+(equal? (f2 '(4 2 1 6)) '(1)) ;; #t
+(equal? (f2 '(2 2 4 6)) '()) ;; #t
+(equal? (f2 '(1 1 1 3)) '(1 1 1 3)) ;; #t
+
+#|
 ;; 1
 (defn f1 [seq]
   (filter (fn [x] (= (rem x 2) 1))
@@ -52,3 +68,4 @@
 (= (f4 [4 2 1 6]) '(1)) ;; => true
 (= (f4 [2 2 4 6]) '()) ;; => true
 (= (f4 [1 1 1 3]) '(1 1 1 3)) ;; => true
+|#
