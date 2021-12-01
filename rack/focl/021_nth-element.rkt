@@ -1,12 +1,27 @@
+#lang racket
+
 ;; https://4clojure.oxal.org/#/problem/21
 
-;; Problem 21
-;; Write a function which returns the Nth element from a sequence.
-;; (= (__ '(4 5 6 7) 2) 6)
-;; (= (__ [:a :b :c] 0) :a)
-;; (= (__ [1 2 3 4] 1) 2)
-;; (= (__ '([1 2] [3 4] [5 6]) 2) [5 6])
+;; 1
+(define (f1 l n)
+  (if (zero? n)
+      (car l)
+      (f1 (cdr l) (- n 1))))
+(equal? (f1 '(4 5 6 7) 2) 6) ;; #t
+(equal? (f1 '(a b c) 0) 'a) ;; #t
+(equal? (f1 '(1 2 3 4) 1) 2) ;; #t
+(equal? (f1 '((1 2) (3 4) (5 6)) 2) '(5 6)) ;; #t
 
+;; 2
+(define (f2 l n)
+  (list-ref l n))
+(equal? (f2 '(4 5 6 7) 2) 6) ;; #t
+(equal? (f2 '(a b c) 0) 'a) ;; #t
+(equal? (f2 '(1 2 3 4) 1) 2) ;; #t
+(equal? (f2 '((1 2) (3 4) (5 6)) 2) '(5 6)) ;; #t
+
+
+#|
 ;; 1
 (defn f1 [coll index]
   (loop [c coll i 0]
@@ -90,3 +105,4 @@
 (= (f8 [:a :b :c] 0) :a) ;; => true
 (= (f8 [1 2 3 4] 1) 2) ;; => true
 (= (f8 '([1 2] [3 4] [5 6]) 2) [5 6]) ;; => true
+|#

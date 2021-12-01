@@ -1,5 +1,6 @@
+#lang racket/base
+
 ;; https://www.4clojure.com/problem/5
-;; modified
 
 ;; 1
 (define v1 '(1 2 3 4))

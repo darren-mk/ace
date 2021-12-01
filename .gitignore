@@ -1,2 +1,5 @@
-#vscode
+# vscode
 .clj-kondo/
+
+# mac
+.DS_Store
