@@ -10,7 +10,19 @@
   (= 300 (count (__ (into #{} (range 10))
                     (into #{} (range 30))))))
 
-;; trial 1
+
+;; 3
+
+(defn f3 [a b]
+  (for a b)
+
+
+  )
+
+
+
+
+;; 1
 ;; rf: https://gist.github.com/SegFaultAX/3607101
 (defn f1 [a b]
   (set (for [x a y b] [x y])))
@@ -23,7 +35,7 @@
 (= 300 (count (f1 (into #{} (range 10))
                   (into #{} (range 30))))) ;; => true
 
-;;
+;; 2
 (defn f2 [a b]
   (set (for [a-item a
              b-item b]

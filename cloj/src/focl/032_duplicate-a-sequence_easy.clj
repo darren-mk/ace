@@ -23,8 +23,12 @@
 (= (f2 [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4])) ;; => true
 
 ;; 3
+;; using reduce with lambda that conj the same item twice.
 (defn f3 [coll]
-  (reduce (fn [coll x] (conj coll x x)) [] coll))
+  (reduce
+   (fn [coll x] (conj coll x x))
+   []
+   coll))
 (= (f3 [1 2 3]) '(1 1 2 2 3 3)) ;; => true
 (= (f3 [:a :a :b :b]) '(:a :a :a :a :b :b :b :b)) ;; => true
 (= (f3 [[1 2] [3 4]]) '([1 2] [1 2] [3 4] [3 4])) ;; => true

@@ -14,14 +14,3 @@ abc
 
 @abc
 ;; => :foo
-
-
-(defn my-inc [x]
-  (inc x))
-
-
-(d/future (my-inc))
-
-(d/chain )
-
-(dissoc {:a 1 :b 2 :c 3} :b :c)

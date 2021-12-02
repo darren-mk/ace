@@ -1,6 +1,4 @@
-#lang racket/base
+#lang racket
 
 (apply + '(1 2 3))
 ;; 6
-
-(apply and '(#t #t))

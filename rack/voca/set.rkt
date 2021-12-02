@@ -1,6 +1,4 @@
-#lang racket/base
-
-(require racket/set)
+#lang racket
 
 (set? (set 1))
 ;; #t

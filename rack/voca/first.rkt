@@ -1,6 +1,4 @@
-#lang racket/base
-
-(require racket/list)
+#lang racket
 
 (first '(1 2 3 4))
 ;; 1
