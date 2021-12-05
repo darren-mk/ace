@@ -1,4 +1,4 @@
-;; https://www.4clojure.com/problem/48
+;; https://4clojure.oxal.org/#/problem/48
 
 ;; Problem 48
 ;; The some function takes a predicate function and a collection.

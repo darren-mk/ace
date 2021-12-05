@@ -20,5 +20,16 @@
      (reverse fs)))) ;; => #'user/f1
 (= [3 2 1] ((f1 rest reverse) [1 2 3 4])) ;; => true
 (= 5 ((f1 (partial + 3) second) [1 2 3 4])) ;; => true
-(= true ((f1 zero? #(mod % 8) +) 3 5 7 9))
-(= "HELLO" ((f1 #(.toUpperCase %) #(apply str %) take) 5 "hello world"))
+(= true ((f1 zero? #(mod % 8) +) 3 5 7 9)) ;; ERROR
+(= "HELLO" ((f1 #(.toUpperCase %) #(apply str %) take) 5 "hello world")) ;; ERROR
+
+;; 2
+(defn f2 [& fs]
+  (fn [& vs]
+    (reduce (fn [result f] (f result))
+            (apply (last fs) vs)
+            (reverse (butlast fs)))))
+(= [3 2 1] ((f2 rest reverse) [1 2 3 4])) ;; => true
+(= 5 ((f2 (partial + 3) second) [1 2 3 4])) ;; => true
+(= true ((f2 zero? #(mod % 8) +) 3 5 7 9)) ;; => true
+(= "HELLO" ((f2 #(.toUpperCase %) #(apply str %) take) 5 "hello world")) ;; => true

@@ -1,4 +1,4 @@
-;; https://www.4clojure.com/problem/81
+;; https://4clojure.oxal.org/#/problem/81
 
 ;; 1
 ;; reference:
@@ -19,3 +19,12 @@
 (= (f2 #{0 1 2 3} #{2 3 4 5}) #{2 3}) ;; => true 
 (= (f2 #{0 1 2} #{3 4 5}) #{}) ;; => true 
 (= (f2 #{:a :b :c :d} #{:c :e :a :f :d}) #{:a :c :d}) ;; => true
+
+;; 3
+(defn f3 [a b]
+  (into #{}
+        (filter (fn [x] (contains? b x))
+                a)))
+(= (f3 #{0 1 2 3} #{2 3 4 5}) #{2 3}) ;; => true 
+(= (f3 #{0 1 2} #{3 4 5}) #{}) ;; => true 
+(= (f3 #{:a :b :c :d} #{:c :e :a :f :d}) #{:a :c :d}) ;; => true

@@ -13,3 +13,6 @@
 
 (list-ref '("a" "b" "c") 2)
 ;; "c"
+
+;; (list-ref '(1 2 3) 5)
+;; error

@@ -1,13 +1,26 @@
-;; reduce
-;; (reduce f coll) (reduce f val coll)
-(reduce + []) ;; => 0           
-(reduce + [1]) ;; => 1          
-(reduce + [1 2]) ;; => 3        
-(reduce + [1 2 3]) ;; => 6
-(reduce + 1 []) ;; => 1        
-(reduce + 1 [2 3]) ;; => 6
-(reduce - [1 2 3]) ;; => -4
-(reduce - 100 [1 2]) ;; => 97
+(reduce + [])
+;; => 0           
+
+(reduce + [1])
+;; => 1          
+
+(reduce + [1 2])
+;; => 3        
+
+(reduce + [1 2 3])
+;; => 6
+
+(reduce + 1 [])
+;; => 1        
+
+(reduce + 1 [2 3])
+;; => 6
+
+(reduce - [1 2 3])
+;; => -4
+
+(reduce - 100 [1 2])
+;; => 97
 
 ;; reduce implementation 1
 (defn reduce-alt-1 [f start coll]
