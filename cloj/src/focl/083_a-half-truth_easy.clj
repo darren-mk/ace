@@ -1,4 +1,4 @@
-;; https://www.4clojure.com/problem/83
+;; https://4clojure.oxal.org/#/problem/83
 
 ;; 1
 (contains? [1 2 3] 2) ;; => true
@@ -49,3 +49,15 @@
 (= true (f4 false true false)) ;; => true
 (= false (f4 true true true)) ;; => true
 (= true (f4 true true true false)) ;; => true
+
+;; 5
+(defn f5 [& vs]
+  (and 
+   (contains? (set vs) true)
+   (contains? (set vs) false)))
+(= false (f5 false false)) ;; => true
+(= true (f5 true false)) ;; => true
+(= false (f5 true)) ;; => true
+(= true (f5 false true false)) ;; => true
+(= false (f5 true true true)) ;; => true
+(= true (f5 true true true false)) ;; => true
