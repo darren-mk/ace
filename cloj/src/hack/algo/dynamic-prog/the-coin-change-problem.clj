@@ -11,28 +11,18 @@
      )))
 (f1 3 [8 3 1 2] [])
 
-
-(contains? [1 2 3] 3)
-(contains? #{1 2 3} 3)
-
-
 (defn fh1 [words]
   (let [unique-chars-and-count (map (fn [word] [(into #{} word)
                                       (count word)]) words)
         unique-words (into #{} unique-chars-and-count)
         num-groups (count unique-words)]
     num-groups))
-
 (empty? #{})
-
-(fh1 ["" "b"])
-
-(fh1 ["inch" "cat" "chin" "kit" "act"])
-(fh1 ["cat" "listen" "silent" "kitten" "salient"])
-(fh1 ["pat" "tap" "apt" "bat"])
-(fh1 ["cloth" "loath" "pillow"])
-(fh1 ["cat" "chin" "kit" "act"])
-
+(fh1 ["inch" "cat" "chin" "kit" "act"]) ;; 3
+(fh1 ["cat" "listen" "silent" "kitten" "salient"]) ;; 4
+(fh1 ["pat" "tap" "apt" "bat"]) ;; 2
+(fh1 ["cloth" "loath" "pillow"]) ;; 3
+(fh1 ["cat" "chin" "kit" "act"]) ;; 3 
 
 (defn fff [stocksProfit target]
   (let [indices (range (count stocksProfit))
