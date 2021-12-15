@@ -6,8 +6,8 @@ class ListNode:
         self.val = val
         self.next = next
 
-# solution trial
-class Solution:        
+# 1
+class Solution_1:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         l3 = ListNode()
         l3_roll = l3
@@ -26,9 +26,10 @@ class Solution:
                 l3.val = l3.val % 10
                 l3.next = ListNode(1)
             l3 = l3.next            
-        return l3_roll
-        
+        return l3_roll        
 x = ListNode(2, ListNode(4, ListNode(3)))
 y = ListNode(5, ListNode(6, ListNode(4)))
-trial = Solution()
+trial = Solution_01()
 a = trial.addTwoNumbers(x, y)
+
+# 2
