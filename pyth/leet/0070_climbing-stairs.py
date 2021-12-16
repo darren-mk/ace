@@ -13,6 +13,3 @@ trial = Solution()
 trial.climbStairs(2) #2
 trial.climbStairs(3) #2
 # time limit exceeded
-
-# solution 2
-

@@ -1,6 +1,6 @@
 # https://leetcode.com/problems/two-sum/
 
-from typing import List, Dict, Tuple, Sequence
+from typing import List
 
 # 1
 class Solution_01:
