@@ -30,8 +30,8 @@ class Solution_02:
                 return [mirror[nums[i]], i]
             else:
                 mirror[compl] = i
-''' Runtime: 116 ms, faster than 41.54% of Python3 online submissions for Two Sum.
-Memory Usage: 15.6 MB, less than 12.80% of Python3 online submissions for Two Sum. '''
+''' Runtime: 116 ms, faster than 41.54% 
+Memory Usage: 15.6 MB, less than 12.80% '''
 
 # 4
 class Solution_04:
@@ -43,5 +43,5 @@ class Solution_04:
                 mirror[compl] = i
             else:
                 return [mirror[nums[i]], i]
-''' Runtime: 99 ms, faster than 44.71% of Python3 online submissions for Two Sum.
-Memory Usage: 15.7 MB, less than 8.79% of Python3 online submissions for Two Sum. '''
+''' Runtime: 99 ms, faster than 44.71%
+Memory Usage: 15.7 MB, less than 8.79% '''

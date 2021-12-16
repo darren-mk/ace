@@ -31,5 +31,5 @@ x = ListNode(2, ListNode(4, ListNode(3)))
 y = ListNode(5, ListNode(6, ListNode(4)))
 trial = Solution_01()
 a = trial.addTwoNumbers(x, y)
-
-# 2
+''' Runtime: 101 ms, faster than 12.70% of Python3 online submissions for Add Two Numbers.
+Memory Usage: 14.3 MB, less than 73.28% of Python3 online submissions for Add Two Numbers. '''
