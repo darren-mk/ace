@@ -16,3 +16,11 @@
 
 (assoc-in [[1 2] [3 4]] [0 1] 9000)
 ;; => [[1 9000] [3 4]]
+
+
+;; implementation
+
+(defn assoc-in-a [col vec v]
+  
+
+  )
