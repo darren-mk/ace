@@ -5,18 +5,19 @@
 (count [1 \a "string" [1 2] {:foo :bar}]) ;; => 5
 (count "string") ;; => 6
 
-;; implementation using reduce
-(defn count-using-reduce [coll]
-  (reduce
-   (fn [cnt v] (inc cnt))
-   0
-   coll))
-(count-using-reduce [1 2 3]) ;; => 3
-(count-using-reduce []) ;; => 0
-(count-using-reduce nil) ;; => 0
-(count-using-reduce "string") ;; => 6
-
-;; implementation using loop/recur
+;; implementation
+;; a
+(defn count-a [coll]
+  (reduce (fn [measure item] (inc measure))
+          0
+          coll))
+(count-a nil) ;; => 0
+(count-a []) ;; => 0
+(count-a [1 2 3]) ;; => 3
+(count-a {:one 1 :two 2}) ;; => 2
+(count-a [1 \a "string" [1 2] {:foo :bar}]) ;; => 5
+(count-a "string") ;; => 6
+;; b
 (defn count-using-loop [coll]
   (loop [cnt 0
          coll coll]
@@ -28,5 +29,3 @@
 (count-using-loop []) ;; => 0
 (count-using-loop nil) ;; => 0
 (count-using-loop "string") ;; => 6
-
-

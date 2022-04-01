@@ -1,38 +1,42 @@
 ;; https://github.com/clojure/core.async/blob/master/examples/walkthrough.clj
 
-(require '[clojure.core.async :refer [chan close! >! <! go]])
+(require '[clojure.core.async :as a])
 
-(def c (chan))
+(def c (a/chan))
 ;; => #'user/c
 
 c
 ;; => #object[clojure.core.async.impl.channels.ManyToManyChannel 0x3d3073c8 "clojure.core.async.impl.channels.ManyToManyChannel@3d3073c8"]
 
-(>!! c "hello")
-(<!! c)
+(a/>!! c "hello")
+(a/<!! c)
 
 c
 
-(close! c)
+(a/close! c)
 ;; => nil
 
+(let [c (a/chan)]
+  (a/go 
+    (a/>! c "hello")
+    (prn (a/<! c)))
+  (a/close! c))
 
-(let [c (chan 10)]
-  (go 
-    (>! c "hello")
-   ;; (>! c "darren")
-    (prn (<! c)))
-  (close! c))
+(let [c (a/chan 1)]
+  (a/>!! c "hello")
+  (prn (a/<!! c))
+  (a/close! c))
 
+(let [c (a/chan 1)]
+  (prn (a/<!! c))
+  (a/>!! c "hello")
+  (a/close! c)) ;; ???
 
-(let [c (chan 10)]
-  (>!! c "1")
-  (>!! c "2")
-  (>!! c "3")
-  (prn (<!! c))
-  (prn (<!! c))
-  (prn (<!! c))
-  (prn (<!! c))
-  (close! c))
-
-(prn (<!! c))
+(let [c (a/chan 10)]
+  (a/>!! c "1")
+  (a/>!! c "2")
+  (a/>!! c "3")
+  (prn (a/<!! c))
+  (prn (a/<!! c))
+  (prn (a/<!! c))
+  (a/close! c))
