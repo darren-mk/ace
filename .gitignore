@@ -3,3 +3,10 @@
 
 # mac
 .DS_Store
+
+# dotnet
+bin/
+obj/
+
+# emacs
+.lsp/
