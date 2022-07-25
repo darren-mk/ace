@@ -7,7 +7,10 @@
 
   <ItemGroup>
     <Compile Include="Program.fs" />
-    <Compile Include="focl/1.fs" />
+    <None Include="focl\007.fsx" />
+    <None Include="focl\019.fsx" />
+    <None Include="focl\020.fsx" />
+    <None Include="focl\021.fsx" />
   </ItemGroup>
 
 </Project>
