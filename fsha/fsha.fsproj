@@ -11,6 +11,19 @@
     <None Include="focl\019.fsx" />
     <None Include="focl\020.fsx" />
     <None Include="focl\021.fsx" />
+    <None Include="focl\022.fsx" />
+    <None Include="focl\023.fsx" />
+    <None Include="focl\026.fsx" />
+    <None Include="focl\027.fsx" />
+    <None Include="voca\fold.fsx" />
+    <None Include="voca\count.fsx" />
+    <None Include="voca\max.fsx" />
+    <None Include="voca\forall.fsx" />
+    <None Include="voca\exists.fsx" />
+    <None Include="voca\contains.fsx" />
+    <None Include="voca\map.fsx" />
+    <None Include="voca\filter.fsx" />
+    <None Include="voca\barclays.fsx" />
   </ItemGroup>
 
 </Project>
