@@ -4,7 +4,7 @@ from typing import List
 
 # 1
 class Solution_01:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
+    def twoSum(self, nums: List[int], target: int):
         pool = {}
         for i in range(len(nums)):
             complement = target - nums[i]
@@ -13,7 +13,7 @@ class Solution_01:
 
 # 2
 class Solution_02:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
+    def twoSum(self, nums: List[int], target: int):
         for i in range(len(nums)):
             complement = target - nums[i]
             if complement in nums:
@@ -21,8 +21,8 @@ class Solution_02:
                     return [i, nums.index(complement)]       
 
 # 3
-class Solution_02:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
+class Solution_03:
+    def twoSum(self, nums: List[int], target: int):
         mirror = {}
         for i in range(len(nums)):
             compl = target - nums[i]
@@ -35,7 +35,7 @@ Memory Usage: 15.6 MB, less than 12.80% '''
 
 # 4
 class Solution_04:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
+    def twoSum(self, nums: List[int], target: int):
         mirror = dict()
         for i in range(len(nums)):
             compl = target - nums[i]
