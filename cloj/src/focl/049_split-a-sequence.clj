@@ -1,4 +1,4 @@
-;; https://www.4clojure.com/problem/49
+;; https://4clojure.oxal.org/#/problem/49
 
 ;; 1
 (defn f1 [n coll]

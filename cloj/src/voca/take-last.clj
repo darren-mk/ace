@@ -20,5 +20,5 @@
 (take-last 0 [1])
 ;; nil
 
-(take-last -1 [1])
-;; nil
+(take-last 3 [1 2 3 4 5 6 7 8 9])
+;; => (7 8 9)

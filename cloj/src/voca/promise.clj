@@ -31,10 +31,8 @@ my-promise-2
 (realized? my-promise-2)
 ;; => false
 
-
 (deliver my-promise-2 (fn [x y] (+ x y 1)))
 ;; "#promise[{:status :ready, :val #function[focl.core/eval5600/fn--5601]} 0x387af971]"
-
 
 (realized? my-promise-2)
 ;; => true
@@ -44,3 +42,22 @@ my-promise-2
 
 (@my-promise-2 3 4)
 ;; => 8
+
+
+(def mp-3 (promise))
+;; => #'user/mp-3
+
+(realized? mp-3)
+;; => false
+
+(deliver mp-3 (fn [x] (* x 100)))
+;; => nil
+
+(realized? mp-3)
+;; => true
+
+mp-3
+;; => #<Promise@473330fb: #function[user/eval7539/fn--7540]>
+
+(@mp-3 7)
+;; => 700

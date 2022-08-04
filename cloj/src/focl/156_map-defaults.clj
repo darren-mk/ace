@@ -1,4 +1,4 @@
-;; https://www.4clojure.com/problem/156
+;; https://4clojure.oxal.org/#/problem/156
 
 ;; 1
 (defn f1 [value vector]
@@ -17,5 +17,9 @@
 (= (f2 "x" [1 2 3]) {1 "x" 2 "x" 3 "x"}) ;; => true 
 (= (f2 [:a :b] [:foo :bar]) {:foo [:a :b] :bar [:a :b]}) ;; => true
 
-
-
+;; 3
+(defn f3 [x l]
+  (into {} (map (fn [elem] {elem x}) l)))
+(= (f3 0 [:a :b :c]) {:a 0 :b 0 :c 0}) ;; => true 
+(= (f3 "x" [1 2 3]) {1 "x" 2 "x" 3 "x"}) ;; => true 
+(= (f3 [:a :b] [:foo :bar]) {:foo [:a :b] :bar [:a :b]}) ;; => true

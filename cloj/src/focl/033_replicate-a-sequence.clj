@@ -1,4 +1,4 @@
-;; https://www.4clojure.com/problem/33
+;; https://4clojure.oxal.org/#/problem/33
 
 ;; 1
 (defn f1 [sq n]
@@ -41,3 +41,24 @@
    '([1 2] [1 2] [3 4] [3 4])) ;; => true
 (= (f3 [44 33] 2)
    [44 44 33 33]) ;; => true
+
+;; 4
+(defn f4 [l n]
+  (apply interleave (take n (repeat l))))
+(= (f4 [1 2 3] 2) '(1 1 2 2 3 3)) ;; => true
+(= (f4 [:a :b] 4) '(:a :a :a :a :b :b :b :b)) ;; => true
+(= (f4 [4 5 6] 1) '(4 5 6)) ;; => true
+(= (f4 [[1 2] [3 4]] 2) '([1 2] [1 2] [3 4] [3 4])) ;; => true
+(= (f4 [44 33] 2) [44 44 33 33]) ;; => true
+
+;; 5
+(defn f5 [l n]
+  (reduce (fn [acc elem]
+            (concat acc (take n (repeat elem))))
+          []
+          l))
+(= (f5 [1 2 3] 2) '(1 1 2 2 3 3)) ;; => true
+(= (f5 [:a :b] 4) '(:a :a :a :a :b :b :b :b)) ;; => true
+(= (f5 [4 5 6] 1) '(4 5 6)) ;; => true
+(= (f5 [[1 2] [3 4]] 2) '([1 2] [1 2] [3 4] [3 4])) ;; => true
+(= (f5 [44 33] 2) [44 44 33 33]) ;; => true

@@ -1,8 +1,6 @@
 (require '[clojure.core.async :refer
-           [chan go thread <!! >!! <! >!
-            close! timeout put! alts!]]
-         '[clojure.tools.namespace.repl :refer
-           [refresh]])
+           [chan go thread <!! >!! <!
+            close! timeout put!]])
 
 
 ;;;; example thread transient
@@ -10,20 +8,20 @@
   (thread
     (let [val-taken (<!! ch)]
       (prn "taken from channel: " val-taken)
-      ;; thread done, garbage-collected.
+      ;; thread is done, garbage-collected.
       )))
 ;; => #'user/example-thread-transient
-(def c (chan))
+(def c1 (chan))
 ;; => #'user/c
-(example-thread-transient c)
+(example-thread-transient c1)
 ;; => #object[clojure.core.async.impl.channels.ManyToManyChannel
 ;; 0x7d8b75b9 "clojure.core.async.impl.channels.ManyToManyChannel@7d8b75b9"]
-(>!! c "Hi, Darren.")
+(>!! c1 "Hi, Darren.")
 ;; => true
 ;; "taken from channel: " "Hi, Darren."
 ;;;; alternatively, put! w works in the same way as >!!.
 ;;;; not sure what is supposed to be different?
-(put! c "Hi, Darren by put!")
+(put! c1 "Hi, Darren by put!")
 ;; => true
 ;; "taken from channel: " "Hi, Darren by put!"
 
@@ -32,12 +30,12 @@
 (defn example-thread-transient-w-go [ch]
   (go (prn "taken from channel: " (<! ch))))
 ;; => #'user/example-thread-transient-w-go
-(def c (chan))
+(def c2 (chan))
 ;; => #'user/c
-(example-thread-transient-w-go c)
+(example-thread-transient-w-go c2)
 ;; => #object[clojure.core.async.impl.channels.ManyToManyChannel
 ;; 0x51c58915 "clojure.core.async.impl.channels.ManyToManyChannel@51c58915"]
-(>!! c "Yes!")
+(>!! c2 "Yes!")
 ;; => true 
 ;; "taken from channel: " "Yes!" 
 
@@ -53,27 +51,27 @@
     ;; thread done, garbage collected.
     (prn "thread done.")))
 ;; => #'user/example-thread-continuing
-(def c (chan))
+(def c3 (chan))
 ;; => #'user/c
-(example-thread-continuing c)
+(example-thread-continuing c3)
 ;; => #object[clojure.core.async.impl.channels.ManyToManyChannel
 ;; 0x10df7b10 "clojure.core.async.impl.channels.ManyToManyChannel@10df7b10"]
-(>!! c 1)
+(>!! c3 1)
 ;; => true
 ;; "taken from channel: " 1
-(>!! c 2)
+(>!! c3 2)
 ;; nil 
 ;; "taken from channel: " 2
-(>!! c 3)
+(>!! c3 3)
 ;; => true
 ;; "taken from channel: " 3
-(>!! c 4)
+(>!! c3 4)
 ;; => true
 ;; "taken from channel: " 4
-(>!! c 5)
+(>!! c3 5)
 ;; => true
 ;; "taken from channel: " 5
-(close! c)
+(close! c3)
 ;; => nil
 ;; "thread done."
 
@@ -88,15 +86,15 @@
           (recur))))
     (prn "thread done.")))
 ;; => #'user/example-thread-continuing-w-go
-(def c (chan))
+(def c4 (chan))
 ;; => #'user/c                                        ;
-(example-thread-continuing-w-go c)
+(example-thread-continuing-w-go c4)
 ;; => #object[clojure.core.async.impl.channels.ManyToManyChannel
 ;; 0x42ea55fa "clojure.core.async.impl.channels.ManyToManyChannel@42ea55fa"]
-(>!! c 1)
+(>!! c4 1)
 ;; => true
 ;; "taken from channel: " 1
-(>!! c 3)
+(>!! c4 3)
 ;; => true
 ;; "taken from channel: " 3
 
@@ -107,33 +105,33 @@
     (loop []
       (let [val-taken (<!! ch)]
         (when val-taken
-          (do (prn "taken from channel: " val-taken)
-              (<!! (timeout 5000))
-              (recur)))))
+          (prn "taken from channel: " val-taken)
+          (<!! (timeout 5000))
+          (recur))))
     ;; thread done, garbage collected.
     (prn "thread done.")))
 ;; => #'user/example-thread-continuing
-(def c (chan))
+(def c5 (chan))
 ;; => #'user/c
-(example-thread-continuing-slow c)
+(example-thread-continuing-slow c5)
 ;; => #object[clojure.core.async.impl.channels.ManyToManyChannel
 ;; 0x10df7b10 "clojure.core.async.impl.channels.ManyToManyChannel@10df7b10"]
-(>!! c 1)
+(>!! c5 1)
 ;; => true
 ;; "taken from channel: " 1
-(>!! c 2)
+(>!! c5 2)
 ;; nil 
 ;; "taken from channel: " 2
-(>!! c 3)
+(>!! c5 3)
 ;; => true
 ;; "taken from channel: " 3
-(>!! c 4)
+(>!! c5 4)
 ;; => true
 ;; "taken from channel: " 4
-(>!! c 5)
+(>!! c5 5)
 ;; => true
 ;; "taken from channel: " 5
-(close! c)
+(close! c5)
 ;; => nil
 ;; "thread done."
 
@@ -150,51 +148,21 @@
           (recur))))
     (prn "thread is done.")))
 ;; => #'user/example-thread-continuing-calculating
-(def c (chan))
+(def c6 (chan))
 ;; => #'user/c
-(def ch-resp (chan))
+(def c6-resp (chan))
 ;; => #'user/c-resp
 (thread
-  (prn "result is: " (<!! ch-resp)))
+  (prn "result is: " (<!! c6-resp)))
 ;; => #object[clojure.core.async.impl.channels.ManyToManyChannel
 ;; 0x7d7cc837 "clojure.core.async.impl.channels.ManyToManyChannel@7d7cc837"]
-(example-thread-continuing-calculating c)
+(example-thread-continuing-calculating c6)
 ;; => #object[clojure.core.async.impl.channels.ManyToManyChannel
 ;; 0x117cfac6 "clojure.core.async.impl.channels.ManyToManyChannel@117cfac6"]
-(put! c [7 ch-resp])
+(put! c6 [7 c6-resp])
 ;; => true
 ;; "taken from channel: " 7
 ;; "result is: " 8
-(close! c)
+(close! c6)
 ;; => nil
 ;; "thread is done."
-
-
-(doc alts!)
-
-
-
-;;;; EX2
-(defn ex2 [ch]
-  (thread
-    (loop []
-      (let )
-
-      ))
-
-  
-  )
-
-(def cm (chan))
-(def cr (chan))
-
-
-
-
-
-
-(def echo-chan (chan))
-
-(go (prn (<! echo-chan)))
-
-(>!! echo-chan "ketchup")

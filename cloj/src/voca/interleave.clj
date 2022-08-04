@@ -4,5 +4,6 @@
 (interleave [:a :b] [1 2]) ;; => (:a 1 :b 2)
 (interleave [:a :b] [1 2 3]) ;; => (:a 1 :b 2)
 (interleave [:a :b] [1]) ;; => (:a 1)
+(interleave ["i" "in"] ["am" "love"]) ;; => ("i" "am" "in" "love")
 (zipmap [:a :b] [1 2 3]) ;; => {:a 1, :b 2}
 (zipmap [:a :b] [1]) ;; => {:a 1}

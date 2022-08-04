@@ -12,3 +12,6 @@
 
 (type (partition 2 [1 2 3 4]))
 ;; => clojure.lang.LazySeq
+
+(partition 1 [:a :b :c])
+;; => ((:a) (:b) (:c))

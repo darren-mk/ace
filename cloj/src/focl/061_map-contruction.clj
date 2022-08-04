@@ -40,3 +40,10 @@
    {1 "one", 2 "two", 3 "three"}) ;; => true
 (= (f3 [:foo :bar] ["foo" "bar" "baz"])
    {:foo "foo", :bar "bar"}) ;; => true
+
+;; 4
+(defn f4 [a b]
+  (into {} (map (fn [x y] {x y}) a b)))
+(= (f4 [:a :b :c] [1 2 3]) {:a 1, :b 2, :c 3}) ;; => true
+(= (f4 [1 2 3 4] ["one" "two" "three"]) {1 "one", 2 "two", 3 "three"}) ;; => true
+(= (f4 [:foo :bar] ["foo" "bar" "baz"]) {:foo "foo", :bar "bar"}) ;; => true

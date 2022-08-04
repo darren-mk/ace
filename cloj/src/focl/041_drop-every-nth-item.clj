@@ -1,4 +1,4 @@
-;; https://www.4clojure.com/problem/41
+;; https://4clojure.oxal.org/#/problem/41
 
 ;; 1
 (defn f1 [coll n]
@@ -20,9 +20,18 @@
 (defn f2 [coll n]
   (let [tagged (zipmap (iterate inc 1) coll)
         target (take (count coll)
-                     (filter #(not= 0 (mod % n)) (iterate inc 1) )
-                     )]
+                     (filter #(not= 0 (mod % n)) (iterate inc 1)))]
     (vals (select-keys tagged target))))
 (= (f2 [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8]) ;; => true
 (= (f2 [:a :b :c :d :e :f] 2) [:a :c :e]) ;; => true
 (= (f2 [1 2 3 4 5 6] 4) [1 2 3 5 6]) ;; => true
+
+;; 3
+(defn f3 [l n]
+  (->> (zipmap (iterate inc 1) l)
+       (into (sorted-map))
+       (filter (fn [elem] (not= 0 (mod (key elem) n))))
+       vals))
+(= (f3 [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8]) ;; => true
+(= (f3 [:a :b :c :d :e :f] 2) [:a :c :e]) ;; => true
+(= (f3 [1 2 3 4 5 6] 4) [1 2 3 5 6]) ;; => true

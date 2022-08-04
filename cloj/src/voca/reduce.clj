@@ -68,3 +68,12 @@
 ;; => #'user/print-unique
 (print-unique ["aaa" "aaa" "bbb"])
 ;; => "bbb"
+
+;; 3
+(defn reduce-c [f b l]
+  (if (empty? l)
+    b
+    (reduce-c f (f b (first l)) (rest l))))
+;; => #'user/reduce-c
+(reduce-c (fn [a b] (+ a b 100)) 0 [1 2 3])
+;; => 306
