@@ -12,3 +12,5 @@ countB [1; 2; 3; 4] = 4 // true
 // C
 let countC l = List.map (fun _ -> 1) l |> List.sum
 countC [1; 2; 3; 4] = 4 // true
+
+

@@ -21,6 +21,7 @@ let memoize f =
         if existence
         then value
         else let v = f x
+             printfn "calculated! %i" x
              caching.Add(x, v)
              v
 
@@ -46,9 +47,9 @@ fibMemoized 9 = 55 // true
 fibMemoized 10 = 89 // true *)
 
 let rec getLastIndex f limit i =
-    let test = f i < limit &&
-               limit < f (i + 1)
-    if test then i else getLastIndex f limit (i + 1)
+    let test = f i < limit && limit < f (i + 1)
+    if test then i
+    else getLastIndex f limit (i + 1)
 
 let findLastIndex f limit = getLastIndex f limit 1
 

@@ -36,3 +36,35 @@
 
 (require-not-nil! :a nil "c")
 
+;; https://www.braveclojure.com/read-and-eval/
+(defmacro ignore-last-item [l]
+  (butlast l))
+
+(ignore-last-item (+ 1 2 3))
+;; => 3
+(macroexpand '(ignore-last-item (+ 1 2 3)))
+;; => (+ 1 2)
+
+(ignore-last-item (-> 3 inc dec))
+;; => 4
+(macroexpand '(ignore-last-item (-> 3 inc dec)))
+;; => (inc 3)
+
+;; https://www.braveclojure.com/read-and-eval/
+(defmacro infix-three-items [infix]
+  (let [a (first infix)
+        b (second infix)
+        c (last infix)]
+    (list b a c)))
+
+;;(infix-three-items (1 + 2))
+;; => 3
+
+;; Exercise 1.
+;; Use the list function, quoting, and read-string to create a list that,
+;; when evaluated, prints your first name and your favorite sci-fi movie.
+(eval (read-string "(do (print \"\ndarren\") (print \"\nback to the future\"))"))
+;; darren
+;; back to the future
+
+

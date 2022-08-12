@@ -22,7 +22,7 @@
 (defn f-c [x m]
   (cond (not (contains? m x)) false
         (x m) false 
-        :default true))
+        :else true))
 (true? (f-c :a {:a nil :b 2})) ;; => true
 (false? (f-c :b {:a nil :b 2})) ;; => true
 (false? (f-c :c {:a nil :b 2})) ;; => true

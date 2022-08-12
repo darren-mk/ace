@@ -24,6 +24,8 @@
     <None Include="voca\map.fsx" />
     <None Include="voca\filter.fsx" />
     <None Include="voca\barclays.fsx" />
+    <None Include="voca\barclays-compare.fsx" />
+    <None Include="voca\barclays-alt.fsx" />
   </ItemGroup>
 
 </Project>

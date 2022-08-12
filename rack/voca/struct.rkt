@@ -1,4 +1,4 @@
-#lang racket/base
+#lang racket
 
 (struct book (name genre author))
 

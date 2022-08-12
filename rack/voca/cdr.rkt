@@ -1,4 +1,4 @@
-#lang racket/base
+#lang racket
 
 (cdr '(1 . 2))
 ;; 2

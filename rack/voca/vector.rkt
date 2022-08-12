@@ -1,4 +1,4 @@
-#lang racket/base
+#lang racket
 
 (vector 1 2 3)
 ;; '#(1 2 3)
