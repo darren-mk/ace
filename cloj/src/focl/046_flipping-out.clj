@@ -1,6 +1,6 @@
-;; https://www.4clojure.com/problem/46
+;; https://4clojure.oxal.org/#/problem/46
 
-;; trial 1
+;; 1
 (defn f1 [f]
   (fn [a b] (f b a)))
 (= 3 ((f1 nth) 2 [1 2 3 4 5])) ;; => true

@@ -6,7 +6,7 @@
     :initform nil
     :accessor lisper)))
 
-(defvar p1 (make-instance 'person :name "me" ))
+(defparameter p1 (make-instance 'person :name "hello"))
 
 (lisper p1)
 
@@ -62,4 +62,3 @@
 
 (can-walk-p p1)
 ;; T
-

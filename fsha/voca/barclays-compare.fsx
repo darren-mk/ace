@@ -38,6 +38,7 @@ fib 10
 
 
 
+
 (*
 let rec getLastIndex f limit i =
     let test = f i < limit && limit < f (i + 1)
