@@ -1,12 +1,5 @@
-# vscode
-.clj-kondo/
-
-# mac
+.clj-kondo
 .DS_Store
-
-# dotnet
-bin/
-obj/
-
-# emacs
-.lsp/
+bin
+obj
+.lsp

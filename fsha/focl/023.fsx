@@ -7,18 +7,18 @@ Write a function which reverses a sequence.
 Special Restrictions : reverse *)
 
 
-let v1, r1 = [1; 2; 3; 4; 5], [5; 4; 3; 2; 1]
-let v2, r2 = [2; 5; 7], [7; 5; 2]
-let v3, r3 = [[1; 2]; [3; 4]; [5; 6]], [[5; 6]; [3; 4]; [1; 2]]
+let (v1: int list), (r1: int list) = [1; 2; 3; 4; 5], [5; 4; 3; 2; 1] ;;
+let (v2: int list), (r2: int list) = [2; 5; 7], [7; 5; 2] ;;
+let (v3: int list list), (r3: int list list) = [[1; 2]; [3; 4]; [5; 6]], [[5; 6]; [3; 4]; [1; 2]] ;;
 
 // A
-let rec fA l =
+let rec fA (l: 'a list) =
     match l with
     | [] -> []
-    | (x::xs) -> (fA xs) @ [x]
-fA v1 = r1 // true
-fA v2 = r2 // true
-fA v3 = r3 // true
+    | ((x: 'a)::(xs: 'a list)) -> (fA xs) @ [x] ;;
+fA v1 = r1 ;; // true
+fA v2 = r2 ;; // true
+fA v3 = r3 ;; // true
 
 
 // B
@@ -28,7 +28,8 @@ fB v2 = r2 // true
 fB v3 = r3 // true
 
 // C
-let rec fC l = List.fold (fun acc x -> acc @ [x]) [] l
-fC v1 = r1 // true
-fC v2 = r2 // true
-fC v3 = r3 // true
+let rec fC (l: 'a list) = 
+    List.fold (fun (acc: 'a list) (x: 'a) -> acc @ [x]) [] l;;
+fC v1 = r1 ;; // true
+fC v2 = r2 ;; // true
+fC v3 = r3 ;; // true
