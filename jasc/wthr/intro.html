@@ -1,0 +1,22 @@
+<!-- https://www.w3schools.com/js/js_intro.asp -->
+<html>
+    <body>
+	<h2>what is getElementById?</h2>
+	<img id="showcase"
+	     title aria-hidden="true">
+	<p id="demo" >hoho!</p>
+	<button type="button" onclick=toggle_a()>change html content</button>
+	<button type="button" onclick=toggle_b()>change attribute value</button>
+	<button type="button" onclick=toggle_c()>change style</button>
+	<button type="button" onclick=toggle_d()>hide element</button>
+	<button type="button" onclick=toggle_e()>show element</button>
+	<script>
+	 let toggle_a = () => document.getElementById("demo").innerHTML = "haha!";
+	 let toggle_b = () => document.getElementById("showcase").src =
+	     "https://s.yimg.com/rz/p/yahoo_homepage_en-US_s_f_p_bestfit_homepage.png";
+	 let toggle_c = () => document.getElementById("demo").style.fontSize = '35px';
+	 let toggle_d = () => document.getElementById("demo").style.display = "none";
+	 let toggle_e = () => document.getElementById("demo").style.display = "block";
+	</script>
+    </body>
+</html>

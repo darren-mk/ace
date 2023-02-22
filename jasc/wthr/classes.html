@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <p id="demo">...</p>
+        <script>
+            class Car {
+                constructor(name, year) {
+                    this.name = name;
+                    this.year = year;
+                }
+                tag() {
+                    return this.name + this.name + "!";
+                }
+            }
+            let myQ7 = new Car('Audi Q7', 2023);
+            document.getElementById("demo").innerHTML = myQ7.tag();
+        </script>
+    </body>
+</html>
