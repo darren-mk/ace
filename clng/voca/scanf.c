@@ -1,8 +1,9 @@
 #include <stdio.h>
 
 int main() {
-  int userNum;
-  printf("type:");
-  scanf("%d", &userNum);
-  printf("you entered %i.\n", userNum);
+  char userInput[20];
+  printf("type: ");
+  scanf("%[^\n]%*c", userInput);
+  printf("you entered %s.\n", userInput);
+  return 0;
 }

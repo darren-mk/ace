@@ -7,6 +7,11 @@
 int main() {
   FILE *fp;
   int c;
+
+  int fileLetterSize = 500;
+  char str[fileLetterSize];
+  int z = 0;
+
   fp = fopen("file.txt", "r");
   if (fp == NULL) {
     perror("error in opening file");
@@ -16,8 +21,13 @@ int main() {
     if (feof(fp)) {
       break;
     }
-    printf("%c", c);
+    // printf("%c", c);
+    str[z] = c;
+    z++;
   } while(1);
   fclose(fp);
+
+  printf("final: \n");
+  printf("%s\n", str);
   return 0;
 }
