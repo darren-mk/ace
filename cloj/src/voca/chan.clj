@@ -40,3 +40,39 @@ c
   (prn (a/<!! c))
   (prn (a/<!! c))
   (a/close! c))
+
+
+(def chan-a (a/chan 10))
+
+(def sum-a (atom 0))
+
+(dotimes [_ 10]
+  (a/go (loop []
+          (let [n (a/<! chan-a)]
+            (swap! sum-a + n))
+          (recur))))
+
+(a/go (doseq [x (range 100)]
+        (a/>! chan-a x)))
+
+@sum-a
+;; => 4950
+
+;; listner process
+(def chat-chan (a/chan 1))
+;;
+(a/go (loop []
+        (let [msg (a/<! chat-chan)]
+          (if (= :stop msg)
+            (println "loop is stopped.")
+            (do (println "at" (.getName (Thread/currentThread))
+                         "received:" msg)
+                (recur))))))
+;;
+(println (.getName (Thread/currentThread)))
+(a/go (a/>! chat-chan "yo!"))
+(a/go (a/>! chat-chan 123))
+(a/go (a/>! chat-chan [1 2 3]))
+(a/go (a/>! chat-chan {:a 1 :b 2}))
+(a/go (a/>! chat-chan "cool, bye"))
+(a/go (a/>! chat-chan :stop))

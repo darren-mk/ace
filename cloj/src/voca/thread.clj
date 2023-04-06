@@ -166,3 +166,13 @@
 (close! c6)
 ;; => nil
 ;; "thread is done."
+
+;; check threads
+(def thread-a
+  (Thread.
+   (fn []
+     (println "it is being called at" (.getName (Thread/currentThread))))))
+;; it is being called at Thread-17
+(do (println "it is calling at" (.getName (Thread/currentThread)))
+    (.start thread-a))
+ ;; it is calling at nREPL-session-c2038fe5-51a9-4bfe-9979-1b8c8d1d9fe8

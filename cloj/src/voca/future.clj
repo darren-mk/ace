@@ -21,8 +21,18 @@
         (prn "I will print after 4 seconds."))
 ;; => #<Future@3f7ba8f6: :pending>
 
+;;
 (let [result
       (future (Thread/sleep 3000)
               (inc 1))]
   (deref result))
 ;; => 2 ;; returns after 3 seconds
+
+;;
+(let [result (future (Thread/sleep 3000)
+                     (println "calculated at" (.getName (Thread/currentThread)))
+                     ;; calculated at clojure-agent-send-off-pool-350
+                     (* 10 10))]
+  (println "received at" (.getName (Thread/currentThread)))
+  ;; received at nREPL-session-95bb8b4b-5cc0-4121-b716-3afb2f518671
+  @result)

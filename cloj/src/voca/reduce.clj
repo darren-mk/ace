@@ -69,7 +69,7 @@
 (print-unique ["aaa" "aaa" "bbb"])
 ;; => "bbb"
 
-;; 3
+;; c
 (defn reduce-c [f b l]
   (if (empty? l)
     b

@@ -43,7 +43,6 @@ my-promise-2
 (@my-promise-2 3 4)
 ;; => 8
 
-
 (def mp-3 (promise))
 ;; => #'user/mp-3
 
@@ -61,3 +60,16 @@ mp-3
 
 (@mp-3 7)
 ;; => 700
+
+(def heavy-answer (promise))
+;; => #'user/heavy-answer
+
+(doto (Thread. (fn []
+                 (println "calculated at " (.getName (Thread/currentThread)))
+                 (deliver heavy-answer 42)))
+  .start)
+;; => #object[java.lang.Thread 0x2cf51c35 "Thread[Thread-380,5,main]"]
+
+(do (println "received at " (.getName (Thread/currentThread)))
+    @heavy-answer)
+;; => 42

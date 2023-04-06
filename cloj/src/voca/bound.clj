@@ -12,3 +12,8 @@
 ;; => #'user/plus3
 (bound? #'plus3)
 ;; => true
+
+(def x nil)
+;; => #'user/x
+(bound? #'x)
+;; => true

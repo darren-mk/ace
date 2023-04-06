@@ -31,4 +31,14 @@ my-delay
 
 @ddd
 (force ddd)
-(realized? dd)
+(realized? ddd)
+
+(def delayed-v
+  (delay
+    (let [cur-thread-name (.getName (Thread/currentThread))]
+      (println "run now at " cur-thread-name)
+      cur-thread-name)))
+
+(let [cur-thread-name (.getName (Thread/currentThread))]
+  (println "copied now at " cur-thread-name)
+  (= cur-thread-name @delayed-v)) ;; true

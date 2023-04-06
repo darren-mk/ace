@@ -1,4 +1,6 @@
-(defn count-2
-  ([] 0)
-  ([x] 1)
-  ([x & xs] (+ 1 (count xs))))
+(loop [r (range 50)
+       s 0]
+  (if (empty? r)
+    s
+    (recur (rest r) (+ s (first r)))))
+;; => 1225
