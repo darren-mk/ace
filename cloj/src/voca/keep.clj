@@ -14,3 +14,9 @@
 ;; => #'user/keep-alt-1
 (keep-alt-1 even? (range 1 10))
 ;; => (false true false true false true false true false)
+
+(defn keep-b [f coll]
+  (map f coll))
+
+(keep-b even? (range 1 10))
+;; => (false true false true false true false true false)

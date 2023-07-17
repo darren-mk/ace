@@ -1,4 +1,4 @@
-;; https://www.4clojure.com/problem/38
+;; https://4clojure.oxal.org/#/problem/38
 
 ;; 1
 (defn f1 [& nums]
@@ -19,3 +19,10 @@
 (= (f2 1 8 3 4) 8) ;; => true
 (= (f2 30 20) 30) ;; => true
 (= (f2 45 67 11) 67) ;; => true
+
+;; c
+(defn f-c [& ns]
+  (reduce (fn [max x] (if (< max x) x max)) ns))
+(= (f-c 1 8 3 4) 8) ;; => true
+(= (f-c 30 20) 30) ;; => true
+(= (f-c 45 67 11) 67) ;; => true

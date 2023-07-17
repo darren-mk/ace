@@ -1,6 +1,8 @@
 ;; merge
 (merge {:a 1 :b 3} {:b 9 :d 4}) ;; => {:a 1, :b 9, :d 4}
 
-;; for vector, works like conj
-(merge [1 2] 3) ;; => [1 2 3]
-(conj [1 2] 3) ;; => [1 2 3]
+(defn merge-a [a b]
+  (let [f (fn [m [k v]] (assoc m k v))]
+    (reduce f a b)))
+(merge-a {:a 1 :b 3} {:b 9 :d 4})
+;; => {:a 1, :b 9, :d 4}

@@ -36,3 +36,16 @@
 ;; => [:a "a"]
 ((juxt-alt-1 :a :b) {:a 1 :b 2 :c 3 :d 4})
 ;; => [1 2]
+
+;; https://michaelwhatcott.com/comp-and-juxt/
+(def points [[2 4] [1 4] [4 4] [5 1] [1 5] [4 3]])
+
+(map (juxt last first) points)
+;; => ([4 2] [4 1] [4 4] [1 5] [5 1] [3 4])
+
+;; compare it with compt
+((juxt last first) [1 2 3])
+;; => [3 1]
+
+((comp last first) [[1 2 3] 4 5])
+;; => 3

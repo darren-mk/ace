@@ -10,11 +10,5 @@
 (flatten nil)
 ;; => ()
 
-(flatten 5)
-;; => ()
-
-(flatten {:name "Hubert" :age 23})
-;; => ()
-
 (flatten (seq {:name "Hubert" :age 23}))
 ;; => (:name "Hubert" :age 23)

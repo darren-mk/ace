@@ -73,3 +73,13 @@ mp-3
 (do (println "received at " (.getName (Thread/currentThread)))
     @heavy-answer)
 ;; => 42
+
+
+(def promised-f (promise))
+
+(def result (@promised-f 3)) ;; waiting
+
+(deliver promised-f (fn [x] (* x 1000)))
+
+result
+;; => 3000

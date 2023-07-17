@@ -1,4 +1,11 @@
 #lang racket
 
-(apply + '(1 2 3))
-;; 6
+;; let x = 123 ;; infix notation
+(define x 123)  ;; prefix notation
+
+(print 123) ;; prefix
+
+(define (oneArg x)
+  (println x) x)
+
+

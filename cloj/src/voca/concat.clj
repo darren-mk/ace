@@ -24,3 +24,15 @@
 (apply concat-a [[1 2] [3 4]]) ;; => (1 2 3 4)
 (concat-a [1 2] [3 4 5]) ;; => (1 2 3 4 5)
 (concat-a [1 2] '(3 4 5)) ;; => (1 2 3 4 5)
+
+(defn concat-b [& colls]
+  (let [f (fn [acc x] (conj acc x))
+        acc (first colls)
+        feed (-> colls rest flatten)]
+    (reduce f acc feed)))
+(concat-b [1 2] [3 4 5])
+(concat-b [1 2] '(:a :b :c) #{"x" "y"}) ;; => (1 2 :a :b :c "x" "y")
+(concat-b [1 2] [3 4]) ;; => (1 2 3 4)
+(apply concat-b [[1 2] [3 4]]) ;; => (1 2 3 4)
+(concat-b [1 2] [3 4 5]) ;; => (1 2 3 4 5)
+(concat-b [1 2] '(3 4 5)) ;; => (1 2 3 4 5)

@@ -58,3 +58,13 @@ words
 ;;     "repeated" 1,
 ;;     "" 1,
 ;;     "not" 1}
+
+(defn fnil-c [f v]
+  (fn [x]
+    (if (nil? x)
+      (f v)
+      (f x))))
+((fnil-c inc 1000) 1) ;; => 2
+((fnil-c inc 1000) nil) ;; => 1001
+((fnil-c + 1) nil) ;; => 1
+((fnil-c + 1) 1 2 3) ;; => 6

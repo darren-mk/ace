@@ -1,4 +1,4 @@
-#lang racket/base
+#lang racket
 
 (define (grade n)
   (cond [(< 8 n) "great"]

@@ -55,3 +55,27 @@
 (= (apply str (f4 "Leeeeeerrroyyy")) "Leroy") ;; => true
 (= (f4 [1 1 2 3 3 2 2 3]) '(1 2 3 2 3)) ;; => true
 (= (f4 [[1 2] [1 2] [3 4] [1 2]]) '([1 2] [3 4] [1 2])) ;; => true
+
+;; e
+(defn f-e [coll]
+  (loop [collected []
+         coll coll]
+    (if (empty? coll)
+      collected
+      (if (= (first coll) (last collected))
+        (recur collected (rest coll))
+        (recur (conj collected (first coll)) (rest coll))))))
+(= (apply str (f-e "Leeeeeerrroyyy")) "Leroy") ;; => true
+(= (f-e [1 1 2 3 3 2 2 3]) '(1 2 3 2 3)) ;; => true
+(= (f-e [[1 2] [1 2] [3 4] [1 2]]) '([1 2] [3 4] [1 2])) ;; => true
+
+;; f
+(defn f-f [coll]
+  (reduce (fn [acc x] (if (= (last acc) x)
+                        acc
+                        (conj acc x)))
+          []
+          coll))
+(= (apply str (f-f "Leeeeeerrroyyy")) "Leroy") ;; => true
+(= (f-f [1 1 2 3 3 2 2 3]) '(1 2 3 2 3)) ;; => true
+(= (f-f [[1 2] [1 2] [3 4] [1 2]]) '([1 2] [3 4] [1 2])) ;; => true

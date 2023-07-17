@@ -1,5 +1,3 @@
-
-
 (def d (list + 1 2 3))
 ;; => #'user/d
 

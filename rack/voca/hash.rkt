@@ -1,4 +1,4 @@
-#lang racket/base
+#lang racket
 
 (hash 1 2 3 4)
 ;; '#hash((1 . 2) (3 . 4))
