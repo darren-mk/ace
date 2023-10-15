@@ -21,3 +21,13 @@ let fb l =
 fb v1 = Some a1 // true
 fb v2 = Some a2 // true
 fb v3 = Some a3 // true
+
+let rec fc l = 
+    match l with
+    | [] -> failwith "collection is empty"
+    | [x] -> failwith "no second item"
+    | [a; b] -> a
+    | (_ :: tail) -> fc tail
+fc v1 = a1 // true
+fc v2 = a2 // true
+fc v3 = a3 // true

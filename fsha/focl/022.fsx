@@ -62,3 +62,40 @@ fE v2 = r2 // true
 fE v3 = r3 // true
 fE v4 = r4 // true
 fE v5 = r5 // true
+
+let f6 = List.length
+f6 v1 = r1 // true
+f6 v2 = r2 // true
+f6 v3 = r3 // true
+f6 v4 = r4 // true
+f6 v5 = r5 // true
+
+let f7 (l: 'a list) =
+    let rec f y (n:int) =
+        match y with 
+        | [] -> n
+        | (x::tail) -> f tail (n + 1)
+    f l 0
+f7 v1 = r1 // true
+f7 v2 = r2 // true
+f7 v3 = r3 // true
+f7 v4 = r4 // true
+f7 v5 = r5 // true
+
+let rec f8 l =
+    match l with
+    | [] -> 0
+    | (_::tail) -> 1 + (f8 tail)
+f8 v1 = r1 // true
+f8 v2 = r2 // true
+f8 v3 = r3 // true
+f8 v4 = r4 // true
+f8 v5 = r5 // true
+
+let f9 l = 
+    List.fold (fun acc item -> acc + 1) 0 l
+f9 v1 = r1 // true
+f9 v2 = r2 // true
+f9 v3 = r3 // true
+f9 v4 = r4 // true
+f9 v5 = r5 // true

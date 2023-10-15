@@ -27,3 +27,18 @@ fb x1 y1 = r1 // true
 fb x2 y2 = r2 // true
 fb x3 y3 = r3 // true             
 fb x4 y4 = r4 // true
+
+let f3 l i = List.tryItem i l
+f3 x1 y1 // Some 6
+f3 x2 y2 // Some 'a'
+f3 x3 y3 // Some 2       
+f3 x4 y4 // Some [5; 6]
+
+let rec f4 l i = 
+    if i = 0 
+    then List.tryHead l
+    else f4 (List.tail l) (i - 1) 
+f4 x1 y1 // Some 6
+f4 x2 y2 // Some 'a'
+f4 x3 y3 // Some 2       
+f4 x4 y4 // Some [5; 6]

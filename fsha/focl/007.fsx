@@ -1,4 +1,4 @@
-// https://www.4clojure.com/problem/7
+// https://4clojure.oxal.org/#/problem/7
 
 // 1
 let v1 = [1; 2; 3; 4]

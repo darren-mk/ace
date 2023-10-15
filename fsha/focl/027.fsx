@@ -1,4 +1,5 @@
-(* https://4clojure.oxal.org/#/problem/27
+(* 
+https://4clojure.oxal.org/#/problem/27
 Problem 27
 Write a function which returns true if the given sequence is a palindrome.
 Hint: "racecar" does not equal '(\r \a \c \e \c \a \r)
@@ -6,7 +7,8 @@ Hint: "racecar" does not equal '(\r \a \c \e \c \a \r)
 (true? (__ "racecar"))
 (true? (__ [:foo :bar :foo]))
 (true? (__ '(1 1 3 3 1 1)))
-(false? (__ '(:a :b :c))) *)
+(false? (__ '(:a :b :c))) 
+*)
 
 let v1 = [1; 2; 3; 4; 5]
 let v2 = Array.toList <| "racecar".ToCharArray()

@@ -1,7 +1,7 @@
-(require '[clojure.core.async :refer
-           [chan go thread <!! >!! <!
-            close! timeout put!]])
-
+(ns voca.thread
+  (:require [clojure.core.async :as a :refer
+             [chan go thread <!! >!! <!
+              close! timeout put!]]))
 
 ;;;; example thread transient
 (defn example-thread-transient [ch]
@@ -176,3 +176,31 @@
 (do (println "it is calling at" (.getName (Thread/currentThread)))
     (.start thread-a))
  ;; it is calling at nREPL-session-c2038fe5-51a9-4bfe-9979-1b8c8d1d9fe8
+
+
+;; as counterexample to go using 8 threads
+(def thrds (atom #{}))
+(doseq [n (range 100)]
+  (a/thread
+    (swap! thrds conj (.getName (Thread/currentThread)))
+    (println n)))
+@thrds
+#{"async-thread-macro-8" "async-thread-macro-21"
+  "async-thread-macro-9" "async-thread-macro-30"
+  "async-thread-macro-17" "async-thread-macro-1"
+  "async-thread-macro-24" "async-thread-macro-27"
+  "async-thread-macro-6" "async-thread-macro-7"
+  "async-thread-macro-13" "async-thread-macro-22"
+  "async-thread-macro-18" "async-thread-macro-20"
+  "async-thread-macro-29" "async-thread-macro-19"
+  "async-thread-macro-2" "async-thread-macro-28"
+  "async-thread-macro-14" "async-thread-macro-33"
+  "async-thread-macro-10" "async-thread-macro-32"
+  "async-thread-macro-12" "async-thread-macro-4"
+  "async-thread-macro-26" "async-thread-macro-31"
+  "async-thread-macro-15" "async-thread-macro-25"
+  "async-thread-macro-11" "async-thread-macro-5"
+  "async-thread-macro-16" "async-thread-macro-3"
+  "async-thread-macro-23"}
+(count @thrds)
+33

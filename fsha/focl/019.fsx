@@ -25,3 +25,28 @@ let f2 l = List.rev >> List.head <| l
 f2 v1 = 5 // true
 f2 v2 = 3 // true
 f2 v3 = 'd' // true
+
+// 3
+let f3 = List.last
+f3 v1 // 5
+f3 v2 // 3
+f3 v3 // 'd'
+
+let rec f4 l = 
+    match l with
+    | [] -> failwith "no item in the collection"
+    | [x] -> x
+    | (_::tail) -> f4 tail
+f4 v1 // 5
+f4 v2 // 3
+f4 v3 // 'd'
+
+let f5 x = List.rev >> List.head <| x
+f5 v1 // 5
+f5 v2 // 3
+f5 v3 // 'd'
+
+let f6 l = l |> List.rev |> List.head
+f6 v1 // 5
+f6 v2 // 3
+f6 v3 // 'd'

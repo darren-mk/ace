@@ -1,3 +1,8 @@
+let f x = x > 5
+List.filter f [3; 4; 5; 6; 7] // [6; 7]
+Array.filter f [| 3; 4; 5; 6; 7 |] // [|6; 7|]
+Seq.filter f [3 .. 7] // seq [6; 7]
+
 // A
 let rec filterA f l =
     match l with

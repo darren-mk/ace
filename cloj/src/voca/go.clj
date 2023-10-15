@@ -56,3 +56,25 @@
   (a/<! (a/timeout 1000))
   (println "go #1 done"))
 (a/close! c)
+
+
+;; see what threads are used in go
+;; official docs say a pool of 8 threads by default
+;; can we test it so?
+
+(def thrds (atom #{}))
+
+(doseq [n (range 500)]
+  (a/go
+    (swap! thrds conj (.getName (Thread/currentThread)))
+    (println n)))
+
+@thrds
+#{"async-dispatch-4"
+  "async-dispatch-7"
+  "async-dispatch-1"
+  "async-dispatch-6"
+  "async-dispatch-3"
+  "async-dispatch-8"
+  "async-dispatch-2"
+  "async-dispatch-5"}

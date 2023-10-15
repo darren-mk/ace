@@ -9,3 +9,6 @@
 
 (vector 1 :a "c")
 ;; #(1 :A "c")
+
+(defvar fruits
+  (vector 'apple 'banana 'cherry))

@@ -25,3 +25,27 @@ let rec max3 l =
     | [] -> None
     | head::tail -> larger head (max3 tail)
 max3 [Some 1; Some 2; Some 3]
+
+
+let pass x = x
+
+let my_name = pass "Darren"
+
+let my_number = pass 123
+
+
+type Person = 
+    { id : int
+    ; name : string }
+
+type Athlete = 
+    { id : int 
+    ; race : string }
+
+let of_id m = m.id
+// tight coupling 
+
+let person1 = { id = 123 ; name = "abc" }
+let athlete1 = { id = 456 ; race = "cycling" }
+
+// let a = of_id person1

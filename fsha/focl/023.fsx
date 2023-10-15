@@ -6,10 +6,10 @@ Write a function which reverses a sequence.
 (= (__ [[1 2][3 4][5 6]]) [[5 6][3 4][1 2]])
 Special Restrictions : reverse *)
 
-
-let (v1: int list), (r1: int list) = [1; 2; 3; 4; 5], [5; 4; 3; 2; 1] ;;
-let (v2: int list), (r2: int list) = [2; 5; 7], [7; 5; 2] ;;
-let (v3: int list list), (r3: int list list) = [[1; 2]; [3; 4]; [5; 6]], [[5; 6]; [3; 4]; [1; 2]] ;;
+let (v1: int list), (r1: int list) = [1; 2; 3; 4; 5], [5; 4; 3; 2; 1]
+let (v2: int list), (r2: int list) = [2; 5; 7], [7; 5; 2]
+let (v3: int list list), (r3: int list list) = 
+    [[1; 2]; [3; 4]; [5; 6]], [[5; 6]; [3; 4]; [1; 2]]
 
 // A
 let rec fA (l: 'a list) =
@@ -29,7 +29,22 @@ fB v3 = r3 // true
 
 // C
 let rec fC (l: 'a list) = 
-    List.fold (fun (acc: 'a list) (x: 'a) -> acc @ [x]) [] l;;
+    List.fold (fun (acc: 'a list) (x: 'a) -> [x] @ acc) [] l;;
 fC v1 = r1 ;; // true
 fC v2 = r2 ;; // true
 fC v3 = r3 ;; // true
+
+let rec f4 l =
+    match l with
+    | [] -> []
+    | (x::xs) -> (f4 xs) @ [x]
+f4 v1 = r1 ;; // true
+f4 v2 = r2 ;; // true
+f4 v3 = r3 ;; // true
+
+let f5 l =
+    let f = (fun (acc: 'a list) (x: 'a) -> [x] @ acc)
+    List.fold f [] l
+f5 v1 = r1 // true
+f5 v2 = r2 // true
+f5 v3 = r3 // true
