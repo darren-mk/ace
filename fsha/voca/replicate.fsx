@@ -22,3 +22,8 @@ let replicate2 n v =
   List.map (fun _ -> v) [1 .. n]
 replicate2 3 "a" // ["a"; "a"; "a"]
 replicate2 4 2 // [2; 2; 2; 2]
+
+let replicate3 n v =
+  List.fold (fun acc x -> acc @ [v] ) [] [ 1 .. n ]
+replicate3 3 "a" // ["a"; "a"; "a"]
+replicate3 4 2 // [2; 2; 2; 2]
