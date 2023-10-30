@@ -26,3 +26,10 @@
 (= (f-c 1 8 3 4) 8) ;; => true
 (= (f-c 30 20) 30) ;; => true
 (= (f-c 45 67 11) 67) ;; => true
+
+(defn f4 [& nums]
+  (reduce (fn [acc x] (if (< acc x) x acc))
+          (first nums) nums))
+(= (f4 1 8 3 4) 8) ;; => true
+(= (f4 30 20) 30) ;; => true
+(= (f4 45 67 11) 67) ;; => true
