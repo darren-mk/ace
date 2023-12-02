@@ -5,3 +5,4 @@ obj
 .lsp
 .vscode/
 *.xcuserstate
+.idea/

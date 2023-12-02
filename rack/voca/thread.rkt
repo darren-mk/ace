@@ -50,3 +50,11 @@
 ;; 4 - 1 = 3
 ;; 1 + 1 = 2
 ;; 2 + 2 = 4
+
+
+(define (make-thread i)
+  (thread (lambda ()
+            (displayln i))))
+
+(for ((i (range 1 10000000)))
+  (make-thread i))
