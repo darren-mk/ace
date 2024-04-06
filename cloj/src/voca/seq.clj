@@ -1,8 +1,38 @@
+;; Returns a seq on the collection.
+;; If the collection is empty, returns nil.
+;; (seq nil) returns nil. seq also works on
+;; Strings, native Java arrays (of reference types)
+;; and any objects that implement Iterable.
+;; Note that seqs cache values, thus seq
+;; should not be used on any Iterable whose iterator repeatedly
+;; returns the same mutable object.
+
 (seq [1 2 3])
 ;; => (1 2 3)
 
 (seq #{1 2 3})
 ;; => (1 3 2)
+
+(seq '(1))
+;;=> (1)
+
+(seq [1 2])
+;;=> (1 2)
+
+(seq "abc")
+;;=> (\a \b \c)
+
+(seq nil)
+;;=> nil
+
+(seq '())
+;;=> nil
+
+(seq [])
+;;=> nil
+
+(seq "")
+;;=> nil
 
 (type (seq [1 2 3]))
 ;; => clojure.lang.PersistentVector$ChunkedSeq

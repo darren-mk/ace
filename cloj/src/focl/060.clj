@@ -2,15 +2,20 @@
 
 
 (defn f1
-  ([f l]
-   (f1 f l nil 0))
-  ([f l init]
-   (f1 f l init 0))
-  ([f l init n]
-   (lazy-seq (cons (apply f (if (zero? n) [init] (take n l)))
-                     (f1 f l (inc n))))))
-(take 5 (f1 + (range)))
-(cons 1 2 [3 4])
+  ([f seq]
+   (f1 f seq '()))
+  ([f seq result]
+   (cond (empty? seq) result
+         (empty? result) (f1 f (rest seq) (cons (f (first seq)) result))
+         :else (f1 f (rest seq)
+                   (cons
+                    (f (first seq) (last result))
+                    result)))))
+
+(f1 + [1 2 3 4 5])
+
+(cons 1 '(2 3))
+
 
 (= (take 5 (f1 + (range))) [0 1 3 6 10])
 (= (f1 conj [1] [2 3 4]) [[1] [1 2] [1 2 3] [1 2 3 4]])
