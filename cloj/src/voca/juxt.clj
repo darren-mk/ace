@@ -26,15 +26,15 @@
 ;; => ["darren" "kim"]
 
 ;; implementation 1
-(defn juxt-alt-1 [& fs]
+(defn juxt' [& fs]
   (fn [x]
     (-> (for [f fs]
           (f x))
         vec)))
 ;; => #'user/juxt-alt-1
-((juxt-alt-1 identity name) :a)
+((juxt' identity name) :a)
 ;; => [:a "a"]
-((juxt-alt-1 :a :b) {:a 1 :b 2 :c 3 :d 4})
+((juxt' :a :b) {:a 1 :b 2 :c 3 :d 4})
 ;; => [1 2]
 
 ;; https://michaelwhatcott.com/comp-and-juxt/
@@ -49,3 +49,21 @@
 
 ((comp last first) [[1 2 3] 4 5])
 ;; => 3
+
+;; implementation 2
+
+(defn juxt'' [& fs]
+  (fn [& xs] (map (fn [f] (apply f xs)) fs)))
+
+(= [13 72 3 6] ((juxt'' + * min max) 3 4 6))
+:=> true
+(= ['(1 2 3) '(4 5 6)] ((juxt'' take drop) 3 [1 2 3 4 5 6]))
+:=> true
+(= ['(0 2 4 6 8) '(1 3 5 7)]
+   ((juxt'' (partial filter even?)
+          (partial filter odd?)) (range 0 9)))
+:=> true
+(= ["Gates" "Bill"]
+   ((juxt'' :lname :fname) {:fname "Bill" :lname "Gates"}))
+:=> true
+

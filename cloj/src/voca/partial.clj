@@ -25,12 +25,8 @@
 (map (partial / 1) [1 2 3 4 5])
 ;; => (1 1/2 1/3 1/4 1/5)
 
-
-;;;; implementation
-
-(defn partial-2 [f & xs]
+(defn partial' [f & xs]
   (fn [& ys]
     (apply f (concat xs ys))))
+(= 318 ((partial' + 101 202) 1 2 3 4 5)) :=> true
 
-((partial-2 + 101 202) 1 2 3 4 5)
-;; => 318
