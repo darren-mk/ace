@@ -41,4 +41,12 @@ my-delay
 
 (let [cur-thread-name (.getName (Thread/currentThread))]
   (println "copied now at " cur-thread-name)
-  (= cur-thread-name @delayed-v)) ;; true
+  (= cur-thread-name @delayed-v)) :=> true
+
+(let [d (delay
+          (println (.getName (Thread/currentThread)))
+          (println "yay"))]
+  (println (.getName (Thread/currentThread)))
+  (println "main starts")
+  (Thread/sleep 3000)
+  @d)

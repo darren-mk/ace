@@ -8,10 +8,10 @@
 ;; returns the same mutable object.
 
 (seq [1 2 3])
-;; => (1 2 3)
+:=> '(1 2 3)
 
 (seq #{1 2 3})
-;; => (1 3 2)
+:=> '(1 3 2)
 
 (seq '(1))
 ;;=> (1)
@@ -35,25 +35,46 @@
 ;;=> nil
 
 (type (seq [1 2 3]))
-;; => clojure.lang.PersistentVector$ChunkedSeq
+:=> "clojure.lang.PersistentVector$ChunkedSeq"
 
 (type (seq #{1 2 3}))
-;; => clojure.lang.APersistentMap$KeySeq
+:=> "clojure.lang.APersistentMap$KeySeq"
 
 (type (seq {1 2 3 4}))
-;; => clojure.lang.PersistentArrayMap$Seq
+:=> "clojure.lang.PersistentArrayMap$Seq"
 
 (seq? [1 2 3])
-;; => false
+:=> false
 
 (seq? '(1 2 3))
-;; => true
+:=> true
 
 (list? '(1 2 3))
-;; => true
+:=> true
 
 (seq? #{1 2 3})
-;; => false
+:=> false
 
 (type (range 10))
-;; => clojure.lang.LongRange
+:=> "clojure.lang.LongRange"
+
+(list? (rest '(1 2 3)))
+:=> true
+
+(list? (rest [1 2 3]))
+:=> false
+
+(rest '(1 2 3))
+:=> '(2 3)
+
+(rest [1 2 3])
+:=> '(2 3)
+
+(type (rest '(1 2 3)))
+:=> "clojure.lang.PersistentList"
+
+(type (rest [1 2 3]))
+:=> "clojure.lang.PersistentVector$ChunkedSeq"
+
+(seq? (rest [1 2 3]))
+:=> true
