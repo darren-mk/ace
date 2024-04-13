@@ -1,5 +1,5 @@
 {:paths ["src"]
- :deps {org.clojure/clojure {:mvn/version "1.10.1"}
+ :deps {org.clojure/clojure {:mvn/version "1.11.2"}
         cider/nrepl {:mvn/version "0.3.0"}
         clojure.java-time/clojure.java-time {:mvn/version "0.3.2"}
         com.stuartsierra/component {:mvn/version "1.0.0"}

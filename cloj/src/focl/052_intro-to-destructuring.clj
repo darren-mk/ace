@@ -1,4 +1,4 @@
-;; https://www.4clojure.com/problem/52
+;; https://4clojure.oxal.org/#/problem/52
 
-;; 1
-(= [2 4] (let [[_ _ c _ e] [0 1 2 3 4]] [c e])) ;; => true
+(= [2 4] (let [[a b c d e f g] (range)] [c e]))
+:=> true
