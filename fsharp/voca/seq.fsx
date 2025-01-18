@@ -9,8 +9,6 @@ better performance than a list in situations
 in which not all the elements are used. 
 *)
 
-
-
 seq { 1 .. 5 } 
 // val it: seq<int> = seq [1; 2; 3; 4; ...]
 

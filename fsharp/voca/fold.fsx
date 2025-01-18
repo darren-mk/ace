@@ -1,4 +1,3 @@
-
 // implementation
 
 let rec fold1 f a l =
