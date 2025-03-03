@@ -2,26 +2,25 @@
 
 ;; sequential destructuring
 (let [[a b] [1 2]] (+ a b)) ;; => 3
-(let [[h & ts] [1 2 3]] (type h)) ;; => java.lang.Long
-(let [[h & ts] [1 2 3]] (type ts)) ;; => clojure.lang.PersistentVector$ChunkedSeq
+(let [[h & _ts] [1 2 3]] h) ;; => 1
+(let [[_h & ts] [1 2 3]] ts) ;; => (2 3)
 (let [[a _ c] [1 2 3]] [a c]) ;; => [1 3]
-(let [[h :as all] [1 2 3]] h) ;; => 1
-(let [[h :as all] [1 2 3]] all) ;; => [1 2 3]
+(let [[h :as _all] [1 2 3]] h) ;; => 1
+(let [[_h :as all] [1 2 3]] all) ;; => [1 2 3]
 
 ;; associative destructuring
-(let [{name :name age :age}
-      {:name "jack" :age 50}] name) ;; => "jack"
-(let [{a :a, x :x, :or {x "Not found!"}, :as all}
+(let [{title :name} {:name "jack" :age 50}] title) ;; => "jack"
+(let [{_a :a, x :x, :or {x "Not found!"}, :as _all}
       {:a "A" :b "B" :c 3 :d 4}] x) ;; => "Not found!"
-(let [{a :a, x :x, :or {x "Not found!"}, :as all}
+(let [{_a :a, _x :x, :as all}
       {:a "A" :b "B" :c 3 :d 4}] all) ;; => {:a "A", :b "B", :c 3, :d 4}
-(let [{:keys [name age]}
+(let [{:keys [name _age]}
       {:name "jack" :age 50}] name) ;; => "jack"
-(let [{:keys [name age]}
+(let [{:keys [_name age]}
       {:name "jack" :age 50}] age) ;; => 50
-(let [{:strs [first-name last-name]}
+(let [{:strs [first-name _last-name]}
       {"first-name" "Joe" "last-name" "Smith"}] first-name) ;; => "Joe"
-(let [{:syms [first-name last-name]}
+(let [{:syms [_first-name last-name]}
       {'first-name "Jane" 'last-name "Doe"}] last-name) ;; => "Doe"
 
 ;; keyword arguments 

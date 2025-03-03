@@ -5,10 +5,10 @@
 ;; 1
 ;; 2
 
-(defn dotimes-f-a [x f]
+(defn dotimes' [x f]
   (doseq [y (range x)]
     (f y)))
-(dotimes-f-a 3 prn)
+(dotimes' 3 prn)
 ;; 0
 ;; 1
 ;; 2

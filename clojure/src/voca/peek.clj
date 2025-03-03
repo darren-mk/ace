@@ -25,3 +25,7 @@
 "Elapsed time: 0.1945 msecs"
 "Elapsed time: 0.307417 msecs"
 
+(defn peek' [[x & xs]]
+  (if xs (recur xs) x))
+(peek' [1 2 3]) ;; => 3
+(peek' '(1 2 3)) ;; => 3

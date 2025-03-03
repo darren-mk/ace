@@ -1,15 +1,14 @@
-(ns voca.alt
-  (:require [clojure.core.async :as a]))
+(require '[clojure.core.async :as a])
 
-;; basics 1
-(def c1 (a/chan))
-(def c2 (a/chan))
-(def switch (atom true))
-(a/go (while @switch
-        (let [[v ch] (a/alts! [c1 c2])]
-          (println "reads" v "from" ch))))
-(a/go (a/>! c1 "yo!"))
-(a/go (a/>! c2 "ye!"))
-(a/close! c1)
-(a/close! c2)
-(swap! switch not)
+(let [c1 (a/chan)
+      c2 (a/chan)]
+  (a/go (let [[v ch] (a/alts! [c1 c2])]
+          (println v)
+          (println ch)))
+  (case (rand-int 2)
+    0 (a/go (a/>! c1 "yo!"))
+    1 (a/go (a/>! c2 "ye!"))))
+;; ye!
+;; 0x1a290b36
+;; yo!
+;; 0x4eaee42b

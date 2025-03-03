@@ -4,17 +4,27 @@
 ;;;; implementation
 
 ;; a
-(defn butlast-a [coll]
+(defn butlast' [coll]
   (vals
    (filter #(not= (dec (count coll)) (key %))
            (zipmap (range) coll))))
-(butlast-a [1 2 3 4]) ;; => (1 2 3)
-(butlast-a '(:a "x" 123)) ;; => (:a "x")
+(butlast' [1 2 3 4]) ;; => (1 2 3)
+(butlast' '(:a "x" 123)) ;; => (:a "x")
 
 ;; b
-(defn butlast-b [coll]
+(defn butlast'' [coll]
   (if (= 1 (count coll))
     nil
-    (cons (first coll) (butlast-b (rest coll)))))
-(butlast-b [1 2 3 4]) ;; => (1 2 3)
-(butlast-b (list :a "x" 123)) ;; => (:a "x")
+    (cons (first coll) (butlast'' (rest coll)))))
+(butlast'' [1 2 3 4]) ;; => (1 2 3)
+(butlast'' (list :a "x" 123)) ;; => (:a "x")
+
+(defn butlast'''
+  ([col]
+   (butlast''' col []))
+  ([[x & xs :as col] acc]
+   (if (= 1 (count col))
+     (seq acc)
+     (butlast''' xs (conj acc x)))))
+(butlast''' [1 2 3 4]) ;; => (1 2 3)
+(butlast''' (list :a "x" 123)) ;; => (:a "x")

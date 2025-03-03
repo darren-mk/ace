@@ -28,5 +28,5 @@
 (defn partial' [f & xs]
   (fn [& ys]
     (apply f (concat xs ys))))
-(= 318 ((partial' + 101 202) 1 2 3 4 5)) :=> true
-
+(let [f (partial' + 10 20)]
+  (f 1 2 3)) ;; => 36

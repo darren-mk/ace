@@ -33,3 +33,12 @@
 (.contains [:a :b :c] :c) ;; => true
 (contains? (set [:a :b :c]) :b) ;; => true
 (contains? #{:a :b} :a) ;; => true
+
+(defn contains?' [[x & xs] elem]
+  (if (= x elem)
+    true
+    (if xs
+      (contains?' xs elem)
+      false)))
+(contains?' [:a :b] :a) ;; => true
+(contains?' #{:a :b} :a) ;; => true

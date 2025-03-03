@@ -15,3 +15,16 @@
 
 (partition 1 [:a :b :c])
 ;; => ((:a) (:b) (:c))
+
+(defn partition'
+  ([n col]
+   (partition' n col []))
+  ([n col acc]
+   (if (empty? col) (seq acc)
+       (partition'
+        n (drop n col)
+        (if (< (count col) n)
+          acc
+          (conj acc (take n col)))))))
+(partition' 2 [1 2 3 4 5 6]) ;; => ((1 2) (3 4) (5 6))
+(partition' 2 [1 2 3 4 5]) ;; => ((1 2) (3 4))

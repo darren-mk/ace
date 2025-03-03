@@ -17,3 +17,7 @@
 ;; => #'user/x
 (bound? #'x)
 ;; => true
+
+(bound? #'abc)
+;; => Syntax error compiling var at (src/voca/bound.clj:21:1).
+;;    Unable to resolve var: abc in this context

@@ -1,5 +1,4 @@
-(ns voca.go
-  (:require [clojure.core.async :as a]))
+(require '[clojure.core.async :as a])
 
 ;; https://clojuredocs.org/clojure.core.async/go
 ;; Asynchronously executes the body, returning immediately to the
@@ -15,7 +14,7 @@
 ;; "123"
 
 (doseq [n (range 10)
-        :let [i (-> n inc range rand-nth)]]                    
+        :let [i (-> n inc range rand-nth)]]
   (a/go
     (a/<! (a/timeout (* i 1000)))
     (println n)))
@@ -30,45 +29,21 @@
 ;; go #2 done
 ;; go #1 done
 
-(let [lc (a/chan)]
+(let [c (a/chan)]
   (a/go
-    (if (= :ok (a/<! lc))
-      (println "go #2 done")
-      (println "something wrong with #2")))
+    (when (= :ok (a/<! c))
+     (println "go block 1 received :ok")))
   (a/go
     (a/<! (a/timeout 1000))
-    (a/>! lc :ok)
-    (a/<! (a/timeout 1000))
-    (println "go #1 done")))
-
-(def c (a/chan))
-(a/go
-  (if (= :ok (a/<! c))
-    (println "go #2 done")
-    (println "something wrong with #2")))
-(a/go
-  (if (= :ok (a/<! c))
-    (println "go #3 done")
-    (println "something wrong with #3")))
-(a/go
-  (a/<! (a/timeout 1000))
-  (a/>! c :ok)
-  (a/<! (a/timeout 1000))
-  (println "go #1 done"))
-(a/close! c)
-
-
-;; see what threads are used in go
-;; official docs say a pool of 8 threads by default
-;; can we test it so?
+    (println "go block 2 sends :ok")
+    (a/>! c :ok)
+    (a/<! (a/timeout 1000))))
 
 (def thrds (atom #{}))
-
 (doseq [n (range 500)]
   (a/go
     (swap! thrds conj (.getName (Thread/currentThread)))
     (println n)))
-
 @thrds
 #{"async-dispatch-4"
   "async-dispatch-7"

@@ -15,3 +15,8 @@
 
 (type (rest #{1 2 3}))
 ;; => clojure.lang.APersistentMap$KeySeq
+
+(defn rest' [[_ & xs]]
+  xs)
+(rest' [1 2 3]) ;; => (2 3)
+

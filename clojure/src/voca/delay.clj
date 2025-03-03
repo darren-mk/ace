@@ -49,4 +49,13 @@ my-delay
   (println (.getName (Thread/currentThread)))
   (println "main starts")
   (Thread/sleep 3000)
-  @d)
+  @d) ;; same thread
+
+(def dl
+  (delay 123)) ;; => #'user/dl
+(realized? dl) ;; => false
+dl ;; => #<Delay@58d9026f: :not-delivered>
+@dl ;; => 123
+(realized? dl) ;; => true
+dl ;; => #<Delay@10cc44a1: 123>
+@dl ;; => 123

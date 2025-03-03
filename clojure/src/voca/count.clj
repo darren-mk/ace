@@ -29,3 +29,15 @@
 (count-using-loop []) ;; => 0
 (count-using-loop nil) ;; => 0
 (count-using-loop "string") ;; => 6
+
+(defn count'''
+  ([items]
+   (count''' 0 items))
+  ([acc [x & xs]]
+   (if xs
+     (count''' (inc acc) xs)
+     (if x (inc acc) acc))))
+(count''' [1 2 3]) ;; => 3
+(count''' []) ;; => 0
+(count''' nil) ;; => 0
+(count''' "string") ;; => 6

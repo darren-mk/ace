@@ -77,3 +77,7 @@
 ;; => #'user/reduce-c
 (reduce-c (fn [a b] (+ a b 100)) 0 [1 2 3])
 ;; => 306
+
+(defn reduce'''' [f b [x & xs]]
+  (if x (recur f (f b x) xs) b))
+(reduce'''' #(+ %1 %2 100) 0 [1 2 3]) ;; => 306

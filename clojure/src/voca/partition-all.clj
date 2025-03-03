@@ -16,3 +16,24 @@
 
 (type (partition-all 2 [1 2 3 4 5]))
 ;; => clojure.lang.LazySeq
+
+(defn partition-all'
+  ([n col]
+   (partition-all' n col []))
+  ([n [x & xs :as axs] acc]
+   (cond (empty? axs) acc
+         (zero? (count (last acc)))
+         (partition-all'
+          n xs
+          (assoc acc 0 [x]))
+         (< (count (last acc)) n)
+         (partition-all'
+          n xs
+          (update acc (dec (count acc)) conj x))
+         :else
+         (partition-all'
+          n xs
+          (update acc (count acc) conj x)))))
+(partition-all' 4 [1 2 3 4 5 6]) ;; => [[1 2 3 4] (6 5)]
+(partition-all' 4 []) ;; => []
+(partition-all' 4 [1]) ;; => [[1]]

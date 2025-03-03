@@ -2,20 +2,21 @@
 
 (defprotocol Area
   (get-area [this]))
-;; => Area
 
 (defrecord Rectangle [width height]
   Area
   (get-area [this]
+    (println this)
     (* width height)))
-;; => user.Rectangle
 
-(extends? Area Rectangle)
-;; => true
+(extends? Area Rectangle) ;; => true
 
 ;; (extends? Rectangle Area)
 ;; error
 
+(def rect (->Rectangle 2 3))
+rect ;; => {:width 2, :height 3}
+(get-area rect) ;; => 6
 
 ;;;; extend
 
@@ -25,7 +26,7 @@
 ;; => IBaz
 
 (def DefaultBaz
-  {:foo (fn [_] (str "DefaultBaz:foo"))
+  {:foo (fn [_] "DefaultBaz:foo")
    :bar (fn [_] (str "DefaultBaz::bar"))})
 ;; => #'user/DefaultBaz
 

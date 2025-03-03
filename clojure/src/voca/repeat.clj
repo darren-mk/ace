@@ -27,3 +27,7 @@
 
 (time (repeat'' 100000 :x))
 "Elapsed time: 0.375791 msecs"
+
+(defn repeat''' [n x]
+  (lazy-seq (map (constantly x) (range n))))
+(repeat''' 5 "x") ;; => ("x" "x" "x" "x" "x")

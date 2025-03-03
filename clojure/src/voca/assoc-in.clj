@@ -19,8 +19,13 @@
 
 
 ;; implementation
+(defn assoc-in' [m [k & ks] v]
+  (if ks
+    (assoc m k (assoc-in' (get m k) ks v))
+    (assoc m k v)))
 
-(defn assoc-in-a [col vec v]
-  
-
-  )
+(assoc-in'
+ {:a {:b {:c 123}}}
+ [:a :b :c]
+ 456)
+;; => {:a {:b {:c 456}}}

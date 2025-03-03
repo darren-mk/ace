@@ -52,3 +52,15 @@ t
 (assoc-b nil :key1 4) ;; => {:key1 4}
 (assoc-b [1 2 3] 3 10) ;; => [1 2 3 10]
 (assoc-b [1 2 3] 0 100) ;; => [100 2 3]
+
+;; c
+(defn assoc''' [m k v]
+  (let [f (fn [[k' v']]
+            (if (= k' k) {k v}
+                {k' v'}))]
+    (apply merge (map f (merge m {k nil})))))
+(assoc''' {:a 1 :b 2} :b 3)
+;; => {:a 1, :b 3}
+(assoc''' {:a 1 :b 2} :c 4)
+;; => {:a 1, :b 2, :c 4}
+

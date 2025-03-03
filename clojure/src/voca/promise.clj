@@ -83,3 +83,19 @@ mp-3
 
 result
 ;; => 3000
+
+
+(def p4
+  (promise))
+;; => #'user/p4
+
+(realized? p4)
+;; => false
+
+(deliver p4 println)
+;; => #<Promise@60eef205: #function[clojure.core/println]>
+
+(realized? p4)
+;; => true
+
+(@p4 "yay") ;; yay

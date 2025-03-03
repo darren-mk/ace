@@ -7,3 +7,12 @@
 
 x
 ;; => 1
+
+(def ^:dynamic y 2)
+
+(binding [y 3]
+  (* y y))
+;; => 9
+
+(* y y)
+;; => 4
