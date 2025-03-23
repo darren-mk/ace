@@ -67,3 +67,12 @@
    ((juxt'' :lname :fname) {:fname "Bill" :lname "Gates"}))
 :=> true
 
+(defn juxt''' [& fs]
+  (fn [& xs] (map #(apply % xs) fs)))
+((juxt''' + * min max) 3 4 6) ;; => (13 72 3 6)
+((juxt''' take drop) 3 [1 2 3 4 5 6]) ;; => ((1 2 3) (4 5 6))
+((juxt''' (partial filter even?)
+          (partial filter odd?)) (range 0 9))
+;; => ((0 2 4 6 8) (1 3 5 7))
+((juxt''' :lname :fname) {:fname "Bill" :lname "Gates"})
+;; => ("Gates" "Bill")

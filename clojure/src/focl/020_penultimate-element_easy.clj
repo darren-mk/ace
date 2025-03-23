@@ -50,3 +50,12 @@
 (= (f5 (list 1 2 3 4 5)) 4) ;; => true
 (= (f5 ["a" "b" "c"]) "b") ;; => true
 (= (f5 [[1 2] [3 4]]) [1 2]) ;; => true
+
+(defn f6
+  ([col]
+   (f6 nil col))
+  ([prev [x & xs]]
+   (if xs (recur x xs) prev)))
+(= (f6 (list 1 2 3 4 5)) 4) ;; => true
+(= (f6 ["a" "b" "c"]) "b") ;; => true
+(= (f6 [[1 2] [3 4]]) [1 2]) ;; => true

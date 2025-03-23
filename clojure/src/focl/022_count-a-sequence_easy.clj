@@ -57,3 +57,23 @@
 (= (f4 [[1 2] [3 4] [5 6]]) 3) ;; => true
 (= (f4 '(13)) 1) ;; => true
 (= (f4 '(:a :b :c)) 3) ;; => true
+
+(defn f5 [[x & xs]]
+  (if x (+ 1 (f5 xs)) 0))
+(= (f5 '(1 2 3 3 1)) 5) ;; => true
+(= (f5 "Hello World") 11) ;; => true
+(= (f5 [[1 2] [3 4] [5 6]]) 3) ;; => true
+(= (f5 '(13)) 1) ;; => true
+(= (f5 '(:a :b :c)) 3) ;; => true
+
+(defn f6
+  ([col]
+   (f6 col 0))
+  ([[x & xs] len]
+   (if x (recur xs (inc len))
+       len)))
+(= (f6 '(1 2 3 3 1)) 5) ;; => true
+(= (f6 "Hello World") 11) ;; => true
+(= (f6 [[1 2] [3 4] [5 6]]) 3) ;; => true
+(= (f6 '(13)) 1) ;; => true
+(= (f6 '(:a :b :c)) 3) ;; => true

@@ -46,3 +46,13 @@
 (= (f4 [1 2 3 4 5]) [5 4 3 2 1]) ;; => true
 (= (f4 (sorted-set 5 7 2 7)) '(7 5 2)) ;; => true
 (= (f4 [[1 2][3 4][5 6]]) [[5 6][3 4][1 2]]) ;; => true
+
+(defn f5
+  ([col]
+   (f5 col '()))
+  ([[x & xs] reversed]
+   (if x (recur xs (conj reversed x))
+       reversed)))
+(= (f5 [1 2 3 4 5]) [5 4 3 2 1]) ;; => true
+(= (f5 (sorted-set 5 7 2 7)) '(7 5 2)) ;; => true
+(= (f5 [[1 2][3 4][5 6]]) [[5 6][3 4][1 2]]) ;; => true

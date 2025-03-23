@@ -40,3 +40,9 @@
 (= (f3 "HeLlO, WoRlD!") "HLOWRD") ;; => true
 (empty? (f3 "nothing")) ;; => true
 (= (f3 "$#A(*&987Zf") "AZ") ;; => true
+
+(defn f4 [s]
+  (apply str (filter #(Character/isUpperCase %) s)))
+(= (f4 "HeLlO, WoRlD!") "HLOWRD") ;; => true
+(empty? (f4 "nothing")) ;; => true
+(= (f4 "$#A(*&987Zf") "AZ") ;; => true
