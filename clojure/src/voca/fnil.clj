@@ -1,15 +1,8 @@
-((fnil inc 1000) 1)
-;; => 2
-
-((fnil inc 1000) nil)
-;; => 1001
-
-((fnil + 1) nil)
-;; => 1
-
-((fnil + 1) 1 2 3)
-;; => 6
-
+((fnil inc 1000) 1) ;; => 2
+((fnil inc 1000) nil) ;; => 1001
+((fnil + 1) nil) ;; => 1
+((fnil + 1) 1 2 3) ;; => 6
+((fnil + 1) 1 2 nil) ;; => 3
 
 ;;;; implementation
 
@@ -76,3 +69,8 @@ words
 ((fnil'''' inc 1000) 1) ;; => 2
 ((fnil'''' inc 1000) nil) ;; => 1001
 ((fnil'''' + 1) 1 2 3 4) ;; => 10
+
+(defn fnil-5 [f v]
+  (fn [x] (if x (f x) (f v))))
+((fnil-5 inc 1000) 1) ;; => 2
+((fnil-5 inc 1000) nil) ;; => 1001

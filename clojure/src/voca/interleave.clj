@@ -44,3 +44,15 @@
 "Elapsed time: 0.16375 msecs"
 "Elapsed time: 0.181042 msecs"
 
+(defn interleave-4
+  ([a b]
+   (interleave-4 [] a b))
+  ([acc [a & as] [b & bs]]
+   (if-not (and a b) acc
+           (interleave-4
+            (concat acc [a b])
+            as bs))))
+(interleave-4 [1 2 3] [4 5 6]) :=> '(1 4 2 5 3 6)
+(interleave-4 '(1 2 3) [7 8 9]) :=> '(1 7 2 8 3 9)
+(interleave-4 [:a :b] [1 2 3]) :=> '(:a 1 :b 2)
+(interleave-4 [:a :b] [1 2]) :=> '(:a 1 :b 2)

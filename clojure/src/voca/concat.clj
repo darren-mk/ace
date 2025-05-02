@@ -30,9 +30,17 @@
         acc (first colls)
         feed (-> colls rest flatten)]
     (reduce f acc feed)))
-(concat'' [1 2] [3 4 5])
+(concat'' [1 2] [3 4 5]) ;; => [1 2 3 4 5]
 (concat'' [1 2] '(:a :b :c) #{"x" "y"}) ;; => (1 2 :a :b :c "x" "y")
 (concat'' [1 2] [3 4]) ;; => (1 2 3 4)
 (apply concat'' [[1 2] [3 4]]) ;; => (1 2 3 4)
 (concat'' [1 2] [3 4 5]) ;; => (1 2 3 4 5)
 (concat'' [1 2] '(3 4 5)) ;; => (1 2 3 4 5)
+
+(defn concat''' [a [x & xs]]
+  (if-not x a (concat''' (conj a x) xs)))
+(concat''' [1 2] [3 4 5]) ;; => [1 2 3 4 5]
+(concat''' [1 2] [3 4]) ;; => [1 2 3 4]
+(apply concat''' [[1 2] [3 4]]) ;; => [1 2 3 4]
+(concat''' [1 2] [3 4 5]) ;; => [1 2 3 4 5]
+(concat''' [1 2] '(3 4 5)) ;; => [1 2 3 4 5]

@@ -38,3 +38,17 @@
 (map''' #(+ % 1) '(1 2 3)) ;; => (2 3 4)
 (map''' #(+ % 1) [1 2 3]) ;; => (2 3 4)
 (map''' #(+ % 1) #{1 2 3}) ;; => (2 4 3)
+
+
+(defn map''''
+  ([f col]
+   (map'''' f col []))
+  ([f [x & xs] result]
+   (if-not  x
+     result
+     (map'''' f xs
+              (conj result (f x)))
+     
+    )))
+
+(map'''' inc [1 2 3])

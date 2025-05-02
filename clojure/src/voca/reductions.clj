@@ -17,3 +17,15 @@
      (seq (reduce af a col)))))
 (reductions' + [1 2 3]) ;; => (1 3 6)
 (reductions' - [1 2 3]) ;; => (1 -1 -4)
+
+(defn reductions-2
+  ([f col]
+   (reductions-2 [] f col))
+  ([acc f [x & xs]]
+   (let [tail (last acc)]
+     (if-not x acc
+             (reductions-2
+              (conj acc (if tail (f tail x) x))
+              f xs)))))
+(reductions-2 + [1 2 3]) ;; => (1 3 6)
+(reductions-2 - [1 2 3]) ;; => (1 -1 -4)

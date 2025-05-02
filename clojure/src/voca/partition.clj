@@ -28,3 +28,15 @@
           (conj acc (take n col)))))))
 (partition' 2 [1 2 3 4 5 6]) ;; => ((1 2) (3 4) (5 6))
 (partition' 2 [1 2 3 4 5]) ;; => ((1 2) (3 4))
+
+(defn partition-2
+  ([n col]
+   (partition-2 [] n col))
+  ([acc n col]
+   (lazy-seq
+    (if (< (count col) n) acc
+        (partition-2 (conj acc (take n col)) n
+                     (drop n col))))))
+(partition-2 2 [1 2 3 4 5 6]) ;; => ((1 2) (3 4) (5 6))
+(partition-2 2 [1 2 3 4 5]) ;; => ((1 2) (3 4))
+

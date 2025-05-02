@@ -24,3 +24,15 @@
 (zipmap-a [:a :b :c] [1 2 3 4]) ;; => {:a 1, :b 2, :c 3}
 (zipmap-a [:html :body] (repeat {:m 0 :p 0})) ;; => {:html {:m 0, :p 0}, :body {:m 0, :p 0}}
 (zipmap-a [:a :b :c] (repeat 0)) ;; => {:a 0, :b 0, :c 0}
+
+(defn zipmap-2
+  ([a b]
+   (zipmap-2 {} a b))
+  ([acc [x & xs] [y & ys]]
+   (if-not (and x y) acc
+           (zipmap-2 (assoc acc x y)
+                     xs ys))))
+(zipmap-2 [:a :b :c] [1 2 3]) ;; => {:a 1, :b 2, :c 3}
+(zipmap-2 [:a :b :c] [1 2 3 4]) ;; => {:a 1, :b 2, :c 3}
+(zipmap-2 [:html :body] (repeat {:m 0 :p 0})) ;; => {:html {:m 0, :p 0}, :body {:m 0, :p 0}}
+(zipmap-2 [:a :b :c] (repeat 0)) ;; => {:a 0, :b 0, :c 0}

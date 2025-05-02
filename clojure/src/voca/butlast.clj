@@ -28,3 +28,8 @@
      (butlast''' xs (conj acc x)))))
 (butlast''' [1 2 3 4]) ;; => (1 2 3)
 (butlast''' (list :a "x" 123)) ;; => (:a "x")
+
+(def butlast-4
+  (comp reverse rest reverse))
+(butlast-4 [1 2 3 4]) ;; => (1 2 3)
+(butlast-4 (list :a "x" 123)) ;; => (:a "x")

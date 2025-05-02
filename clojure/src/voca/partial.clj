@@ -30,3 +30,9 @@
     (apply f (concat xs ys))))
 (let [f (partial' + 10 20)]
   (f 1 2 3)) ;; => 36
+
+(defn partial-2
+  [f & xs]
+  (fn [& ys]
+    (apply f (concat xs ys))))
+((partial-2 + 1 2 3) 100 200) ;; => 306

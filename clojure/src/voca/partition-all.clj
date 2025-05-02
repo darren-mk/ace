@@ -37,3 +37,16 @@
 (partition-all' 4 [1 2 3 4 5 6]) ;; => [[1 2 3 4] (6 5)]
 (partition-all' 4 []) ;; => []
 (partition-all' 4 [1]) ;; => [[1]]
+
+(defn partition-all-2
+  ([n col]
+   (partition-all-2 [] n col))
+  ([acc n col]
+   (lazy-seq
+    (if (empty? col) acc
+        (partition-all-2
+         (conj acc (take n col))
+         n (drop n col))))))
+(partition-all-2 4 [1 2 3 4 5 6]) ;; => ((1 2 3 4) (5 6))
+(partition-all-2 4 []) ;; => ()
+(partition-all-2 4 [1]) ;; => ((1))

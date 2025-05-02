@@ -22,3 +22,14 @@
         flatten butlast lazy-seq)))
 (interpose'' 0 [1 2 3])
 :=> '(1 0 2 0 3)
+
+(defn interpose-3
+  ([c l]
+   (interpose-3 [] c l))
+  ([acc c [x & xs]]
+   (if-not x (butlast acc)
+           (interpose-3
+            (concat acc [x c])
+            c xs))))
+(interpose-3 0 [1 2 3])
+;; => (1 0 2 0 3)

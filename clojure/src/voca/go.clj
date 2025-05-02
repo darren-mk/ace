@@ -1,4 +1,6 @@
-(require '[clojure.core.async :as a])
+(require
+ '[clojure.core.async :as a]
+ '[clojure.string :as cstr])
 
 ;; https://clojuredocs.org/clojure.core.async/go
 ;; Asynchronously executes the body, returning immediately to the
@@ -10,14 +12,17 @@
 ;; Returns a channel which will receive the result of the body when
 ;; completed
 
-(a/go (prn "123"))
-;; "123"
+(a/go
+  (prn "123")
+  "abc")
+;; "123" is printed
+;; => #object[clojure.core.async.impl.channels.ManyToManyChannel 0xc4b576a "clojure.core.async.impl.channels.ManyToManyChannel@c4b576a"]
 
-(doseq [n (range 10)
-        :let [i (-> n inc range rand-nth)]]
-  (a/go
-    (a/<! (a/timeout (* i 1000)))
-    (println n)))
+(doseq [n (range 10)]
+  (let [i (-> n inc range rand-nth)]
+    (a/go
+      (a/<! (a/timeout (* i 1000)))
+      (println n))))
 ;; pauses for random time
 
 (do
@@ -53,3 +58,31 @@
   "async-dispatch-8"
   "async-dispatch-2"
   "async-dispatch-5"}
+
+(def walkie-talkie
+  (a/chan))
+
+(def one-time-listner
+  (a/go
+   (let [msg (a/<! walkie-talkie)]
+     (println "received: " msg))))
+
+(a/go
+  (loop []
+    (when-let [msg (a/<! walkie-talkie)]
+      (if (= msg :stop)
+        (println "Stopping listener.")
+        (do
+          (println "Received:" msg)
+          (recur))))))
+
+(defn talk
+  ([]
+   (a/go
+     (a/>! walkie-talkie)))
+  ([msg]
+   (a/go
+     (a/>! walkie-talkie msg))))
+
+(talk "yay")
+(talk :stop)
