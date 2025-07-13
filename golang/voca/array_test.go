@@ -21,3 +21,12 @@ func TestBoolArray(t *testing.T) {
 	assert.Equal(t, true, a[0], "no")
 	assert.Equal(t, false, a[1], "no")
 }
+
+func sum(a [3]int) int {
+	return a[0] + a[1] + a[2]
+}
+
+func TestPassArrayToFn(t *testing.T) {
+	a := [3]int{1, 2, 3}
+	assert.Equal(t, 6, sum(a), "?")
+}

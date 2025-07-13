@@ -29,3 +29,15 @@ func TestUsingFieldInCreatingStruct(t *testing.T) {
 	assert.Equal(t, 1, somewhere.X, "wrong")
 	assert.Equal(t, 0, somewhere.Y, "wrong")
 }
+
+type person struct {
+	name string
+	age  int
+}
+
+func TestNewPerson(t *testing.T) {
+	p := person{name: "darren"}
+	p.age = 88
+	assert.Equal(t, "darren", p.name, "?")
+	assert.Equal(t, 88, p.age, "?")
+}

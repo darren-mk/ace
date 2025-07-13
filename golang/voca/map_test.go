@@ -6,11 +6,18 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var m = map[int]string{
-	1: "hi",
-	2: "bye",
-}
-
 func TestMap(t *testing.T) {
-	assert.Equal(t, "bye", m[2], "wrong")
+	m := map[int]string{
+		1: "hi",
+		2: "bye",
+		3: "yo",
+	}
+	assert.Equal(t, 3, len(m), "?")
+	assert.Equal(t, "bye", m[2], "?")
+	assert.Equal(t, "", m[100], "?")
+	delete(m, 2)
+	assert.Equal(t, 2, len(m), "?")
+	assert.Equal(t, "", m[2], "?")
+	clear(m)
+	assert.Equal(t, 0, len(m), "?")
 }

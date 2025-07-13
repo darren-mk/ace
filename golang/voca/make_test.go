@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestMake(t *testing.T) {
+func TestMakingSlice(t *testing.T) {
 	a := make([]int, 0, 3)
 	target_cap := 0
 	for i := 0; i < 5; i++ {

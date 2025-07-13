@@ -6,10 +6,18 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSlice(t *testing.T) {
-	a := [5]int{1, 2, 3, 4, 5}
-	b := a[1:4]
-	assert.Equal(t, 4, a[3], "wrong")
-	assert.Equal(t, 2, b[0], "wrong")
-	assert.Equal(t, 3, b[1], "wrong")
+func TestSliceBasics(t *testing.T) {
+	var hits []int
+	assert.Equal(t, 0, len(hits), "?")
+}
+
+func TestSliceExpressions(t *testing.T) {
+	hits := []int{10, 20, 30, 40, 50}
+	firstTwo := hits[:2]
+	assert.Equal(t, []int{10, 20}, firstTwo, "?")
+	assert.Equal(t, 2, len(firstTwo), "?")
+	assert.Equal(t, 5, cap(firstTwo), "?")
+	assert.Equal(t, []int{40, 50}, hits[len(hits)-2:], "?")
+	extended := firstTwo[:5]
+	assert.Equal(t, hits, extended, "?")
 }
