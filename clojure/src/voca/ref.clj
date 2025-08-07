@@ -1,3 +1,8 @@
+;; ref + dosync are part of Clojure's Software
+;; Transactional Memory (STM) system.
+;; STM ensures coordinated, atomic updates across multiple
+;; refs—if one part fails, everything rolls back.
+
 (def a (ref 1))
 
 a :=> "#<Ref@5e3da221: 1>"
@@ -38,3 +43,15 @@ a :=> "#<Ref@5e3da221: 1>"
 
 @r1 ;; => 50 (did not change)
 @r2 ;; => 250 (did not change)
+
+(def stove (ref false))
+(def oven (ref false))
+
+(dosync
+ (ref-set stove true)
+ (/ 1 0)
+ (ref-set oven true))
+
+(deref stove) ;; false
+(deref oven) ;; false
+;; if one fails, neither is impacted

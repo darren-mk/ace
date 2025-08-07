@@ -41,3 +41,14 @@
     (>= grade 70) "C"
     (>= grade 60) "D"
     :else "F")) ;; => "D"
+
+(defn cond-d [b v & r]
+  (if (or (true? b) (= :else b)) v
+      (apply cond-d r)))
+(let [grade 65]
+  (cond-d
+   (>= grade 90) "A"
+   (>= grade 80) "B"
+   (>= grade 70) "C"
+   (>= grade 60) "D"
+   :else "F")) ;; => "D"

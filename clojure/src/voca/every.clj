@@ -42,3 +42,11 @@
   (reduce (fn [b x] (and b (pred x))) true col))
 (every?'''' odd? [1 3 5 7]) ;; => true
 (every?'''' odd? [1 2 3]) ;; => false
+
+(defn every?-e
+  [pred [x & xs]]
+  (cond (nil? x) true
+        (not (pred x)) false
+        :else (every?-e pred xs)))
+(every?-e odd? [1 3 5 7]) ;; => true
+(every?-e odd? [1 2 3]) ;; => false

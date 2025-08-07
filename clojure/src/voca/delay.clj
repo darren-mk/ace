@@ -1,7 +1,7 @@
 ;; delay
 ;; Takes a body of expressions and yields a Delay object that will
 ;; invoke the body only the first time it is forced (with force or deref/@), and
-;; will cache the result and return it on all subsequent force calls. 
+;; will cache the result and return it on all subsequent force calls.
 
 (def my-delay
   (delay (println "did it")
@@ -22,6 +22,9 @@ my-delay
 
 (realized? my-delay)
 ;; => true
+
+my-delay
+;; #<Delay@64e7ef9c: 100>
 
 (def ddd
   (delay

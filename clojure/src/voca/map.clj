@@ -52,3 +52,15 @@
     )))
 
 (map'''' inc [1 2 3])
+
+(defn map-e
+  ([f col]
+   (map-e [] f col))
+  ([acc f [x & xs]]
+   (lazy-seq
+    (if x
+      (map-e (conj acc (f x)) f xs)
+      acc))))
+(map-e #(+ % 1) '(1 2 3)) ;; => (2 3 4)
+(map-e #(+ % 1) [1 2 3]) ;; => (2 3 4)
+(map-e #(+ % 1) #{1 2 3}) ;; => (2 4 3)

@@ -41,3 +41,21 @@
 (count''' []) ;; => 0
 (count''' nil) ;; => 0
 (count''' "string") ;; => 6
+
+(defn count-d [[x & xs]]
+  (if-not x 0 (+ 1 (count-d xs))))
+(count-d [1 2 3]) ;; => 3
+(count-d []) ;; => 0
+(count-d nil) ;; => 0
+(count-d "string") ;; => 6
+
+(defn count-e
+  ([coll]
+   (count-e 0 coll))
+  ([acc [x & xs]]
+   (if-not x acc
+           (count-e (inc acc) xs))))
+(count-e [1 2 3]) ;; => 3
+(count-e []) ;; => 0
+(count-e nil) ;; => 0
+(count-e "string") ;; => 6

@@ -27,3 +27,24 @@
 (flatten-2 '(1 2 3)) ;; => (1 2 3)
 (flatten-2 '(1 2 [3 (4 5)])) ;; => (1 2 3 4 5)
 (flatten-2 nil) ;; => ()
+(flatten-2 [[[[1]]]])
+
+(flatten [[1 2] [3 4]])
+(flatten-2 [[1 2] [3 4]])
+
+(defn flatten-c
+  ([l]
+   (flatten-c [] l))
+  ([acc [x & xs]]
+   (cond (nil? x) acc
+         (coll? x) (flatten-c acc (cons (flatten-c x) xs))
+         :else (flatten-c (conj acc x) xs))))
+(flatten-c [1 2])
+(flatten-c [[[[1]]]])
+(flatten-c [1 [2 3]]) ;; => (1 2 3)
+(flatten-c '(1 2 3)) ;; => (1 2 3)
+(flatten-c '(1 2 [3 (4 5)])) ;; => (1 2 3 4 5)
+(flatten-c nil) ;; => ()
+
+(value)
+(coll? #{1})

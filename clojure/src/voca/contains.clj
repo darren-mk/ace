@@ -5,8 +5,8 @@
 (contains? {:a 1} :a) ;; => true
 (contains? {:a nil} :a) ;; => true
 (contains? {:a 1} 1) ;; => false
-(contains? [:a :b :c] :b) ;; => false  
-(contains? [:a :b :c] 2) ;; => true   
+(contains? [:a :b :c] :b) ;; => false
+(contains? [:a :b :c] 2) ;; => true
 
 ;; Although lists are sequences, they are not keyed sequences.
 ;; contains? should not be used for lists.
@@ -23,7 +23,7 @@
 (contains? s "a") ;; => true
 (contains? s "z") ;; => false
 
-;; When "key" is a number, it is expected to be an integer. 
+;; When "key" is a number, it is expected to be an integer.
 ;; Beyond that limit, lossy truncation may result in unexpected results:
 (contains? [1 2 3] 4294967296)
 ;; => true
@@ -42,3 +42,12 @@
       false)))
 (contains?' [:a :b] :a) ;; => true
 (contains?' #{:a :b} :a) ;; => true
+(contains?' #{:a :b} :c) ;; => false
+
+(defn contains?-b [[x & xs] item]
+  (cond (nil? x) false
+        (= x item) true
+        :else (contains?-b xs item)))
+(contains?-b [:a :b] :a) ;; => true
+(contains?-b #{:a :b} :a) ;; => true
+(contains?-b #{:a :b} :c) ;; => false

@@ -33,3 +33,13 @@
   (comp reverse rest reverse))
 (butlast-4 [1 2 3 4]) ;; => (1 2 3)
 (butlast-4 (list :a "x" 123)) ;; => (:a "x")
+
+(defn butlast-e
+  ([coll]
+   (butlast-e [] coll))
+  ([acc [x & xs]]
+   (if-not (seq xs)
+     acc
+     (butlast-e (conj acc x) (rest xs)))))
+(butlast-e [1 2 3 4]) ;; => (1 2 3)
+(butlast-e '(:a "x" 123)) ;; => (:a "x")

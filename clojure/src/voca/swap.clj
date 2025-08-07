@@ -5,26 +5,26 @@
 ;; multiple times, and thus should be free of side effects.  Returns
 ;; the value that was swapped in.
 
-(def counter (atom 0))
+(def counting (atom 0))
 ;; => #'user/counter
 
-@counter
+@counting
 ;; => 0
 
-(swap! counter inc)
+(swap! counting inc)
 ;; => 1
 
-@counter
+@counting
 ;; => 1
 
-(swap! counter + 3)
+(swap! counting + 3)
 ;; => 5
 
-@counter
+@counting
 ;; => 5
 
-(swap! counter - 5)
+(swap! counting - 5)
 ;; => 0
 
-@counter
+@counting
 ;; => 0

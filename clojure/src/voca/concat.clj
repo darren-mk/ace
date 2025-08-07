@@ -44,3 +44,15 @@
 (apply concat''' [[1 2] [3 4]]) ;; => [1 2 3 4]
 (concat''' [1 2] [3 4 5]) ;; => [1 2 3 4 5]
 (concat''' [1 2] '(3 4 5)) ;; => [1 2 3 4 5]
+
+(defn concat-d
+  ([a [x & xs]]
+   (if-not x a (concat-d (conj a x) xs)))
+  ([a b & r]
+   (reduce concat-d a (cons b r))))
+(concat-d [1 2] [3 4 5])
+(concat-d [1 2] '(:a :b :c) #{"x" "y"}) ;; => (1 2 :a :b :c "x" "y")
+(concat-d [1 2] [3 4]) ;; => (1 2 3 4)
+(apply concat-d [[1 2] [3 4]]) ;; => (1 2 3 4)
+(concat-d [1 2] [3 4 5]) ;; => (1 2 3 4 5)
+(concat-d [1 2] '(3 4 5)) ;; => (1 2 3 4 5)

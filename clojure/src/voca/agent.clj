@@ -1,14 +1,16 @@
-(def counter
+;; Agents are not transactional (unlike ref + dosync).
+
+(def counting
   (agent 0))
 ;; => #'user/counter
 
-counter
+counting
 ;; => #<Agent@6754918b: 0>
 
-@counter
+@counting
 ;; => 0
 
-(send counter
+(send counting
       (fn [x]
         (println "start sleeping")
         (Thread/sleep 3000)
@@ -16,8 +18,8 @@ counter
         (inc x)))
 ;; => #<Agent@60f268aa: 1>
 
-(await counter)
+(await counting)
 ;; => nil
 
-@counter
+@counting
 ;; => 1

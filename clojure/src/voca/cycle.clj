@@ -7,3 +7,9 @@
   (lazy-cat col (cycle' col)))
 (take 10 (cycle' [1 2 3]))
 ;; => (1 2 3 1 2 3 1 2 3 1)
+
+(defn cycle-b [coll]
+  (lazy-seq
+   (concat coll (cycle-b coll))))
+(take 10 (cycle-b [1 2 3]))
+;; => (1 2 3 1 2 3 1 2 3 1)
