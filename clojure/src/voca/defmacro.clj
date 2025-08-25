@@ -67,4 +67,17 @@
 ;; darren
 ;; back to the future
 
+(defmacro just-add
+  "it can work just like a function"
+  [a b]
+  (+ a b))
 
+(just-add 1 2) :=> 3
+(macroexpand '(just-add 1 2)) :=> 3
+
+
+(defmacro get-code-that-works [a b]
+  (list 'inc (list '+ a b)))
+
+(get-code-that-works 1 2) :=> 4
+(macroexpand '(get-code-that-works 1 2)) :=> (inc (+ 1 2))
