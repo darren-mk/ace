@@ -8,3 +8,4 @@ obj
 .idea/
 .fake
 node_modules/
+build/
