@@ -1,10 +1,6 @@
-const PI : f32 = 3.14;
-
 #[cfg(test)]
 mod tests {
-    use super::*;
     #[test]
     fn test_add() {
-        assert_eq!(3.14, PI);
-    }
-}
+        const FAVNUM : f32 = 12.34;
+        assert_eq!(12.34, FAVNUM);}}
