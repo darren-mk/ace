@@ -1,11 +1,3 @@
-print(len('abc'))
-# 3
-
-print(len([1, 2, 3]))
-# 3
-
-print(len({'a': 1, 'b': 2}))
-# 3
-
-print(len({1, 2, 3}))
-# 3
+def test_basics():
+    assert 3 == len('abc')
+    assert 2 == len({'a': 1, 'b': 2})

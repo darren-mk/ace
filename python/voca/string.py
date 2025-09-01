@@ -1,5 +1,3 @@
-'abc'[1]
-# 'b'
-
-['abc', 'def'][1][1]
-# 'e'
+def test_basics():
+    assert 'b' == 'abc'[1]
+    assert 'e' == ['abc', 'def'][1][1]

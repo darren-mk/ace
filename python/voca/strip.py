@@ -1,3 +1,3 @@
-s = 'peach   '
-print(s == s.strip())
-# False
+def test_basics():
+    s = 'peach   '
+    assert 'peach' == s.strip()

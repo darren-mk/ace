@@ -1,6 +1,7 @@
-l = [1, 2, 3]
-def add_elem(x):
+def add_elem(l, x):
     l.append(x)
-add_elem(4)
-print(l)
-# [1, 2, 3, 4]
+
+def test_basics():
+    l = [1, 2, 3]
+    add_elem(l, 4)
+    assert [1, 2, 3, 4] == l

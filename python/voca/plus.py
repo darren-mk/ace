@@ -1,3 +1,3 @@
-s = 'Darren' + 'Kim'
-print(s)
-# DarrenKim
+def test_string_concat():
+    s = 'Darren' + ' ' + 'Kim'
+    assert 'Darren Kim' == s
