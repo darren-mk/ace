@@ -7,7 +7,7 @@ class ListNode:
         self.next = next
 
 # 1
-class Solution_1:
+class SolutionA:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         l3 = ListNode()
         l3_roll = l3

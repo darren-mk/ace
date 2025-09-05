@@ -12,7 +12,7 @@ class Solution_01:
             else: pool[nums[i]] = i
 
 # 2
-class Solution_02:
+class Solution02:
     def twoSum(self, nums: List[int], target: int):
         for i in range(len(nums)):
             complement = target - nums[i]
@@ -35,7 +35,8 @@ Memory Usage: 15.6 MB, less than 12.80% '''
 
 # 4
 class Solution_04:
-    def twoSum(self, nums: List[int], target: int):
+    @staticmethod
+    def twoSum(nums: List[int], target: int):
         mirror = dict()
         for i in range(len(nums)):
             compl = target - nums[i]
