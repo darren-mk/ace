@@ -13,6 +13,7 @@ async function greetAsync(name: string): Promise<string> {
 
 test("basics", async () => {
   expect(greetSync("darren")).toBe("hi, darren");
-  expect(await greetAsync("darren")).toBe("hi, darren");
-  expect(await greetAsync("darren")).rejects.toThrow(/too long/i);
+  const r0: Promise<string> = greetAsync("darren");
+  const r1: string = await r0;
+  expect(r1).toBe("hi, darren");
 });

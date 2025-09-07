@@ -1,26 +1,68 @@
 import { expect, test } from "vitest";
-// import fs = require("fs");
 
-test("basics", () => {
-  const myPromise: Promise<string> = new Promise((resolve, reject) => {
-    if (1 < 2) {
-      const y = 1 / 0;
-      console.log(y);
-      let e = new Error("@@@@ Operation failed.");
-      resolve("@@@@ Success!");
-    } else {
-      reject(new Error("@@@@ Operation failed."));
-    }
+function shout(n: number) {
+  return new Promise<string>((f1, f2) => {
+    if (n == 7) f1("yay");
+    else f2("uh");
   });
+}
 
-  myPromise
-    .then((value) => {
-      console.log(value); // "Success!"
+test("resolve", async () => {
+  let result = "";
+  await shout(7)
+    .then((x) => {
+      result = x + "!";
     })
-    .catch((error) => {
-      console.error(error.message); // "Operation failed."
-    })
-    .finally(() => {
-      console.log("Promise operation complete.");
+    .catch((x) => {
+      result = x + "?";
     });
+  expect(result).toBe("yay!");
+});
+
+test("reject", async () => {
+  let result = "";
+  await shout(3)
+    .then((x) => {
+      result = x + "!";
+    })
+    .catch((x) => {
+      result = x + "?";
+    });
+  expect(result).toBe("uh?");
+});
+
+test("promise all", async () => {
+  let results: any[] = [];
+  await Promise.all([shout(7), shout(7), shout(7)])
+    .then((x) => {
+      results.push(x);
+    })
+    .catch((x) => {
+      results.push(x);
+    });
+  expect(results).toStrictEqual([["yay", "yay", "yay"]]);
+});
+
+test("promise race", async () => {
+  let results: any[] = [];
+  await Promise.race([shout(1), shout(1), shout(1)])
+    .then((x) => {
+      results.push(x);
+    })
+    .catch((x) => {
+      results.push(x);
+    });
+  expect(results).toStrictEqual(["uh"]);
+});
+
+test("promise any", async () => {
+  let results: any[] = [];
+  await Promise.any([shout(1), shout(1), shout(7)])
+    .then((x) => {
+      results.push(x);
+    })
+    .catch((x) => {
+      results.push(x);
+    });
+  expect(results).toStrictEqual(["yay"]);
 });
