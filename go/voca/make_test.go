@@ -6,10 +6,15 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestMakeBasics(t *testing.T) {
+	a := make([]int, 2, 3)
+	assert.Equal(t, []int{0, 0}, a)
+}
+
 func TestMakingSlice(t *testing.T) {
 	a := make([]int, 0, 3)
 	target_cap := 0
-	for i := 0; i < 5; i++ {
+	for i := range 5 {
 		a = append(a, i)
 		if i < 3 {
 			target_cap = 3

@@ -6,24 +6,24 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-type rect struct {
+type Rect struct {
 	width, height int
 }
 
-func (r *rect) area() int {
+func (r *Rect) area() int {
 	return r.width * r.height
 }
 
 func TestArea(t *testing.T) {
-	r := rect{width: 2, height: 3}
+	r := Rect{width: 2, height: 3}
 	assert.Equal(t, 6, r.area(), "?")
 }
 
-func (r rect) perimeter() int {
+func (r Rect) perimeter() int {
 	return 2*r.width + 2*r.height
 }
 
 func TestPerimeter(t *testing.T) {
-	r := rect{width: 2, height: 3}
+	r := Rect{width: 2, height: 3}
 	assert.Equal(t, 10, r.perimeter(), "?")
 }

@@ -19,6 +19,8 @@ import (
 func TestSliceBasics(t *testing.T) {
 	var hits []int
 	assert.Equal(t, 0, len(hits))
+	primes := [6]int{2, 3, 5, 7, 11, 13}
+	assert.Equal(t, []int{3, 5, 7}, primes[1:4])
 }
 
 func TestSliceExpressions(t *testing.T) {
@@ -61,4 +63,14 @@ func TestCreateSliceUsingMake(t *testing.T) {
 	sl := make([]byte, 2, 3)
 	assert.Equal(t, len(sl), 2)
 	assert.Equal(t, cap(sl), 3)
+}
+
+func TestSlicePointers(t *testing.T) {
+	s := []int{10, 20, 30}
+	assert.Equal(t, &s, &s)
+	beatles := [4]string{"john", "paul", "ringo", "george"}
+	a := beatles[1:3]
+	b := beatles[1:3]
+	assert.Equal(t, a, b)
+	assert.Equal(t, &a, &b)
 }

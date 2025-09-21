@@ -57,6 +57,12 @@ func TestArraySliceNotEqual(t *testing.T) {
 	assert.NotEqual(t, []int{1}, [1]int{1}, "no")
 	/* one is a slice ([]int) and the other is an
 	   array ([1]int), and Go treats these as
-	   completely different types, even if their
-	   contents look identical. */
+	   completely different types, even if their */
+}
+
+func TestArrayDeclaration(t *testing.T) {
+	var beatles = [4]string{"paul", "john", "ringo", "george"}
+	assert.Equal(t, "paul", beatles[0])
+	beatles[0] = "paul mccartney"
+	assert.Equal(t, "paul mccartney", beatles[0])
 }
