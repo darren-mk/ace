@@ -16,7 +16,7 @@ class Solution_01:
             longest = max(longest, len(sub))
         return longest
 ''' Runtime: 76 ms, faster than 43.43% 
-Memory Usage: 14.3 MB, less than 100.00%  '''
+ Memory Usage: 14.3 MB, less than 100.00%  '''
 
 # 2
 class Solution_02:

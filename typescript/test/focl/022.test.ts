@@ -9,15 +9,12 @@
 
 import { expect, test } from "vitest";
 
-function fA<T>(arr: T[]): number {
-  function inner(n: number, arr: T[]): number {
-    let [first, ...rest] = arr;
-    if (first) {
-      inner(n + 1, rest);
-    }
-    return n;
+function fA<T>(arr: T[], n?: number): number {
+  if (arr.length === 0) {
+    return n || 0;
+  } else {
+    return fA(arr.slice(1), (n || 0) + 1);
   }
-  return inner(0, arr);
 }
 
 test("all", () => {
