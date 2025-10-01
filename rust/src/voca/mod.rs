@@ -21,3 +21,5 @@ mod _struct;
 mod _tuple;
 mod _vector;
 mod _while;
+mod _format;
+mod _hashmap;
