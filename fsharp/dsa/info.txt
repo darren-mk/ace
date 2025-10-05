@@ -1,2 +1,0 @@
-Learning F# Functional Data Structures and Algorithms
-by Adnan Masood, Ph.D.
