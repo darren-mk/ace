@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 #[cfg(test)]
 mod test_hashmap {
     use std::collections::HashMap;

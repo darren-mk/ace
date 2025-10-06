@@ -1,3 +1,12 @@
+mod _async;
+mod _thread;
+mod _box;
+mod _deref;
+mod _map;
+mod _sum;
+mod _iter;
+mod _closure;
+mod _generic;
 mod _array;
 mod _boolean;
 mod _char;
@@ -23,3 +32,4 @@ mod _vector;
 mod _while;
 mod _format;
 mod _hashmap;
+mod _lifetime;
