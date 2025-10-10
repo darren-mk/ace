@@ -1,3 +1,5 @@
+module Focl.P014
+
 // https://4clojure.oxal.org/#/problem/14
 
 (*
@@ -9,7 +11,3 @@ Clojure has many different ways to create functions.
 (= __ (#(+ % 5) 3))
 (= __ ((partial + 5) 3))
 *)
-
-let f1 = (fun x -> x + 5)
-(f1 3).Equals 8
-// val it: bool = true

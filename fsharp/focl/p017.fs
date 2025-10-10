@@ -1,3 +1,8 @@
+module Focl.P017
+
+open Xunit
+open FsUnit.Xunit
+
 // https://4clojure.oxal.org/#/problem/17
 
 (*
@@ -9,6 +14,9 @@ Do not confuse the map function with the map data structure.
 (= __ (map #(+ % 5) '(1 2 3)))
 *)
 
-List.map (fun x -> x + 5) [1; 2; 3] // [6; 7; 8]
-Seq.map (fun x -> x + 5) [1 .. 3] // seq [6; 7; 8]
-Array.map (fun x -> x + 5) [| 1; 2; 3 |] // [|6; 7; 8|]
+[<Fact>]
+let test_p017_a () =
+    let f x = x + 5
+    Array.map f [| 1; 2; 3 |] |> should equal [| 6; 7; 8 |]
+    List.map f [ 1; 2; 3 ] |> should equal [ 6; 7; 8 ]
+    Seq.map f { 1..3 } |> should equalSeq { 6..8 }

@@ -1,5 +1,9 @@
-// https://4clojure.oxal.org/#/problem/12
+module Focl.P012
 
+open Xunit
+open FsUnit.Xunit
+
+// https://4clojure.oxal.org/#/problem/12
 (*
 Problem 12, Sequences
 Difficulty: elementary
@@ -9,11 +13,8 @@ All Clojure collections support sequencing. You can operate on sequences with fu
 (= __ (last (list 1 2 3)))
 *)
 
-([3; 2; 1][0]).Equals 3
-// val it: bool = true
-
-([2; 3; 4][1]).Equals 3
-// val it: bool = true
-
-(List.last [1; 2; 3]).Equals 3
-// val it: bool = true
+[<Fact>]
+let test_p012 () =
+    [ 3; 2; 1 ][0] |> should equal 3
+    [ 2; 3; 4 ][1] |> should equal 3
+    List.last [ 1; 2; 3 ] |> should equal 3

@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <Compile Include="Library.fs" />
+    <Compile Include="fffp/*.fs" />
+    <Compile Include="focl/*.fs" />
     <Compile Include="voca/*.fs" />
   </ItemGroup>
 
