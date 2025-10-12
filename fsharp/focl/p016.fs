@@ -3,8 +3,6 @@ module Focl.P016
 open Xunit
 open FsUnit.Xunit
 
-[<Fact>]
-
 // https://4clojure.oxal.org/#/problem/16
 (*
 Problem 16, Hello World

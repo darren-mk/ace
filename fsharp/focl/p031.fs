@@ -33,4 +33,9 @@ let f_p031_a l =
     List.fold f [ [] ] l
 
 [<Fact>]
-let test_p031_a () = f_p031_a v1 |> should equal r1
+let test_p031_a () =
+
+
+
+
+    f_p031_a v1 |> should equal r1
