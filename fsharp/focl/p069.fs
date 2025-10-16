@@ -1,3 +1,8 @@
+module Focl.P069
+
+open Xunit
+open FsUnit.Xunit
+
 (*
 https://4clojure.oxal.org/#/problem/69
 Problem 69, Merge with a Function
@@ -17,11 +22,8 @@ in the result by calling (f val-in-result val-in-latter)
        {:a [3 4 5], :b [6 7], :c [8 9]})
 *)
 
-let (a1: Map<string,int>), (b1: Map<string,int>), (r1: Map<string,int>) =
-  Map.ofList ["a", 2; "b", 3; "c", 4],
-  Map.ofList ["a", 2; "b", 2; "c", 5],
-  Map.ofList ["a", 4; "b", 6; "c", 20]
+let a1: Map<char, int> = Map.ofList [ 'a', 2; 'b', 3; 'c', 4 ]
 
-let f1 f (a: Map<string,int>) (b: Map<string,int>) =
-  // a.Keys  b.Keys
-  a.Keys
+let b1: Map<char, int> = Map.ofList [ 'a', 2; 'b', 2; 'c', 5 ]
+
+let r1: Map<char, int> = Map.ofList [ 'a', 4; 'b', 6; 'c', 20 ]

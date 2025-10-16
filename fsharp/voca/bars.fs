@@ -1,4 +1,6 @@
+module Voca.BarclAlt
 
+open System
 
 (*
 So we thought of having a really easy homework,
@@ -15,13 +17,16 @@ Please submit the code snippet AND the result; result has the form of a single n
 
 
 // https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/functions/recursive-functions-the-rec-keyword
- 
- let fib n =
-    let rec f acc1 acc2 n =
+
+let fib n =
+    let rec f acc1 acc2 (n: int) =
+        System.Console.Write n
+
         match n with
         | 0 -> acc1
         | 1 -> acc2
         | _ -> f acc2 (acc1 + acc2) (n - 1)
+
     f 0 1 n
-    
+
 fib 10

@@ -1,3 +1,8 @@
+module Focl.P060
+
+open Xunit
+open FsUnit.Xunit
+
 (*
 https://4clojure.oxal.org/#/problem/60
 Problem 60, Sequence Reductions

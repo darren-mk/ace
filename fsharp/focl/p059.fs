@@ -1,3 +1,8 @@
+module Focl.P059
+
+open Xunit
+open FsUnit.Xunit
+
 (*
 https://4clojure.oxal.org/#/problem/59
 Problem 59, Juxtaposition
@@ -11,9 +16,13 @@ applying each function left-to-right to the argument list.
 *)
 
 let f1 fa fb fc =
-  fun x -> 
-    let a = fa x
-    let b = fb x
-    let c = fc x
-    [a; b; c]
-f1 List.sum List.max List.min <| [2; 3; 5; 1; 6; 4] // [21; 6; 1]
+    fun x ->
+        let a = fa x
+        let b = fb x
+        let c = fc x
+        [ a; b; c ]
+
+[<Fact>]
+let t059a () =
+    let f = f1 List.sum List.max List.min
+    f [ 2; 3; 5; 1; 6; 4 ] |> should equal [ 21; 6; 1 ]
