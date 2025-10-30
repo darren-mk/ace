@@ -8,13 +8,10 @@
 
 import { expect, test } from "vitest";
 
-function f_a<T>(arr: T[], result?: T[]): T[] {
+function f_a<T>(arr: T[], result: T[] = []): T[] {
+  if (arr.length === 0) return result;
   const [head, ...tail] = arr;
-  if (!head) {
-    return result || [];
-  } else {
-    return f_a(tail, (result || []).push(head)) || [];
-  }
+  return f_a(tail, [head, ...result]); // prepend head
 }
 
 test("all", () => {
