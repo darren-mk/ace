@@ -35,3 +35,5 @@ pip-delete-this-directory.txt
 .pytype/
 .pytype/
 .pyright/
+.venv/
+pytest_cache/
