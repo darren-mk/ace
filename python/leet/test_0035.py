@@ -25,6 +25,7 @@ class Solution:
                 r = mid - 1
             elif target > nums[mid]:
                 l = mid + 1
+        return 0
 
 def test_solution():
     assert int(0.5) == 0
