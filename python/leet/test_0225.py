@@ -1,7 +1,8 @@
+from typing import List
 class MyStack:
 
     def __init__(self):
-        self.values = []
+        self.values: List[int] = []
 
     def push(self, x: int) -> None:
         self.values.append(x)
