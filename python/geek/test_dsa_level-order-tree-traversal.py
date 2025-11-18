@@ -7,22 +7,21 @@
 from typing import Optional, List
 
 class Node:
-    def __init__(self, data:int) -> None:
+    def __init__(self, value:int) -> None:
         self.left: Optional[Node] = None
         self.right: Optional[Node] = None
-        self.data = data
+        self.value = value
 
-def level_order(node: Optional[Node]) -> List[List[int]]:
+def level_order(node: Optional[Node]):
     res = []
-    def go(node, level):
-        if node is None:
-            return
+    def go(node, level=0):
+        if node is None: return 
         if len(res) <= level:
             res.append([])
-        res[level].append(node.data) 
-        go(node.left, level+1) 
+        res[level].append(node.value)
+        go(node.left, level+1)
         go(node.right, level+1)
-    go(node, 0)
+    go(node)
     return res
 
 def test():

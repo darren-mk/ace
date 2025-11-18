@@ -4,10 +4,10 @@ from typing import List
 from collections import deque
 
 AdjacencyList = List[List[int]]
-    
+
 def bfs(adjl: AdjacencyList):
     V = len(adjl)
-    visited = [False] * V 
+    visited = [False] * V
     res = []
     def go(start):
         q = deque([start])

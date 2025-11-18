@@ -1,9 +1,9 @@
 
 class TreeNode:
     def __init__(self, value, left=None, right=None):
-        self.value = value 
-        self.left = left 
-        self.right = right 
+        self.value = value
+        self.left = left
+        self.right = right
 
 
 ### SEARCH ###
@@ -27,11 +27,11 @@ def test_search():
 ### INSERTION ###
 
 def insert(node: TreeNode, new_value):
-    if node is None: 
+    if node is None:
         return TreeNode(new_value)
     if new_value < node.value:
         node.left = insert(node.left, new_value)
-    else: 
+    else:
         node.right = insert(node.right, new_value)
     return node
 
@@ -46,7 +46,7 @@ def test_insert():
 def delete(node: TreeNode, value):
     # reached bottom of the tree
     if node is None:
-        return None 
+        return None
     # replace
     if value < node.value:
         node.left = delete(node.left, value)
@@ -213,7 +213,7 @@ def test_preorder_traverse():
 
 def postorder_traverse(node:TreeNode):
     if node is None: return []
-    return postorder_traverse(node.left) + postorder_traverse(node.right) + [node.value] 
+    return postorder_traverse(node.left) + postorder_traverse(node.right) + [node.value]
 
 def test_postorder_traverse():
     assert postorder_traverse(sample_root) == [1,6, 3, 14, 10, 8]
