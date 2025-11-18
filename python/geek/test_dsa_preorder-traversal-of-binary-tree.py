@@ -8,16 +8,19 @@ from typing import Optional, List
 
 class Node:
     def __init__(self, x:int) -> None:
-        self.data = x
+        self.value = x
         self.left: Optional[Node] = None
         self.right: Optional[Node] = None
 
-def pre_order(node: Optional[Node], res: List[int]):
-    if node is None:
-        return None
-    res.append(node.data)
-    pre_order(node.left, res)
-    pre_order(node.right, res)
+def f(node: Optional[Node]):
+    res = []
+    def go(node):
+        if node is None: return 
+        res.append(node.value)
+        go(node.left)
+        go(node.right)
+    go(node)
+    return res
 
 def test(): 
     root = Node(1)
@@ -26,6 +29,4 @@ def test():
     root.left.left = Node(4)
     root.left.right = Node(5)
     root.right.right = Node(6)
-    res: List[int] = []
-    pre_order(root, res)
-    assert res == [1, 2, 4, 5, 3, 6]
+    assert f(root) == [1, 2, 4, 5, 3, 6]
