@@ -1,48 +1,23 @@
 # https://leetcode.com/problems/two-sum/
 
-from typing import List
+from typing import Dict, List
 
-# 1
-class Solution_01:
-    def twoSum(self, nums: List[int], target: int):
-        pool = {}
+Val = int
+Ind = int
+class SolutionA:
+    def twoSum(self, nums: List[Val], target: Val) -> List[Ind]:
+        pool: Dict[Val, Ind] = {}
+        res: List[Ind] = []
         for i in range(len(nums)):
-            complement = target - nums[i]
-            if complement in pool: return [pool[complement], i]
-            else: pool[nums[i]] = i
-
-# 2
-class Solution02:
-    def twoSum(self, nums: List[int], target: int):
-        for i in range(len(nums)):
-            complement = target - nums[i]
-            if complement in nums:
-                if nums.index(complement) != i:
-                    return [i, nums.index(complement)]       
-
-# 3
-class Solution_03:
-    def twoSum(self, nums: List[int], target: int):
-        mirror = {}
-        for i in range(len(nums)):
-            compl = target - nums[i]
-            if nums[i] in mirror:
-                return [mirror[nums[i]], i]
-            else:
-                mirror[compl] = i
-''' Runtime: 116 ms, faster than 41.54% 
-Memory Usage: 15.6 MB, less than 12.80% '''
-
-# 4
-class Solution_04:
-    @staticmethod
-    def twoSum(nums: List[int], target: int):
-        mirror = dict()
-        for i in range(len(nums)):
-            compl = target - nums[i]
-            if nums[i] not in mirror:
-                mirror[compl] = i
-            else:
-                return [mirror[nums[i]], i]
-''' Runtime: 99 ms, faster than 44.71%
-Memory Usage: 15.7 MB, less than 8.79% '''
+            expv: Val = target - nums[i]           
+            if expv in pool:
+                res = [pool[expv], i]
+                break
+            pool[nums[i]] = i           
+        return res
+        
+def test_a():
+    sol = SolutionA()
+    assert sol.twoSum([2,7,11,15], 9) == [0,1]
+    assert sol.twoSum([3,2,4], 6) == [1,2]
+    assert sol.twoSum([3,3], 6) == [0,1]

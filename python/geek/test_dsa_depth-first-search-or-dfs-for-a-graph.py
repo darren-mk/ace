@@ -5,25 +5,7 @@ from collections import deque
 
 AdjacencyList = List[List[int]]
 
-def dfs_connected(adj:AdjacencyList):
-    visited: List[bool] = [False] * len(adj) 
-    res: List[int] = []
-    stack: Deque[int] = deque()
-    visited[0] = True 
-    stack.append(0)
-    while stack:
-        cursor = stack.pop()
-        res.append(cursor)
-        for dst in reversed(adj[cursor]):
-            if not visited[dst]:
-                visited[dst] = True
-                stack.append(dst)
-    return res 
-
-def test_dfs_connected():
-    assert dfs_connected([[1, 2], [0, 2], [0, 1, 3, 4], [2], [2]]) == [0, 1, 2, 3, 4]
-
-def dfs_disconnected(adj:AdjacencyList):
+def iterative_approach(adj:AdjacencyList) -> List[int]:
     visited: List[bool] = [False] * len(adj) 
     res: List[int] = []
     
@@ -45,7 +27,16 @@ def dfs_disconnected(adj:AdjacencyList):
 
     return res
 
-def test_dfs_disconnected():
-    assert dfs_disconnected([[1], [0, 2], [1], [4], [3]]) == [0, 1, 2, 3, 4]
-    assert dfs_disconnected([[1, 2], [0], [0], [4], [3]]) == [0, 1, 2, 3, 4]
-    assert dfs_disconnected([[2, 3], [2], [0, 1], [0], [5], [4]]) == [0, 2, 1, 3, 4, 5]
+def test_iterative_approach():
+    assert iterative_approach([[1], [0, 2], [1], [4], [3]]) == [0, 1, 2, 3, 4]
+    assert iterative_approach([[1, 2], [0], [0], [4], [3]]) == [0, 1, 2, 3, 4]
+    assert iterative_approach([[2, 3], [2], [0, 1], [0], [5], [4]]) == [0, 2, 1, 3, 4, 5]
+
+def recursive_approach(adj:AdjacencyList) -> List[int]:
+    # to write
+    return [1]
+
+def test_recursive_approach():
+    assert recursive_approach([[1], [0, 2], [1], [4], [3]]) == [0, 1, 2, 3, 4]
+    assert recursive_approach([[1, 2], [0], [0], [4], [3]]) == [0, 1, 2, 3, 4]
+    assert recursive_approach([[2, 3], [2], [0, 1], [0], [5], [4]]) == [0, 2, 1, 3, 4, 5]
