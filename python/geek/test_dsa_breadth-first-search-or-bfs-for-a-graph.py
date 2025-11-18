@@ -1,48 +1,48 @@
 # https://www.geeksforgeeks.org/dsa/breadth-first-search-or-bfs-for-a-graph/
 
-from typing import List, Deque
+from typing import List
 from collections import deque
 
 AdjacencyList = List[List[int]]
-
-def bfs_connected(adj: AdjacencyList) -> List[int]:
-    res: List[int] = []
-    visited: List[bool] = [False] * len(adj)
-    q: Deque[int] = deque()
-    visited[0] = True 
-    q.append(0)
-    while q:
-        cursor = q.popleft()
-        res.append(cursor)
-        for dst in adj[cursor]:
-            if not visited[dst]:
-                visited[dst] = True
-                q.append(dst)
-    return res
-
-def test_bfs_connected():
-    assert bfs_connected([[1,2],[0,2],[0,1,3,4],[2],[2]]) == [0,1,2,3,4]
     
-def bfs_unconnected(adj: AdjacencyList):
-
-    def recur(src: int, visited: List[bool], res: List[int]):
-        q: Deque[int] = deque()
-        visited[src] = True
+def bfs(adjl: AdjacencyList):
+    V = len(adjl)
+    visited = [False] * V
+    res = []
+    def go(src):
+        q = deque()
         q.append(src)
+        visited[src] = True
         while q:
-            cursor = q.popleft()
-            res.append(cursor)
-            for dst in adj[cursor]:
-                if not visited[dst]:
+            cur = q.popleft()
+            res.append(cur)
+            for dst in adjl[cur]:
+                if not visited[dst]:                    
                     visited[dst] = True
                     q.append(dst)
-    
-    visited = [False] * len(adj)
-    res: List[int] = []
-    for i in range(len(adj)):
-        if not visited[i]:
-            recur(i, visited, res)
+    for src in range(V):
+        if not visited[src]:
+            go(src)
     return res
 
-def test_bfs_unconnected():
-    assert bfs_unconnected([[2,3],[2],[0,1],[0],[5],[4]]) == [0,2,3,1,4,5]
+def test_bfs():
+    # given tests
+    assert bfs([[2,3],[2],[0,1],[0],[5],[4]]) == [0,2,3,1,4,5]
+    assert bfs([[1,2],[3],[3],[]]) == [0,1,2,3]
+    # 1. empty graph
+    assert bfs([]) == []
+    # 2. single node, no edges
+    assert bfs([[]]) == [0]
+    # 3. two isolated nodes
+    assert bfs([[], []]) == [0, 1]
+    # 4. simple line: 0 - 1 - 2
+    assert bfs([[1], [0, 2], [1]]) == [0, 1, 2]
+    # 5. star graph centered at 0: 0 - 1, 0 - 2, 0 - 3
+    assert bfs([[1, 2, 3], [0], [0], [0]]) == [0, 1, 2, 3]
+    # 6. simple cycle: 0 - 1 - 2 - 0
+    assert bfs([[1, 2], [0, 2], [0, 1]]) == [0, 1, 2]
+    # 7. multiple components, including isolated node
+    # component 1: 0 - 1
+    # component 2: {2} alone
+    # component 3: 3 - 4
+    assert bfs([[1], [0], [], [4], [3]]) == [0, 1, 2, 3, 4]
