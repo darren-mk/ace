@@ -1,7 +1,7 @@
 from typing import Optional
 
 class Node:
-    def __init__(self, value:str, next: Optional[Node] = None) -> None:
+    def __init__(self, value, next=None):
         self.value = value
         self.next = next
 
@@ -14,12 +14,12 @@ def test_node():
 
 class LinkedList:
     def __init__(self, first_node: Optional[Node]) -> None:
-        self.first_node: Optional[Node] = first_node
+        self.first_node = first_node
     def read(self, index:int) -> Optional[str]:
         i = 0
         node = self.first_node
         while node:
-            if i >= index:
+            if i == index:
                 return node.value
             node = node.next
             i += 1
@@ -30,33 +30,28 @@ class LinkedList:
         while node:
             if node.value == desired_value:
                 return i
-            i += 1
             node = node.next
+            i += 1
         return None
     def insert_at(self, desired_index:int, desired_value:str):
         i = 0
         node = self.first_node
-        if desired_index == 0:
-            self.first_node = Node(desired_value, node)
-            return
-        while node: 
+        while node:
             if i == desired_index - 1:
-                node.next = Node(desired_value, node.next)
+                new_node = Node(desired_value, node.next)
+                node.next = new_node
                 return
-            i += 1
             node = node.next
+            i += 1
     def delete_at(self, desired_index:int):
         i = 0
         node = self.first_node
-        if desired_index == 0:
-            self.first_node = node.next
-            return
         while node:
             if i == desired_index - 1:
-                if node.next is None:
-                    return 
+                if not node.next:
+                    return False
                 node.next = node.next.next
-                return 
+                return True
             i += 1
             node = node.next
 
@@ -77,7 +72,7 @@ def test_linked_list():
 
 class DualNode:
     def __init__(self, value, previous=None, next=None) -> None:
-        self.value = value 
+        self.value = value
         self.previous = previous
         self.next = next
 
@@ -91,7 +86,7 @@ class DoublyLinkedList:
             new_node = DualNode(value)
             self.first_node = new_node
             self.last_node = new_node
-        else: 
+        else:
             new_node = DualNode(value, last_node)
             last_node.next = new_node
             self.last_node = new_node
@@ -110,9 +105,9 @@ class DoublyLinkedList:
             return None
         second_node = self.first_node.next
         if second_node is None:
-            self.first_node = None 
-            self.last_node = None 
-        else:     
+            self.first_node = None
+            self.last_node = None
+        else:
             second_node.previous = None
             self.first_node = second_node
         return first_node.value
@@ -140,7 +135,7 @@ class Queue:
         return self.doubly_linked_list.read(index)
     def is_empty(self):
         return self.doubly_linked_list.first_node is None
-    
+
 def test_queue_basic_fifo():
     q = Queue()
     assert q.is_empty() is True
