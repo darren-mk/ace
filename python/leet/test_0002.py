@@ -18,7 +18,7 @@ class SolutionA:
             decimal *= 10
             cursor = cursor.next
         return sum
-    
+
     def num_to_node(self, n:int) -> Optional[ListNode]:
         if n == 0:
             return ListNode(0)
@@ -36,11 +36,11 @@ class SolutionA:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         summed = self.node_to_reverse_num(l1) + self.node_to_reverse_num(l2)
         return self.num_to_node(summed)
-    
+
 def test_a():
     sol = SolutionA()
     a: ListNode = ListNode(2, ListNode(4, ListNode(3)))
-    b: ListNode = ListNode(5, ListNode(6, ListNode(4))) 
+    b: ListNode = ListNode(5, ListNode(6, ListNode(4)))
     assert sol.node_to_reverse_num(a) == 342
     assert sol.node_to_reverse_num(b) == 465
     assert sol.node_to_reverse_num(sol.num_to_node(465)) == 564
