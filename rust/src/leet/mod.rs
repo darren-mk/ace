@@ -1,1 +1,1 @@
-pub mod _002_add_two_numbers;
+pub mod _0002;
