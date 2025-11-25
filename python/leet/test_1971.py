@@ -8,27 +8,27 @@ AdjsDict = Dict[int, Set[int]]
 AdjsList = List[List[int]]
 
 class SolutionA:
-    
+
     def to_adjs(self, edges: Edges) -> AdjsDict:
         adjs: AdjsDict = dict()
         for u, v in edges:
             adjs.setdefault(u, set()).add(v)
             adjs.setdefault(v, set()).add(u)
         return adjs
-    
+
     def validPath(self, n: int, edges: Edges, source: int, destination: int) -> bool:
 
         # declare
         adjs: AdjsDict = self.to_adjs(edges)
         visited: List[bool] = [False] * n
-        q: Deque[int] = deque() 
+        q: Deque[int] = deque()
 
         # init values
         q.append(source)
         visited[source] = True
-        
+
         # iterate
-        while q: 
+        while q:
             src = q.popleft()
             for dst in adjs.get(src, set()):
                 if not visited[dst]:
@@ -55,27 +55,27 @@ def test_a():
 # Memory Beats 46.88%
 
 class SolutionB:
-    
+
     def to_adjs(self, n: int, edges: Edges) -> AdjsList:
         adjs: AdjsList = [[] for _ in range(n)]
         for u, v in edges:
             adjs[u].append(v)
             adjs[v].append(u)
         return adjs
-    
+
     def validPath(self, n: int, edges: Edges, source: int, destination: int) -> bool:
 
         # declare
         adjs: AdjsList = self.to_adjs(n, edges)
         visited: List[bool] = [False] * n
-        q: Deque[int] = deque() 
+        q: Deque[int] = deque()
 
         # init values
         q.append(source)
         visited[source] = True
-        
+
         # iterate
-        while q: 
+        while q:
             src: int = q.popleft()
             for dst in adjs[src]:
                 if not visited[dst]:
@@ -100,3 +100,39 @@ def test_b():
 
 # Runtime Beats 67.06%
 # Memory Beats 96.26%
+
+
+class SolutionC:
+    def buildAdj(self, n:int, edges:Edges) -> AdjsList:
+        adj:AdjsList = [[] for _ in range(n)]
+        for u,v in edges:
+            adj[u].append(v)
+            adj[v].append(u)
+        return adj
+    def validPath(self, n: int, edges: Edges, source: int, destination: int) -> bool:
+        adj: AdjsList = self.buildAdj(n, edges)
+        visited: List[bool] = [False for _ in range(n)]
+        visited[source] = True
+        q: Deque[int] = deque()
+        q.append(source)
+        while q:
+            node = q.popleft()
+            visited[node] = True
+            for neighbor in adj[node]:
+                if not visited[neighbor]:
+                    visited[neighbor] = True
+                    q.append(neighbor)
+        return visited[destination]
+
+def testC():
+    sol = SolutionC()
+    assert sol.buildAdj(3, [[0, 1], [1, 2], [2, 0]]) == [[1, 2], [0, 2], [1, 0]]
+    assert sol.validPath(3, [[0, 1], [1, 2], [2, 0]], 0, 2) is True
+    assert sol.validPath(6, [[0, 1], [0, 2], [3, 5], [5, 4], [4, 3]], 0, 5) is False
+    assert sol.validPath(1, [], 0, 0) is True
+    assert sol.validPath(3, [], 0, 2) is False
+    assert sol.validPath(5, [[0, 1], [1, 2], [2, 3], [3, 4]], 0, 4) is True
+    assert sol.validPath(6, [[0, 1], [1, 2], [3, 4]], 0, 4) is False
+
+# Runtime Beats 74.31%
+# Memory Beats 93.76%

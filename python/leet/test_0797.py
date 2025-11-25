@@ -2,14 +2,17 @@
 
 from typing import List
 
-Adjs = List[List[int]]
+Ind = int
+Adj = List[List[Ind]]
+Path = List[Ind]
+Paths = List[Path]
 
 class SolutionA:
-    def allPathsSourceTarget(self, graph: Adjs) -> List[List[int]]:
-        n = len(graph)    
+    def allPathsSourceTarget(self, graph: Adj) -> Paths:
+        n = len(graph)
         target = n - 1
-        res: List[List[int]] = []
-        path: List[int] = [0]
+        res: Paths = []
+        path: Path = [0]
 
         def dfs(node: int):
             if node == target:
@@ -23,34 +26,34 @@ class SolutionA:
         dfs(0)
         return res
 
-def test_a():
+def testA():
     sol = SolutionA()
-    # example 1
-    graph: Adjs = [[1, 2], [3], [3], []]
+    graph: Adj = [[1, 2], [3], [3], []]
     expected = [[0, 1, 3], [0, 2, 3]]
-    #assert sol.allPathsSourceTarget(graph) == expected
-    # example 2
+    assert sol.allPathsSourceTarget(graph) == expected
     graph = [[4, 3, 1], [3, 2, 4], [3], [4], []]
     expected = [
         [0, 4],
         [0, 3, 4],
         [0, 1, 3, 4],
         [0, 1, 2, 3, 4],
-        [0, 1, 4],
-    ]
+        [0, 1, 4], ]
     assert sol.allPathsSourceTarget(graph) == expected
 
-    # # direct edge
-    # graph = [[1], []]
-    # expected = [[0, 1]]
-    # assert norm(sol.allPathsSourceTarget(graph)) == norm(expected)
+# Runtime Beats 66.22%
+# Memory Beats 33.01%
 
-    # # single chain path
-    # graph = [[1], [2], [3], []]
-    # expected = [[0, 1, 2, 3]]
-    # assert norm(sol.allPathsSourceTarget(graph)) == norm(expected)
+class SolutionB:
+    def allPathsSourceTarget(self, graph: Adj) -> Paths:
+        return [[1]]
 
-    # # branch with dead end
-    # graph = [[1, 2], [3], [], []]
-    # expected = [[0, 1, 3]]
-    # assert norm(sol.allPathsSourceTarget(graph)) == norm(expected)
+def testB():
+    sol = SolutionB()
+    graph: Adj = [[4, 3, 1], [3, 2, 4], [3], [4], []]
+    expected = [
+        [0, 4],
+        [0, 3, 4],
+        [0, 1, 3, 4],
+        [0, 1, 2, 3, 4],
+        [0, 1, 4], ]
+    assert sol.allPathsSourceTarget(graph) == expected

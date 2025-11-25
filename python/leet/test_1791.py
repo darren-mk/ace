@@ -29,3 +29,19 @@ def test_b():
     s = SolutionB()
     assert s.findCenter([[1,2],[2,3],[4,2]]) == 2
     assert s.findCenter([[1,2],[5,1],[1,3],[1,4]]) == 1
+
+class SolutionC:
+    def findCenter(self, edges: Edges) -> Optional[int]:
+        a, b = edges[0]
+        for edge in edges:
+            if a not in edge: a = None
+            if b not in edge: b = None
+        return a or b
+
+def testC():
+    s = SolutionC()
+    assert s.findCenter([[1,2],[2,3],[4,2]]) == 2
+    assert s.findCenter([[1,2],[5,1],[1,3],[1,4]]) == 1
+
+# Runtime Beats 41.67%
+# Memory Beats 91.26%
