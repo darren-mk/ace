@@ -1,15 +1,18 @@
-# https://leetcode.com/problems/count-good-triplets/
-
 from typing import List, Dict, Tuple, Sequence
 
-# 1
-class Solution_01:
+class SolutionA:
     def countGoodTriplets(self, arr: List[int], a: int, b: int, c: int) -> int:
-        indices = range(len(arr))
-        count = len([(i, j, k) for i in indices for j in indices for k in indices
-                if i < j < k
-                and abs(arr[i] - arr[j]) <= a
-                and abs(arr[j] - arr[k]) <= b
-                and abs(arr[i] - arr[k]) <= c])
+        n = range(len(arr))
+        count = 0
+        for i in n:
+            for j in n:
+                for k in n:
+                    A = abs(arr[i] - arr[j])
+                    B = abs(arr[j] - arr[k])
+                    C = abs(arr[i] - arr[k])
+                    if i < j < k and A <= a and B <= b and C <= c:
+                        count += 1
         return count
-Solution_01().countGoodTriplets([3,0,1,1,9,7], 7, 2, 3)
+
+# runtime: 5.10%
+# memory: 43.34%
