@@ -1,4 +1,4 @@
-(ns core
+(ns ace.core
   (:require [clojure.test :refer [deftest is testing]]))
 
 (def items
