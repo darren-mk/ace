@@ -1,3 +1,8 @@
+(ns ace.focl.p029
+  (:require
+   [str :as str]
+   [clojure.test :as t]))
+
 ;; https://www.4clojure.com/problem/29
 
 ;; Problem 29
@@ -6,9 +11,8 @@
 ;; (empty? (__ "nothing"))
 ;; (= (__ "$#A(*&987Zf") "AZ")
 
-;; 1
 (defn f1 [s]
-  (clojure.string/join 
+  (str/join 
    (filter 
     (fn [c] (Character/isUpperCase c))
     s)))
@@ -16,19 +20,17 @@
 (empty? (f1 "nothing")) ;; => true
 (= (f1 "$#A(*&987Zf") "AZ") ;; => true
 
-;; 2
 (def capital-letters
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 (defn f2 [s]
-  (clojure.string/join 
+  (str/join 
    (filter
-    #(clojure.string/includes? capital-letters (str %))
+    #(str/includes? capital-letters (str %))
     s)))
 (= (f2 "HeLlO, WoRlD!") "HLOWRD") ;; => true
 (empty? (f2 "nothing")) ;; => true
 (= (f2 "$#A(*&987Zf2") "AZ") ;; => true
 
-;; 3
 (defn f3 [s]
   (reduce
    (fn [result c]

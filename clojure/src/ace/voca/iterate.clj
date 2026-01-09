@@ -1,9 +1,17 @@
-(take 10 (iterate (fn [x] (+ x 2)) 10))
-:=> '(10 12 14 16 18 20 22 24 26 28)
+(ns ace.voca.iterate
+  (:require
+   [clojure.test :as t]))
 
-(defn iterate' [f x]
-  (lazy-seq (cons x (iterate' f (f x)))))
+(defn- run [fnc]
+  (= '(10 12 14 16 18)
+     (take 5 (fnc #(+ % 2) 10))))
 
-(take 10 (iterate' (fn [x] (+ x 2)) 10))
-:=> '(10 12 14 16 18 20 22 24 26 28)
+(defn- a [f x]
+  (lazy-seq (cons x (a f (f x)))))
 
+(defn- b [f n]
+  (lazy-seq (cons n (b f (f n)))))
+
+(t/deftest all
+  (t/are [fnc] (run fnc)
+    a b))

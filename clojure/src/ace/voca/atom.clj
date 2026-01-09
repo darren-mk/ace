@@ -1,44 +1,9 @@
-;;;; single value
+(ns ace.voca.atom
+  (:require
+   [clojure.test :as t]))
 
-(def age (atom 10))
-;; => #'focl.core/age
-
-age
-;; => #<Atom@4847bf9b: 10>
-
-(deref age)
-;; => 10
-
-@age
-;; => 10
-
-(swap! age inc)
-;; => 11
-
-@age
-;; => 11
-
-(deref age)
-;; => 11
-
-
-;;;; map 
-
-(def me (atom {:name "darren"
-               :age 60}))
-;; => #'focl.core/me
-
-(deref me)
-;; => {:name "darren", :age 60}
-
-(swap! me update-in [:age] inc)
-;; => {:name "darren", :age 61}
-
-@me
-;; => {:name "darren", :age 60}
-
-(reset! me :who)
-;; => :who
-
-@me
-;; => :who
+(t/deftest counter-test
+  (let [counter (atom 0)]
+    (t/is (zero? (deref counter)))
+    (swap! counter inc)
+    (t/is (= 1 (deref counter)))))

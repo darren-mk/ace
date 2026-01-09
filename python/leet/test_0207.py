@@ -1,4 +1,5 @@
 from collections import deque
+import math
 from typing import Dict, List
 
 Adj = List[int]
@@ -209,3 +210,12 @@ def test_has_cycle_directed():
     # # single node, no edges
     # assert has_cycle_directed(1, []) is False
 
+class Solution:
+    def countPoints(self, points: List[List[int]], queries: List[List[int]]) -> List[int]:
+        res = []
+        for x, y in points:
+            if math.pow(x - queries[0]) + math.pow(y - queries[1]) < math.pow(queries[2]):
+                res.append([x,y])
+        return res
+    
+math.pow(3,2)

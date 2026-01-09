@@ -1,83 +1,166 @@
-(defmacro infix [symbols]
-  (list (second symbols)
-        (first symbols)
-        (last symbols)))
+(ns ace.voca.defmacro
+  (:require
+   [clojure.test :as t]
+   [clojure.core.async :as a]))
 
-(infix (1 + 2))
-;; => 3
+(defmacro unless [b & body]
+  `(when (not ~b) ~@body))
 
-(macroexpand '(infix (1 + 2)))
-;; => (+ 1 2)
+(t/deftest unless-test
+  (t/is (= 1 (unless false 1)))
+  (t/is (= nil (unless true 1)))
+  (t/is (= (macroexpand-1 '(unless x (prn :hi) 42))
+           '(clojure.core/when (clojure.core/not x) (prn :hi) 42))))
 
-(defmacro when [test & body]
-  (list 'if test (cons 'do body)))
+(defmacro dbg [exp]
+  (let [v# (gensym 'v)] 
+    `(let [~v# ~exp]
+       (print '~exp "=>" ~v#)
+       ~v#)))
 
-(when (even? 2) (+ 1 2))
-;; => 3
+(t/deftest dbg-test
+  (t/is (= 3 (dbg (+ 1 2)))))
 
-(macroexpand
- '(when (even? 2) (+ 1 2) (print "hi!")))
-;; => (if (even? 2) (do (+ 1 2) (print "hi!")))
+(defmacro whenever [b & body]
+  `(if ~b (do ~@body) nil))
 
+(t/deftest whenever-test
+  (let [x (atom nil)
+        f #(reset! x %)]
+    (t/is (= 1 (whenever true (f 7) 1)))
+    (t/is (= 7 @x))
+    (t/is (nil? (whenever false (f -8) 1)))
+    (t/is (= 7 @x))))
 
-(defmacro require-not-nil!
-  [& params]
-  (let [checks
-        (map
-         (fn [p]
-           `(when (nil? ~p)
-              (throw
-               (ex-info
-                (str '~p " cannot be nil!")
-                {:problem :cant-be-nil
-                 :param '~p}))))
-         params)]
-    `(do ~@checks)))
+(defmacro orer
+  ([] nil)
+  ([x] x)
+  ([x & xs]
+   `(let [v# ~x]
+      (if v# v#
+          (orer ~@xs)))))
 
-(require-not-nil! :a nil "c")
+(t/deftest orer-test
+  (t/is (= 7 (orer nil false 7))))
 
-;; https://www.braveclojure.com/read-and-eval/
-(defmacro ignore-last-item [l]
-  (butlast l))
+(defmacro ander
+  ([] true)
+  ([x] x)
+  ([x & xs]
+   `(let [v# ~x]
+      (if-not v# v#
+              (ander ~@xs)))))
 
-(ignore-last-item (+ 1 2 3))
-;; => 3
-(macroexpand '(ignore-last-item (+ 1 2 3)))
-;; => (+ 1 2)
+(t/deftest ander-test
+  (t/is (= true (ander)))
+  (t/is (= 1 (ander 1)))
+  (t/is (= 3 (ander true 2 3)))
+  (t/is (nil? (ander 1 nil 3)))
+  (t/is (= false (ander 1 false 3)))
+  (let [x (atom 0)]
+    (t/is (nil? (ander true nil (swap! x inc))))
+    (t/is (= 0 @x)))
+  (let [x (atom 0)]
+    (t/is (= false (ander true false (swap! x inc))))
+    (t/is (= 0 @x)))
+  (let [x (atom 0)
+        bump (fn [v] (swap! x inc) v)]
+    (t/is (= 7 (ander (bump true) (bump 7))))
+    (t/is (= 2 @x))))
 
-(ignore-last-item (-> 3 inc dec))
-;; => 4
-(macroexpand '(ignore-last-item (-> 3 inc dec)))
-;; => (inc 3)
+(defmacro leter [sym exp & body]
+  `(let [~sym ~exp] ~@body))
 
-;; https://www.braveclojure.com/read-and-eval/
-(defmacro infix-three-items [infix]
-  (let [a (first infix)
-        b (second infix)
-        c (last infix)]
-    (list b a c)))
+(t/deftest leter-test
+  (t/is (= 30 (leter ^:clj-kondo/ignore x
+                  (+ 1 2) (* ^:clj-kondo/ignore x 10))))
+  (t/is (= 7 (leter ^:clj-kondo/ignore x 1
+               (inc ^:clj-kondo/ignore x)
+               (+ ^:clj-kondo/ignore x 6))))
+  (let [cnt (atom 0)
+        mk  (fn [] (swap! cnt inc) 5)]
+    (t/is (= 6 (leter ^:clj-kondo/ignore x (mk)
+                 (inc ^:clj-kondo/ignore x))))
+    (t/is (= 1 @cnt)))
+  (let [x 100]
+    (t/is (= 3 (leter ^:clj-kondo/ignore x 3 x)))
+    (t/is (= 100 x)))
+  (t/is (= :ok (leter ^:clj-kondo/ignore x 42 :ok))))
 
-;;(infix-three-items (1 + 2))
-;; => 3
+(defmacro when-leter [sym exp & body]
+  `(let [~sym ~exp]
+     (when ~sym ~@body)))
 
-;; Exercise 1.
-;; Use the list function, quoting, and read-string to create a list that,
-;; when evaluated, prints your first name and your favorite sci-fi movie.
-(eval (read-string "(do (print \"\ndarren\") (print \"\nback to the future\"))"))
-;; darren
-;; back to the future
+(t/deftest when-leter-test
+  (t/is (= 4 (when-leter ^:clj-kondo/ignore x 3
+                         (+ ^:clj-kondo/ignore x 1))))
+  (let [called? (atom false)]
+    (t/is (nil? (when-leter ^:clj-kondo/ignore x nil
+                            (reset! called? true)
+                            42)))
+    (t/is (= false @called?)))
+  (let [cnt (atom 0)
+        mk  (fn [] (swap! cnt inc) 10)]
+    (t/is (= 11 (when-leter ^:clj-kondo/ignore x (mk)
+                            (+ ^:clj-kondo/ignore x 1))))
+    (t/is (= 1 @cnt)))
+  (t/is (= 6 (when-leter ^:clj-kondo/ignore x 2
+                         (inc ^:clj-kondo/ignore x)
+                         (* ^:clj-kondo/ignore x 3)))))
 
-(defmacro just-add
-  "it can work just like a function"
-  [a b]
-  (+ a b))
+(defmacro with-leter [[sym exp] & body]
+  `(let [~sym ~exp]
+     ~@body))
 
-(just-add 1 2) :=> 3
-(macroexpand '(just-add 1 2)) :=> 3
+(t/deftest with-leter-test
+  (t/is (= 30 (with-leter [^:clj-kondo/ignore x (+ 1 2)]
+                (* ^:clj-kondo/ignore x 10)))))
 
+(defmacro assert! [exp msg]
+  `(let [v# ~exp]
+     (when-not v#
+       (throw (ex-info ~msg {:test '~exp})))))
 
-(defmacro get-code-that-works [a b]
-  (list 'inc (list '+ a b)))
+(t/deftest assert!-test
+  (t/testing "pass" 
+    (t/is (nil? (assert! (= 1 1) "should pass"))))
+  (t/testing "fail" 
+    (try
+      (assert! (= 1 2) "math broke")
+      (t/is false "expected assert! to throw")
+      (catch clojure.lang.ExceptionInfo e
+        (let [d (ex-data e)]
+          (t/is (= "math broke" (.getMessage e)))
+          (t/is (= '(= 1 2) (:test d)))))))
+  (t/testing "evaluate only once"
+    (let [cnt (atom 0)
+          pred (fn [] (swap! cnt inc) false)]
+      (try
+        (assert! (pred) "boom")
+        (t/is false "expected assert! to throw")
+        (catch clojure.lang.ExceptionInfo _))
+      (t/is (= 1 @cnt)))))
 
-(get-code-that-works 1 2) :=> 4
-(macroexpand '(get-code-that-works 1 2)) :=> (inc (+ 1 2))
+(defmacro assert= [a b msg]
+  `(let [a# ~a b# ~b]
+     (when (not= a# b#)
+       (throw (ex-info ~msg
+                       {:a-form '~a 
+                        :b-form '~b
+                        :a-val a#
+                        :b-val b#})))))
+
+(t/deftest assert=-test
+  (t/testing "pass" 
+    (t/is (nil? (assert= 3 (+ 1 2) "should pass"))))
+  (t/testing "fail"
+    (try
+      (assert= (+ 1 2) 10 "bad math")
+      (t/is false "expected assert= to throw")
+      (catch clojure.lang.ExceptionInfo e
+        (let [d (ex-data e)]
+          (t/is (= "bad math" (.getMessage e)))
+          (t/is (= '(+ 1 2) (:a-form d)))
+          (t/is (= '10 (:b-form d)))
+          (t/is (= 3 (:a-val d)))
+          (t/is (= 10 (:b-val d))))))))

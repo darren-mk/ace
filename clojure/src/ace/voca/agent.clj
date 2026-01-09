@@ -1,25 +1,10 @@
-;; Agents are not transactional (unlike ref + dosync).
+(ns ace.voca.agent
+  (:require
+   [clojure.test :as t]))
 
-(def counting
-  (agent 0))
-;; => #'user/counter
-
-counting
-;; => #<Agent@6754918b: 0>
-
-@counting
-;; => 0
-
-(send counting
-      (fn [x]
-        (println "start sleeping")
-        (Thread/sleep 3000)
-        (println "slept for 3 seconds")
-        (inc x)))
-;; => #<Agent@60f268aa: 1>
-
-(await counting)
-;; => nil
-
-@counting
-;; => 1
+(t/deftest counter-test
+  (let [counter (agent 0)]
+    (t/is (zero? (deref counter)))
+    (send counter inc)
+    (await counter)
+    (t/is (= 1 (deref counter)))))
