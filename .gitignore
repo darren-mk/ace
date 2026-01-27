@@ -9,3 +9,4 @@ obj
 .fake
 node_modules/
 build/
+.aider*

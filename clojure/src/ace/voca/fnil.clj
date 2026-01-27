@@ -1,76 +1,54 @@
+(ns ace.voca.fnil
+  (:require
+   [clojure.test :as t]))
+
 ((fnil inc 1000) 1) ;; => 2
 ((fnil inc 1000) nil) ;; => 1001
 ((fnil + 1) nil) ;; => 1
 ((fnil + 1) 1 2 3) ;; => 6
-((fnil + 1) 1 2 nil) ;; => 3
 
-;;;; implementation
-
-;; 1
-(defn fnil' [f default]
+(defn fnil-a [f default]
   (fn [x & xs]
     (if (nil? x)
       (f default)
       (apply f (cons x xs)))))
-((fnil' inc 1000) 1) ;; => 2
-((fnil' inc 1000) nil) ;; => 1001
-((fnil' + 1) 1 2 3 4) ;; => 10
+((fnil-a inc 1000) 1) ;; => 2
+((fnil-a inc 1000) nil) ;; => 1001
+((fnil-a + 1) 1 2 3 4) ;; => 10
 
-;; 2
-(defn fnil'' [f v]
+(defn fnil-b [f v]
   (fn [& x]
     (if (nil? (first x))
       (f v)
       (apply f x))))
-((fnil'' inc 1000) 1) ;; => 2
-((fnil'' inc 1000) nil) ;; => 1001
-((fnil'' + 1) nil) ;; => 1
-((fnil'' + 1) 1 2 3) ;; => 6
+((fnil-b inc 1000) 1) ;; => 2
+((fnil-b inc 1000) nil) ;; => 1001
+((fnil-b + 1) nil) ;; => 1
+((fnil-b + 1) 1 2 3) ;; => 6
 
-
-;; example problem
-
-(def words
-  (clojure.string/split
-   "Some of these words are repeated. Some are not."
-   #"\W"))
-;; => #'user/words
-
-words
-;; => ["Some" "of" "these" "words" "are" "repeated" "" "Some" "are" "not"]
-
-(reduce (fn [count word]
-          (update count word (fnil inc 0)))
-        {}
-        words)
-;; => {"Some" 2,
-;;     "of" 1,
-;;     "these" 1,
-;;     "words" 1,
-;;     "are" 2,
-;;     "repeated" 1,
-;;     "" 1,
-;;     "not" 1}
-
-(defn fnil''' [f v]
+(defn fnil-c [f v]
   (fn [x]
     (if (nil? x)
       (f v)
       (f x))))
-((fnil''' inc 1000) 1) ;; => 2
-((fnil''' inc 1000) nil) ;; => 1001
-((fnil''' + 1) nil) ;; => 1
+((fnil-c inc 1000) 1) ;; => 2
+((fnil-c inc 1000) nil) ;; => 1001
+((fnil-c + 1) nil) ;; => 1
 
-(defn fnil'''' [f v]
+(defn fnil-d [f v]
   (fn [x & xs]
     (if x
-     (apply f (cons x xs))
-     (f v))))
-((fnil'''' inc 1000) 1) ;; => 2
-((fnil'''' inc 1000) nil) ;; => 1001
-((fnil'''' + 1) 1 2 3 4) ;; => 10
+      (apply f (cons x xs))
+      (f v))))
+((fnil-d inc 1000) 1) ;; => 2
+((fnil-d inc 1000) nil) ;; => 1001
+((fnil-d + 1) 1 2 3 4) ;; => 10
 
-(defn fnil-5 [f v]
+(defn fnil-e [f v]
   (fn [x] (if x (f x) (f v))))
-((fnil-5 inc 1000) 1) ;; => 2
-((fnil-5 inc 1000) nil) ;; => 1001
+((fnil-e inc 1000) 1) ;; => 2
+((fnil-e inc 1000) nil) ;; => 1001
+
+(defn fnil-f [f v]
+  (fn [& xs]
+    (if (first xs) (apply f xs) v)))

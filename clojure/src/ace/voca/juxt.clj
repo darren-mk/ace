@@ -1,3 +1,7 @@
+(ns ace.voca.juxt
+  (:require
+   [clojure.test :as t]))
+
 ;; clojure.core/juxt
 ;; ([f] [f g] [f g h] [f g h & fs])
 ;; Takes a set of functions and returns a fn that is the juxtaposition
@@ -6,73 +10,44 @@
 ;; args (left-to-right).
 ;; ((juxt a b c) x) => [(a x) (b x) (c x)]
 
-((juxt identity name) :a)
-;; => [:a "a"]
+(t/deftest juxt-basics-test
+  (t/is (= [:a "a"] ((juxt identity name) :a)))
+  (t/is (= [1 2] ((juxt :a :b) {:a 1 :b 2 :c 3 :d 4})))
+  (t/is (= ["darren" "kim"]
+           ((juxt :first :last) {:first "darren"
+                                 :middle "minsoo"
+                                 :last "kim"}))))
 
-((juxt :a :b) {:a 1 :b 2 :c 3 :d 4})
-;; => [1 2]
-
-(sort-by
- (juxt :a :b)
- [{:a 1 :b 3} {:a 1 :b 2} {:a 2 :b 1}])
-;; => ({:a 1, :b 2} {:a 1, :b 3} {:a 2, :b 1})
-
-(def person {:first "darren"
-             :middle "minsoo"
-             :last "kim"})
-;; => #'user/person
-
-((juxt :first :last) person)
-;; => ["darren" "kim"]
-
-;; implementation 1
-(defn juxt' [& fs]
+(defn juxt-a [& fs]
   (fn [x]
     (-> (for [f fs]
           (f x))
         vec)))
-;; => #'user/juxt-alt-1
-((juxt' identity name) :a)
-;; => [:a "a"]
-((juxt' :a :b) {:a 1 :b 2 :c 3 :d 4})
-;; => [1 2]
 
-;; https://michaelwhatcott.com/comp-and-juxt/
-(def points [[2 4] [1 4] [4 4] [5 1] [1 5] [4 3]])
+(t/deftest juxt-a-test
+  (t/is (= [:a "a"] ((juxt-a identity name) :a)))
+  (t/is (= [1 2] ((juxt-a :a :b) {:a 1 :b 2 :c 3 :d 4}))))
 
-(map (juxt last first) points)
-;; => ([4 2] [4 1] [4 4] [1 5] [5 1] [3 4])
-
-;; compare it with compt
-((juxt last first) [1 2 3])
-;; => [3 1]
-
-((comp last first) [[1 2 3] 4 5])
-;; => 3
-
-;; implementation 2
-
-(defn juxt'' [& fs]
+(defn juxt-b [& fs]
   (fn [& xs] (map (fn [f] (apply f xs)) fs)))
 
-(= [13 72 3 6] ((juxt'' + * min max) 3 4 6))
-:=> true
-(= ['(1 2 3) '(4 5 6)] ((juxt'' take drop) 3 [1 2 3 4 5 6]))
-:=> true
-(= ['(0 2 4 6 8) '(1 3 5 7)]
-   ((juxt'' (partial filter even?)
-          (partial filter odd?)) (range 0 9)))
-:=> true
-(= ["Gates" "Bill"]
-   ((juxt'' :lname :fname) {:fname "Bill" :lname "Gates"}))
-:=> true
+(t/deftest juxt-b-test
+  (t/is (= [13 72 3 6] ((juxt-b + * min max) 3 4 6)))
+  (t/is (= ['(1 2 3) '(4 5 6)] ((juxt-b take drop) 3 [1 2 3 4 5 6])))
+  (t/is (= ['(0 2 4 6 8) '(1 3 5 7)]
+           ((juxt-b (partial filter even?)
+                    (partial filter odd?)) (range 0 9))))
+  (t/is (= ["Gates" "Bill"]
+           ((juxt-b :lname :fname) {:fname "Bill" :lname "Gates"}))))
 
-(defn juxt''' [& fs]
+(defn juxt-c [& fs]
   (fn [& xs] (map #(apply % xs) fs)))
-((juxt''' + * min max) 3 4 6) ;; => (13 72 3 6)
-((juxt''' take drop) 3 [1 2 3 4 5 6]) ;; => ((1 2 3) (4 5 6))
-((juxt''' (partial filter even?)
-          (partial filter odd?)) (range 0 9))
-;; => ((0 2 4 6 8) (1 3 5 7))
-((juxt''' :lname :fname) {:fname "Bill" :lname "Gates"})
-;; => ("Gates" "Bill")
+
+(t/deftest juxt-c-test
+  (t/is (= '(13 72 3 6) ((juxt-c + * min max) 3 4 6)))
+  (t/is (= '((1 2 3) (4 5 6)) ((juxt-c take drop) 3 [1 2 3 4 5 6])))
+  (t/is (= '((0 2 4 6 8) (1 3 5 7))
+           ((juxt-c (partial filter even?)
+                    (partial filter odd?)) (range 0 9))))
+  (t/is (= '("Gates" "Bill")
+           ((juxt-c :lname :fname) {:fname "Bill" :lname "Gates"}))))
