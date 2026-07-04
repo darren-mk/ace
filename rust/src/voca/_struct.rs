@@ -44,13 +44,9 @@ mod struct_tests {
     fn init_field_shorthand() {
         struct Rectangle {
             width: u64,
-            height: u64,
-        }
+            height: u64, }
         fn init_rect(width: u64, height: u64) -> Rectangle {
-            Rectangle { width, height }
-        }
+            Rectangle { width, height } }
         let a = init_rect(2, 3);
         assert_eq!(2, a.width);
-        assert_eq!(3, a.height);
-    }
-}
+        assert_eq!(3, a.height); } }

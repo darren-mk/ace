@@ -1,4 +1,3 @@
-mod _async;
 mod _thread;
 mod _box;
 mod _deref;
